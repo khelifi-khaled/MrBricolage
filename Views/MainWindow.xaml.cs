@@ -36,11 +36,11 @@ namespace MrBricolage
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-        }
+        }//end Exit_Click
 
         private void Login_Click(object sender, RoutedEventArgs e)
         {
 
-        }
-    }
-}
+        }//end Login_Click
+    }//end class 
+}//end MainWindow 
