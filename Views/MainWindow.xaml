@@ -12,12 +12,14 @@
             <Menu IsMainMenu="True">
                 <MenuItem Header="_Programme">
                     <Separator/>
+                    <MenuItem x:Name="register" Header="s'inscrire"  Click="register_Click"/>
                     <MenuItem x:Name ="Exit" Header="_Exit" Click="Exit_Click" />
                 </MenuItem>
                 <MenuItem Header="Connexion">
                     <MenuItem x:Name="Login" Header="Se connecter"  Click="Login_Click"/>
 
                 </MenuItem>
+                
             </Menu>
         </StackPanel>
     </Grid>

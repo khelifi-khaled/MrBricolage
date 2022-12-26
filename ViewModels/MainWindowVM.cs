@@ -1,5 +1,8 @@
-﻿using System;
+﻿using MrBricolage.Models;
+using MrBricolage.Utilities.DAO;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -12,17 +15,15 @@ namespace MrBricolage.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
 
+        public MainWindowVM()
+        { 
+            Employees = DAOFactory.GetEmployeeDAO.findAll();
+
+        }
+       
 
 
-
-
-
-
-
-
-
-
-
+        public ObservableCollection<Employee> Employees { get; set; }
 
 
 

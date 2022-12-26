@@ -1,6 +1,10 @@
-﻿using MrBricolage.ViewModels;
+﻿using MrBricolage.Models;
+using MrBricolage.Utilities.DAO;
+using MrBricolage.ViewModels;
+using MrBricolage.Views;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,6 +45,18 @@ namespace MrBricolage
         private void Login_Click(object sender, RoutedEventArgs e)
         {
 
+            LoginWindow login = new LoginWindow();
+            login.Show();
+            this.Close();
+
         }//end Login_Click
+
+        private void register_Click(object sender, RoutedEventArgs e)
+        {
+            SignInWindow win = new SignInWindow();
+            win.Show();
+            this.Close();
+
+        }
     }//end class 
 }//end MainWindow 

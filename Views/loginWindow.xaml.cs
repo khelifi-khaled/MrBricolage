@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MrBricolage.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,13 +16,22 @@ using System.Windows.Shapes;
 namespace MrBricolage.Views
 {
     /// <summary>
-    /// Logique d'interaction pour loginWindow.xaml
+    /// Logique d'interaction pour LoginWindow.xaml
     /// </summary>
-    public partial class loginWindow : Window
+    public partial class LoginWindow : Window
     {
-        public loginWindow()
+        LoginVM loginVM { get;set; }
+
+        public LoginWindow()
         {
+            loginVM= new LoginVM();
+            DataContext= loginVM;
             InitializeComponent();
+        }
+
+        private void Btnlogin_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
