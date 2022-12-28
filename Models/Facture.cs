@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,10 +16,13 @@ namespace MrBricolage.Models
         private Client _client;
         private Employee _employee;
         private double _totalAmount ;
-        private ArticleCollection _articles;
+        private ObservableCollection<Article> _articles;
 
 
-        public Facture() { }
+        public Facture()
+        {
+            this._articles = new ObservableCollection<Article>();
+        }
 
         public Facture(DateTime date , int id = 0, Client client = null, Employee
             employee = null, double totalAmount = 0.0)
@@ -28,6 +32,7 @@ namespace MrBricolage.Models
             this._client = client;
             this._employee = employee;
             this._totalAmount = totalAmount;
+            this._articles = new ObservableCollection<Article>();
         }//end constructor 
 
 
@@ -59,7 +64,7 @@ namespace MrBricolage.Models
 
 
 
-        public ArticleCollection Articles
+        public ObservableCollection<Article> Articles
         {
             get { return this._articles;}
             set { this._articles = value;}

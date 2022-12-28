@@ -45,9 +45,7 @@ namespace MrBricolage
         private void Login_Click(object sender, RoutedEventArgs e)
         {
 
-            LoginWindow login = new LoginWindow();
-            login.Show();
-            this.Close();
+            MainVM.Login(this);
 
         }//end Login_Click
 

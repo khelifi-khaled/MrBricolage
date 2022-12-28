@@ -10,16 +10,20 @@
 
         <!--Login-->
         <Label Content="Login:" HorizontalAlignment="Center" Margin="0 10 10 0"/>
-        <TextBox x:Name="Login" Width="150" HorizontalAlignment="Center"/>
+        <TextBox x:Name="Login" Width="150" HorizontalAlignment="Center" Text="{Binding Path=EmployeeConnected.Login, UpdateSourceTrigger=PropertyChanged}"/>
 
 
         <!--le mot de passe -->
         <Label Content="Mot de passe:" HorizontalAlignment="Center" Margin="0 10 10 0"/>
-        <PasswordBox x:Name="password" Width="150" HorizontalAlignment="Center"/>
+        <TextBox x:Name="password" Width="150" HorizontalAlignment="Center" Text="{Binding Path=EmployeeConnected.Password, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <!--BTN login -->
-        <Button x:Name="Btnlogin" Width="100" Margin="0 50 0 0" Click="Btnlogin_Click" Content="Login" />
-        
-        
+        <StackPanel Orientation="Horizontal" Width="250" Height="20" Margin="0 50 0 0">
+            <!--BTN Cancel -->
+            <Button x:Name="BtnCancel" Width="100" Margin="0 0 0 0" Click="BTNcancel_Click" Content="Cancel" />
+            <!--BTN login -->
+            <Button x:Name="Btnlogin" Width="100" Margin="50 0 0 0" Click="Btnlogin_Click" Content="Login" />
+        </StackPanel>
+
+
     </StackPanel>
 </Window>

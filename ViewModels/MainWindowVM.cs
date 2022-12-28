@@ -1,5 +1,6 @@
 ﻿using MrBricolage.Models;
 using MrBricolage.Utilities.DAO;
+using MrBricolage.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,7 +26,12 @@ namespace MrBricolage.ViewModels
 
         public ObservableCollection<Employee> Employees { get; set; }
 
-
+        public void Login (MainWindow win)
+        {
+            LoginWindow login = new LoginWindow(Employees);
+            login.Show();
+            win.Close();
+        }
 
         /// <summary>
         /// binding  

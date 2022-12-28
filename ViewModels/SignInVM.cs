@@ -33,6 +33,8 @@ namespace MrBricolage.ViewModels
 
         public void Close (SignInWindow myWindow)
         {
+            MainWindow main = new MainWindow();
+            main.Show();
             myWindow.Close();
         }
 

@@ -1,9 +1,13 @@
-﻿using System;
+﻿using MrBricolage.Models;
+using MrBricolage.Views;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace MrBricolage.ViewModels
 {
@@ -13,15 +17,52 @@ namespace MrBricolage.ViewModels
 
 
 
+        public LoginVM(ObservableCollection <Employee> employees) 
+        {
+            this.Employees = employees;
+            this.EmployeeConnected = new Employee();
+
+        }
+
+        public ObservableCollection<Employee> Employees { get; set; }   
+
+
+        public Employee EmployeeConnected { get; set; }
 
 
 
 
+        public void BTN_Cancel(LoginWindow win )
+        {
+            MainWindow main = new MainWindow();
+            main.Show();
+            win.Close();
+        }//end BTN_Cancel
 
 
+        public void BTN_Login(LoginWindow win)
+        {
+            foreach(Employee e in this.Employees)
+            {
+                
+                if (e.Login.Equals(this.EmployeeConnected.Login))
+                {
+                    if (e.Password.Equals(this.EmployeeConnected.Password))
+                    {
+                        this.EmployeeConnected = e;
+                        break;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Login ou Password est incorrect, vous devez vérifier vos infos SVP.");
+                        break;
+                    }
+                }//end if 
+            }//end foreach loop 
 
+            MessageBox.Show("Login ou Password est incorrect, vous devez vérifier vos infos SVP.");
 
-
+        }//end BTN_Login
 
 
 

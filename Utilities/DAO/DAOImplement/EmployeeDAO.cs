@@ -23,7 +23,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
         }
 
-
+       
 
         public override Employee find(int id)
         {
@@ -72,7 +72,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
             try
             {
-                string sql = string.Format("SELECT id_emp as id , emp_name as name, emp_f_name as f_name , Login , _password FROM {0}", "employee");
+                string sql = string.Format("SELECT id_emp as id , emp_name as name, emp_f_name as f_name , Login , _password FROM {0} WHERE is_active ;", "employee");
                 //Execuction of my sql query 
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -115,7 +115,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
 
 
-                    string sql = string.Format("SELECT emp_name , emp_f_name FROM employee WHERE emp_name = '{0}' AND emp_f_name = '{1}' ; SELECT Login  FROM employee WHERE Login = '{2}' ;", empTocreatee.Name, empTocreatee.F_Name, empTocreatee.Login);
+                    string sql = string.Format("SELECT emp_name , emp_f_name , is_active FROM employee WHERE emp_name = '{0}' AND emp_f_name = '{1}' ; SELECT Login  FROM employee WHERE Login = '{2}' ;", empTocreatee.Name, empTocreatee.F_Name, empTocreatee.Login);
 
 
 
@@ -124,27 +124,62 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
                     if (reader.Read())
                     {
+                        if (reader.GetBoolean("is_active"))
+                        {
+                            //if the Emlpoyee with the same name and same f_name exist in our DB and he is active as well.
+                            MessageBox.Show("l'employee " + empTocreatee.Name + " " + empTocreatee.F_Name + " existe deja dans votre DB, et il est bien active ! ", "Infos");
+                            flag = false;
+                            reader.Close();
+                        }else
+                        {
+                            //in this case, the employee with the same name and same f_name exist in our db, he is just inactive, i will propose to my user if he wan to activate it or no
+                            if (MessageBox.Show("L'employee " + empTocreatee.Name + " " + empTocreatee.F_Name + " existe deja dans votre DB, voulez vous l'activé  ?", "infos", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                            {
+                                reader.Close();
+                                flag = false;
+                                sql = string.Format("UPDATE employee SET is_active = '{0}' WHERE  emp_name = '{1}' AND emp_f_name = '{2}'", "1", empTocreatee.Name, empTocreatee.F_Name);
 
-                        MessageBox.Show("l'employee " + empTocreatee.Name + " " + empTocreatee.F_Name + " existe deja dans votre DB", "Infos");
-                        flag = false;
+                                //Execuction of my sql query 
+                                MySqlCommand cmd2 = new MySqlCommand(sql, conn);
+                                MySqlDataReader reader2 = cmd2.ExecuteReader();
+
+                                MessageBox.Show("L'employee " + empTocreatee.Name + " " + empTocreatee.F_Name + " est active maintenant ! ", "infos");
+                                reader2.Close();
+
+
+                            }
+                            else
+                            {
+                                // the user don't want update this client, in this case flag is false and i do nothing 
+                                flag = false;
+
+                            }//end if 
+
+                        }//end if 
+
+
 
                     }
                     else
                     {
+                        //execution of my second query, the reader will have the second resultSet obj
                         reader.NextResult();
                         if (reader.Read())
                         {
+                            //in this block, the Login exist in our DB.
                             MessageBox.Show("Login existe deja dans la DB , changé votre Login SVP !", "Infos");
                             flag = false;
+                            reader.Close();
 
                         }
                         else
                         {
+                            //if there's no login, in this block i will insert my new Employee 
                             reader.Close();
-                            sql = string.Format("INSERT INTO employee (emp_name , emp_f_name , Login , _password) VALUES ('{0}','{1}','{2}','{3}');", empTocreatee.Name, empTocreatee.F_Name, empTocreatee.Login, empTocreatee.Password);
+                            sql = string.Format("INSERT INTO employee (emp_name , emp_f_name , Login , _password,is_active) VALUES ('{0}','{1}','{2}','{3}' , '{4}');", empTocreatee.Name, empTocreatee.F_Name, empTocreatee.Login, empTocreatee.Password,"1");
 
 
-
+                            //Execuction of my sql query
                             MySqlCommand cmd2 = new MySqlCommand(sql, conn);
                             MySqlDataReader reader2 = cmd2.ExecuteReader();
 
@@ -155,14 +190,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
                     }//end if 
 
-
-
-
-
                     reader.Close();
-
-
-
 
                 }
                 catch (Exception ex)

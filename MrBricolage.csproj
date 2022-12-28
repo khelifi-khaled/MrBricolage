@@ -95,10 +95,19 @@
     </ApplicationDefinition>
     <Compile Include="Utilities\DAO\DAOImplement\ArticleDAO.cs" />
     <Compile Include="Utilities\DAO\DAOImplement\ClientDAO.cs" />
+    <Compile Include="Utilities\DAO\DAOImplement\FactureDAO.cs" />
+    <Compile Include="ViewModels\EmployeeWindowVM.cs" />
     <Compile Include="ViewModels\SignInVM.cs" />
+    <Compile Include="Views\EmployeeWindow.xaml.cs">
+      <DependentUpon>EmployeeWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SignInWindow.xaml.cs">
       <DependentUpon>SignInWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\EmployeeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
