@@ -38,16 +38,13 @@ namespace MrBricolage.ViewModels
 
         public void save(SignInWindow myWindow)
         {
-            Client c = DAOFactory.GetDAOClient.find(1);
-            Console.WriteLine(c.Name + " " + c.IsCompany);
 
-            //if (DAOFactory.GetEmployeeDAO.create(ThisEmployee))
-            //{
-
-            //    MainWindow main = new MainWindow();
-            //    main.Show();
-            //    myWindow.Close();
-            //} 
+            if (DAOFactory.GetEmployeeDAO.create(ThisEmployee))
+            {
+                MainWindow main = new MainWindow();
+                main.Show();
+                myWindow.Close();
+            }
 
         }//end save
 

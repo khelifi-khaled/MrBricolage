@@ -20,13 +20,23 @@ namespace MrBricolage.Utilities.DAO
          protected static MySqlConnection conn = BDDConnection.getInstance();
 
 
+
+
+        /// <summary>
+        /// an anstance od DAO type Employee
+        /// </summary>
         public static DAO<Employee> GetEmployeeDAO
         {
             get { return new EmployeeDAO(conn); }
         }
 
 
-        public static DAO<Client> GetDAOClient
+
+
+        /// <summary>
+        /// an anstance od DAO type Client 
+        /// </summary>
+        public static DAO<Client> GetClientDAO
         {
             get { return new ClientDAO(conn); }
         }
