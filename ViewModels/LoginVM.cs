@@ -1,12 +1,8 @@
 ﻿using MrBricolage.Models;
 using MrBricolage.Views;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using System.Windows;
 
 namespace MrBricolage.ViewModels
@@ -50,6 +46,9 @@ namespace MrBricolage.ViewModels
                     if (e.Password.Equals(this.EmployeeConnected.Password))
                     {
                         this.EmployeeConnected = e;
+                        EmployeeWindow empWin = new EmployeeWindow(this.EmployeeConnected);
+                        empWin.Show();
+                        win.Close();
                         break;
                     }
                     else
@@ -59,8 +58,6 @@ namespace MrBricolage.ViewModels
                     }
                 }//end if 
             }//end foreach loop 
-
-            MessageBox.Show("Login ou Password est incorrect, vous devez vérifier vos infos SVP.");
 
         }//end BTN_Login
 

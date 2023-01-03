@@ -28,7 +28,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
 
 
-        // no test 
+        //  test  ok 
         public override bool create(Article article)
         {
             bool flag = true;
@@ -37,11 +37,18 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
             {
                 try
                 {
-                    string sql = string.Format("SELECT name_art , is_active  FROM {0} WHERE name_art = '{1}' ; ", "article", article.Name);
+                    string sql ="SELECT name_art , is_active  FROM article WHERE name_art = @name ;";
+
+                    
+                    MySqlCommand cmd = new MySqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@name", article.Name);
+
+
 
                     //Execuction of my sql query 
-                    MySqlCommand cmd = new MySqlCommand(sql, conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
+
+
 
                     if (reader.Read())
                     {
@@ -58,16 +65,21 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                             {
                                 flag = false;
                                 reader.Close();
-                                sql = string.Format("UPDATE article SET is_active = '{0}' WHERE  art_name = '{1}' ; ", "1", article.Name);
-                                //Execuction of my sql query 
+                                sql = "UPDATE article SET is_active = @bool WHERE  name_art = @name ; ";
+                                 
                                 MySqlCommand cmd2 = new MySqlCommand(sql, conn);
-                                MySqlDataReader reader2 = cmd2.ExecuteReader();
-                                reader2.Close();
+                                cmd2.Parameters.AddWithValue("@bool", true);
+                                cmd2.Parameters.AddWithValue("@name", article.Name);
+
+                                //Execuction of my sql query
+                                cmd2.ExecuteNonQuery();
+                               
                             }
                             else
                             {
-                                // the user don't want update this article, in this case flag is false and i do nothing 
+                                //the user don't want update this article, in this case flag is false and i do nothing 
                                 flag = false;
+                                reader.Close();
 
                             }//end if 
 
@@ -77,12 +89,18 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                     else
                     {
                         reader.Close();
-                        sql = string.Format("INSERT INTO article (name_art , price_art , is_active) VALUES ( '{0}' , {1} , '1') ; ", article.Name, article.Price);
+                        sql = "INSERT INTO article (name_art , price_art , is_active) VALUES (@name , @price , @bool ) ; ";
+
+                        
+                        MySqlCommand cmd2 = new MySqlCommand(sql, conn);
+                        cmd2.Parameters.AddWithValue("@name",article.Name) ;
+                        cmd2.Parameters.AddWithValue("@price", article.Price);
+                        cmd2.Parameters.AddWithValue("@bool",true);
+
 
                         //Execuction of my sql query 
-                        MySqlCommand cmd2 = new MySqlCommand(sql, conn);
-                        MySqlDataReader reader2 = cmd2.ExecuteReader();
-                        reader2.Close();
+                        cmd2.ExecuteNonQuery();
+                       
                     }//end if 
 
                 }
@@ -98,6 +116,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
             {
                 flag = false;
                 MessageBox.Show("L'article est null !", "infos");
+                
             }//end if 
            
             return flag;
@@ -111,48 +130,70 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
 
 
-        //no test 
+        // test ok 
         public override bool delete(Article article )
         {
             bool flag = true;
             if (article != null)
             {
-                string sql = string.Format("SELECT id_art FROM list_of_art WHERE id_art = {0} ;", article.Id);
+                string sql = "SELECT a.ID_art , a.is_active FROM list_of_art l INNER join article a on l.id_art = a.ID_art WHERE a.id_art = @id ;";
+
+                
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@id",article.Id);
+
 
                 //Execuction of my sql query
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
                 MySqlDataReader reader = cmd.ExecuteReader();
 
-                if (reader.Read()) 
+                if (reader.Read()) //if the article existe in facture
                 {
-                    //if the article existe in facture
-                    if (MessageBox.Show("vous ne pouvez pas supprimer l'article num " + article.Id + " car il existe dans des factures, voulez vous le randre inactive ?","infos",MessageBoxButton.YesNo,MessageBoxImage.Question)==MessageBoxResult.Yes)
+                    if (reader.GetBoolean(1))//if the article existe in facture and he is active 
                     {
-                        reader.Close();
-                        sql = string.Format("UPDATE article SET is_active = '{0}' WHERE  id_art = {1} ; ", "0",article.Id) ;
-                        //Execuction of my sql query
-                        MySqlCommand cmd2 = new MySqlCommand(sql, conn);
-                        MySqlDataReader reader2 = cmd2.ExecuteReader();
-                        reader2.Close();
-                        MessageBox.Show("L'article num "+ article.Id + " n'est pas supprimé de votre DB, mais il est inactive, donc vous ne pouvez plus  l'insere dans une facture", "infos");
-                    }
-                    else
-                    {
-                        // the user don't want update this article, in this case flag is false and i do nothing 
-                        flag = false;
+                        if (MessageBox.Show("vous ne pouvez pas supprimer l'article num " + article.Id + " car il existe dans des factures, voulez vous le randre inactive ?", "infos", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        {
+                            reader.Close();
+                            sql = "UPDATE article SET is_active = @bool WHERE  id_art = @id ; ";
 
-                    }//end if 
+                            MySqlCommand cmd2 = new MySqlCommand(sql, conn);
+                            cmd2.Parameters.AddWithValue("@bool", false);
+                            cmd2.Parameters.AddWithValue("@id", article.Id);
+
+                            //Execuction of my sql query
+                            cmd2.ExecuteNonQuery();
+
+                            MessageBox.Show("L'article num " + article.Id + " n'est pas supprimé de votre DB, mais il est inactive, donc vous ne pouvez plus  l'insere dans une facture", "infos");
+                        }
+                        else
+                        {
+                            // the user don't want update this article, in this case flag is false and i do nothing 
+                            flag = false;
+                            reader.Close();
+
+                        }//end if 
+
+                    }
+                    else // Here the article existe in facture, and he is inactive 
+                    {
+                        MessageBox.Show("L'article num " + article.Id + " n'est pas supprimé de votre DB, et il est inactive.", "infos");
+                        reader.Close();
+                        flag = false;
+                    }
+                   
 
                 }
                 else // here our article don't existe in my factures 
                 {
                     reader.Close();
-                    sql = string.Format("DELETE FROM article WHERE id_art = {0} ; ", article.Id);
+                    sql = "DELETE FROM article WHERE id_art = @id ; ";
+
+                    
+                    MySqlCommand cmd3 = new MySqlCommand(sql, conn);
+                    cmd3.Parameters.AddWithValue("@id",article.Id);
 
                     //Execuction of my sql query
-                    MySqlCommand cmd3 = new MySqlCommand(sql, conn);
-                    MySqlDataReader reader3 = cmd3.ExecuteReader();
-                    reader3.Close();
+                    cmd3.ExecuteNonQuery();
+                    
                 }//end if 
             }
             else
@@ -167,16 +208,19 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
 
 
-        // no test 
+        //  test  ok 
         public override Article find(int id)
         {
             Article article = null;
             try
             {
-                string sql = string.Format("SELECT ID_art , name_art , price_art FROM article WHERE ID_art = {0} ; ", id);
+                string sql = "SELECT ID_art , name_art , price_art FROM article WHERE ID_art = @id ; ";
+
+                
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@id", id);
 
                 //Execuction of my sql query
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
                 MySqlDataReader reader = cmd.ExecuteReader();
 
                 if (reader.Read())
@@ -192,8 +236,9 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                 }//end if 
 
 
-
-            }catch(Exception e)
+                reader.Close();
+            }
+            catch(Exception e)
             {
                 Console.WriteLine(e.Message);
                 
@@ -205,17 +250,19 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
 
 
-        //no test 
+        // test ok 
         public override ObservableCollection<Article> findAll()
         {
             ObservableCollection < Article > articles = new ObservableCollection<Article>();
 
             try
             {
-                string sql = string.Format("SELECT ID_art , name_art , price_art FROM {0} WHERE is_active ; ", "article");
+                string sql = "SELECT ID_art , name_art , price_art FROM article WHERE is_active ; ";
+
+                
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
 
                 //Execuction of my sql query
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
                 MySqlDataReader reader = cmd.ExecuteReader();
 
 
@@ -243,7 +290,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
 
 
-        //no test 
+        // test ok !!!
         public override bool update(Article articleToUpdate)
         {
             bool flag= true;
@@ -252,13 +299,21 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
             {
                 try
                 {
-                    string sql = string.Format("UPDATE article SET  name_art = '{0}' , price_art = {1} WHERE ID_art = {2}",  articleToUpdate.Name, articleToUpdate.Price, articleToUpdate.Id);
+
+
+
+                    string sql = "UPDATE article SET  name_art = @name , price_art = @price WHERE ID_art = @id";
+
+                   
+                    MySqlCommand cmd = new MySqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@name" , articleToUpdate.Name);
+                    cmd.Parameters.AddWithValue("@price", articleToUpdate.Price);
+                    cmd.Parameters.AddWithValue("@id", articleToUpdate.Id);
 
                     //Execuction of my sql query
-                    MySqlCommand cmd = new MySqlCommand(sql, conn);
-                    MySqlDataReader reader = cmd.ExecuteReader();
+                    cmd.ExecuteNonQuery();
 
-                    reader.Close();
+
 
                 }
                 catch(Exception ex )

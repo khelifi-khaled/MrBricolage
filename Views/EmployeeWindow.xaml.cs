@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MrBricolage.Models;
+using MrBricolage.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,8 +21,14 @@ namespace MrBricolage.Views
     /// </summary>
     public partial class EmployeeWindow : Window
     {
-        public EmployeeWindow()
+
+        EmployeeWindowVM EmployeeVM { get; set; }
+
+
+        public EmployeeWindow(Employee employeeConnected )
         {
+            EmployeeVM = new EmployeeWindowVM(employeeConnected);
+            DataContext = EmployeeVM;
             InitializeComponent();
         }
     }

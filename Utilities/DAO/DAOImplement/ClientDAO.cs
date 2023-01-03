@@ -1,13 +1,7 @@
 ﻿using MrBricolage.Models;
 using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO.Packaging;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace MrBricolage.Utilities.DAO.DAOImplement
@@ -21,7 +15,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         }
 
 
-        //test ok 
+        // test  ok 
         public override Client find(int idClient )
         {
             Client clientToFind= null;
@@ -29,11 +23,14 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
             try
             {
 
-                string sql = string.Format("SELECT ID_client , is_company, name_client , f_name_client , Email_client , Adresse_client FROM {0} WHERE ID_client = {1} ;", "client", idClient);
+                string sql ="SELECT ID_client , is_company, name_client , f_name_client , Email_client , Adresse_client FROM client WHERE ID_client = @id ;";
 
+
+                
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@id", idClient);
 
                 //Execuction of my sql query 
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
                 MySqlDataReader reader = cmd.ExecuteReader();
 
                 if (reader.Read())
@@ -81,10 +78,13 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
             try
             {
 
-                string sql = string.Format("SELECT ID_client , is_company, name_client , f_name_client , Email_client , Adresse_client FROM {0} WHERE is_active ;","client");
+                string sql = "SELECT ID_client , is_company, name_client , f_name_client , Email_client , Adresse_client FROM client WHERE is_active  ;";
+
+                
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                
 
                 //Execuction of my sql query 
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
                 MySqlDataReader reader = cmd.ExecuteReader();
 
                 while(reader.Read())
@@ -108,7 +108,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
 
 
-        //no test 
+        // test ok 
         public override bool create(Client client)
         {
             bool flag  = true;
@@ -119,10 +119,14 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
                 try
                 {
-                    string sql = string.Format("SELECT name_Client , f_name_client , is_active FROM {0} WHERE name_Client = '{1}' AND f_name_client = '{2}' ; ", "client", client.Name, client.F_name);
+                    string sql = "SELECT name_Client , f_name_client , is_active FROM client WHERE name_Client = @name AND f_name_client = @f_name ; ";
+
+                   
+                    MySqlCommand cmd = new MySqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@name",client.Name);
+                    cmd.Parameters.AddWithValue("@f_name", client.F_name);
 
                     //Execuction of my sql query 
-                    MySqlCommand cmd = new MySqlCommand(sql, conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
 
                     if (reader.Read())
@@ -132,6 +136,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                         {
                             MessageBox.Show("Le client " + client.Name + " "+ client.F_name +  " existe deja dans votre DB","infos");
                             flag= false;
+                            reader.Close();
                         }
                         else
                         {
@@ -140,19 +145,25 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                             {
                                 flag = false;
                                 reader.Close();
-                                sql = string.Format("UPDATE client SET is_active = '{0}' WHERE  name_client = '{1}' and f_name_client = '{2}' ; ", "1", client.Name , client.F_name);
-                                //Execuction of my sql query 
+                                sql = "UPDATE client SET is_active = @bool WHERE  name_client = @name and f_name_client = @f_name ;";
+                                 
                                 MySqlCommand cmd2 = new MySqlCommand(sql, conn);
-                                MySqlDataReader reader2 = cmd2.ExecuteReader();
+                                cmd2.Parameters.AddWithValue("@bool", true);
+                                cmd2.Parameters.AddWithValue("@name", client.Name);
+                                cmd2.Parameters.AddWithValue("@f_name", client.F_name);
+
+                                //Execuction of my sql query
+                                cmd2.ExecuteNonQuery();
 
 
                                 MessageBox.Show("le client " + client.Name + " " + client.F_name + " est active maintenant ! ", "infos");
-                                reader2.Close();
+                                
                             }
                             else
                             {
                                 // the user don't want update this client, in this case flag is false and i do nothing 
                                 flag = false;
+                                reader.Close();
 
                             }//end if 
 
@@ -161,14 +172,19 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                     else
                     {
                         reader.Close();
-                        sql = string.Format("INSERT INTO client (is_Company , name_client , f_name_client , Email_client , Adresse_client) VALUES ({0} , '{1}' , '{2}' , '{3}', '{4}','{5}') ; ", client.IsCompany, client.Name, client.F_name, client.Email, client.Adresse,"1");
+                        sql = "INSERT INTO client (is_Company , name_client , f_name_client , Email_client , Adresse_client , is_active) VALUES (@company, @name , @f_name , @email , @adresse , @bool) ; ";
+
+                        
+                        MySqlCommand cmd2 = new MySqlCommand(sql, conn);
+                        cmd2.Parameters.AddWithValue("@company",client.IsCompany);
+                        cmd2.Parameters.AddWithValue("@name", client.Name);
+                        cmd2.Parameters.AddWithValue("@f_name", client.F_name);
+                        cmd2.Parameters.AddWithValue("@email", client.Email);
+                        cmd2.Parameters.AddWithValue("@adresse", client.Adresse);
+                        cmd2.Parameters.AddWithValue("@bool",true);
 
                         //Execuction of my sql query 
-                        MySqlCommand cmd2 = new MySqlCommand(sql, conn);
-                        MySqlDataReader reader2 = cmd2.ExecuteReader();
-
-
-                        reader2.Close();
+                        cmd2.ExecuteNonQuery();
 
                     }//end if 
 
@@ -192,50 +208,73 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         }// end create
 
 
-        //no test 
+        // test ok 
         public override bool delete(Client client)
         {
             bool flag = true;
 
             if (client != null)
             {
-                string sql = string.Format("SELECT id_client FROM facture WHERE id_client = {0} ;", client.Id);
+                string sql = "SELECT client_num , is_active FROM facture inner join client on client_num = ID_client WHERE client_num = @id ;";
+
+                
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@id", client.Id);
 
                 //Execuction of my sql query
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
                 MySqlDataReader reader = cmd.ExecuteReader();
 
-                if (reader.Read())
+                if (reader.Read())//if the client existe in facture
                 {
-                    //if the client existe in facture
-                    if (MessageBox.Show("vous ne pouvez pas supprimer le client num " + client.Id + " car il existe dans des factures, voulez vous le randre inactive ?", "infos", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                    {
-                        reader.Close();
-                        sql = string.Format("UPDATE client SET is_active = '{0}' WHERE  ID_client = {1} ; ", "0", client.Id);
+                    
 
-                        //Execuction of my sql query
-                        MySqlCommand cmd2 = new MySqlCommand(sql, conn);
-                        MySqlDataReader reader2 = cmd2.ExecuteReader();
-                        reader2.Close();
-                        MessageBox.Show("Le client num " + client.Id + " n'est pas supprimé de votre DB, mais il est inactive, donc vous ne pouvez plus  l'insere dans une facture", "infos");
-                    }
-                    else
+                    if (reader.GetBoolean("is_active"))//in this block i will check if the client is active or not 
                     {
-                        // the user don't want update this article, in this case flag is false and i do nothing 
+                        
+                        if (MessageBox.Show("vous ne pouvez pas supprimer le client num " + client.Id + " car il existe dans des factures, voulez vous le randre inactive ?", "infos", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        {
+                            reader.Close();
+                            sql = "UPDATE client SET is_active = @bool WHERE  ID_client = @id ; ";
+
+
+                            MySqlCommand cmd2 = new MySqlCommand(sql, conn);
+                            cmd2.Parameters.AddWithValue("@bool", false);
+                            cmd2.Parameters.AddWithValue("@id", client.Id);
+
+                            //Execuction of my sql query
+                            cmd2.ExecuteNonQuery();
+
+                            MessageBox.Show("Le client num " + client.Id + " n'est pas supprimé de votre DB, mais il est inactive, donc vous ne pouvez plus  l'insere dans une facture", "infos");
+                        }
+                        else
+                        {
+                            // the user don't want update this client, in this case flag is false and i do nothing 
+                            flag = false;
+                            reader.Close();
+                        }//end if 
+
+                    }else // Here the client existe in  facture, and he is inactive 
+                    {
                         flag = false;
+                        MessageBox.Show("Le client num " + client.Id + " n'est pas supprimé de votre DB, et il est inactive.", "infos");
+                        reader.Close();
 
                     }//end if 
+                   
 
                 }
                 else // here our client don't existe in my factures 
                 {
                     reader.Close();
-                    sql = string.Format("DELETE FROM client WHERE id_client = {0} ; ", client.Id);
+                    sql = "DELETE FROM client WHERE id_client = @id ; ";
+
+                    
+                    MySqlCommand cmd3 = new MySqlCommand(sql, conn);
+                    cmd3.Parameters.AddWithValue("@id", client.Id);
+
 
                     //Execuction of my sql query
-                    MySqlCommand cmd3 = new MySqlCommand(sql, conn);
-                    MySqlDataReader reader3 = cmd3.ExecuteReader();
-                    reader3.Close();
+                    cmd3.ExecuteNonQuery();
                 }//end if 
             }
             else
@@ -249,7 +288,13 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
         }//end delete 
 
-        //no test 
+
+
+
+
+
+        //test ok 
+
         public override  bool update(Client client)
         {
             bool flag = true;
@@ -257,11 +302,27 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
             {
                 try
                 {
-                    string sql = string.Format("UPDATE client SET is_Company = {0} , name_client = '{1}' , f_name_client = '{2}' , Email_client = '{3}', Adresse_client = '{4}' WHERE ID_client = {4} ", client.IsCompany, client.Name, client.F_name, client.Email, client.Adresse, client.Id);
+                    string sql = "UPDATE client SET is_Company = @company , name_client = @name , f_name_client = @f_name , Email_client = @email , Adresse_client = @adresse WHERE ID_client = @id ";
 
-                    //Execuction of my sql query 
+                    
                     MySqlCommand cmd = new MySqlCommand(sql, conn);
-                    MySqlDataReader reader = cmd.ExecuteReader();
+                    cmd.Parameters.AddWithValue("@company",client.IsCompany);
+                    cmd.Parameters.AddWithValue("@name", client.Name);
+                    cmd.Parameters.AddWithValue("@email", client.Email);
+                    cmd.Parameters.AddWithValue("@adresse", client.Adresse);
+                    cmd.Parameters.AddWithValue("@id", client.Id);
+
+
+                    if (client.IsCompany)
+                    {
+                        cmd.Parameters.AddWithValue("@f_name", "     ");
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@f_name", client.F_name);
+                    }
+                    //Execuction of my sql query 
+                    cmd.ExecuteNonQuery();
 
                 }
                 catch (Exception ex)

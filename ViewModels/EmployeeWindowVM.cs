@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MrBricolage.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -12,10 +13,16 @@ namespace MrBricolage.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
 
+        
+
+        public EmployeeWindowVM(Employee employee)
+        {
+            EmployeeConnected = employee;
+        }
 
 
-
-
+        public Employee EmployeeConnected { get; set; }
+        
 
 
 

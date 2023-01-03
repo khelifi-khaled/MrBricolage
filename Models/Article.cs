@@ -9,21 +9,21 @@ namespace MrBricolage.Models
 {
     public  class Article
     {
-
-
         private int _id;
         private string _name;
         private double _price;
+        private int _quantity;
 
 
         public Article() { }
 
 
-        public Article (int id=0, string name="", double price=0.0)
+        public Article (int id = 0, string name = "", double price = 0.0, int quantity = 0)
         {
             this._id = id;
             this._name = name;
             this._price = price;
+            this._quantity = quantity;
         }
 
 
@@ -46,6 +46,12 @@ namespace MrBricolage.Models
             set { this._price = value; }
         }
 
+
+        public int Quantity
+        {
+            get { return this._quantity; }
+            set { this._quantity = value; }
+        }
 
 
     }//end class 

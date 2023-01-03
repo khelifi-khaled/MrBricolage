@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:MrBricolage.Views"
         mc:Ignorable="d"
         Title="LoginWindow" Height="300" Width="350">
+     <Window.Background>
+        <ImageBrush ImageSource="/Images/Login.png" />
+    </Window.Background>
     <StackPanel>
 
         <!--Login-->

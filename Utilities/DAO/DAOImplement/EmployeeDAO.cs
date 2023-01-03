@@ -1,13 +1,8 @@
 ﻿using MrBricolage.Models;
 using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data.SqlClient;
-using System.IO.Packaging;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace MrBricolage.Utilities.DAO.DAOImplement
@@ -24,17 +19,20 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         }
 
        
-
+        //test ok 
         public override Employee find(int id)
         {
             Employee employeeToFind = null;
             try
             {
-                string sql = string.Format("SELECT id_emp as id , emp_name as name, emp_f_name as f_name , Login , _password FROM {0} WHERE id_emp = {1} ;", "employee", id) ;
+                string sql ="SELECT id_emp as id , emp_name as name, emp_f_name as f_name , Login , _password FROM employee WHERE id_emp = @id ;";
 
 
-                //Execuction of my sql query 
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                 
+                MySqlCommand cmd = new MySqlCommand(sql,conn);
+                cmd.Parameters.AddWithValue("@id", id);
+
+                //Execuction of my sql query
                 MySqlDataReader reader = cmd.ExecuteReader();
 
                 if (reader.Read())
@@ -65,16 +63,19 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
 
 
-
+        //test ok 
         public override ObservableCollection<Employee> findAll()
         {
-            EmployeeCollection employees = new EmployeeCollection();
+            ObservableCollection<Employee> employees = new ObservableCollection<Employee>();
 
             try
             {
-                string sql = string.Format("SELECT id_emp as id , emp_name as name, emp_f_name as f_name , Login , _password FROM {0} WHERE is_active ;", "employee");
-                //Execuction of my sql query 
+                string sql = "SELECT id_emp as id , emp_name as name, emp_f_name as f_name , Login , _password FROM employee WHERE is_active  ;";
+                
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
+                
+
+                //Execuction of my sql query 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
 
@@ -102,7 +103,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
 
 
-
+        //test ok  
         public override bool create(Employee empTocreatee) 
         {
             bool flag = true;
@@ -115,11 +116,14 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
 
 
-                    string sql = string.Format("SELECT emp_name , emp_f_name , is_active FROM employee WHERE emp_name = '{0}' AND emp_f_name = '{1}' ; SELECT Login  FROM employee WHERE Login = '{2}' ;", empTocreatee.Name, empTocreatee.F_Name, empTocreatee.Login);
+                    string sql = "SELECT emp_name , emp_f_name , is_active FROM employee WHERE emp_name = @name AND emp_f_name = @f_name ; SELECT Login  FROM employee WHERE Login = @Lg ;";
 
 
 
                     MySqlCommand cmd = new MySqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@name", empTocreatee.Name);
+                    cmd.Parameters.AddWithValue("@f_name", empTocreatee.F_Name);
+                    cmd.Parameters.AddWithValue("@Lg", empTocreatee.Login);
                     MySqlDataReader reader = cmd.ExecuteReader();
 
                     if (reader.Read())
@@ -137,22 +141,26 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                             {
                                 reader.Close();
                                 flag = false;
-                                sql = string.Format("UPDATE employee SET is_active = '{0}' WHERE  emp_name = '{1}' AND emp_f_name = '{2}'", "1", empTocreatee.Name, empTocreatee.F_Name);
+                                sql ="UPDATE employee SET is_active = @Bool WHERE  emp_name = @name AND emp_f_name = @f_name ;";
+
+                                
+                                MySqlCommand cmd2 = new MySqlCommand(sql, conn);
+                                cmd2.Parameters.AddWithValue("@Bool", true);
+                                cmd2.Parameters.AddWithValue("@name", empTocreatee.Name);
+                                cmd2.Parameters.AddWithValue("@f_name", empTocreatee.F_Name);
 
                                 //Execuction of my sql query 
-                                MySqlCommand cmd2 = new MySqlCommand(sql, conn);
-                                MySqlDataReader reader2 = cmd2.ExecuteReader();
+                                cmd2.ExecuteNonQuery();
 
                                 MessageBox.Show("L'employee " + empTocreatee.Name + " " + empTocreatee.F_Name + " est active maintenant ! ", "infos");
-                                reader2.Close();
 
 
                             }
                             else
                             {
-                                // the user don't want update this client, in this case flag is false and i do nothing 
+                                // the user don't want update this client, in this case flag is false          and i do nothing 
                                 flag = false;
-
+                                reader.Close();
                             }//end if 
 
                         }//end if 
@@ -176,21 +184,28 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                         {
                             //if there's no login, in this block i will insert my new Employee 
                             reader.Close();
-                            sql = string.Format("INSERT INTO employee (emp_name , emp_f_name , Login , _password,is_active) VALUES ('{0}','{1}','{2}','{3}' , '{4}');", empTocreatee.Name, empTocreatee.F_Name, empTocreatee.Login, empTocreatee.Password,"1");
 
+                            sql ="INSERT INTO employee (emp_name , emp_f_name , Login , _password , is_active) VALUES (@name , @f_name , @Login , @pwrd , @Bool);";
+
+
+                            
+                            MySqlCommand cmd2 = new MySqlCommand(sql, conn);
+                            cmd2.Parameters.AddWithValue("@name", empTocreatee.Name);
+                            cmd2.Parameters.AddWithValue("@f_name", empTocreatee.F_Name);
+                            cmd2.Parameters.AddWithValue("@Login", empTocreatee.Login);
+                            cmd2.Parameters.AddWithValue("@pwrd", empTocreatee.Password);
+                            cmd2.Parameters.AddWithValue("@Bool", true);
 
                             //Execuction of my sql query
-                            MySqlCommand cmd2 = new MySqlCommand(sql, conn);
-                            MySqlDataReader reader2 = cmd2.ExecuteReader();
+                            cmd2.ExecuteNonQuery();
 
 
                             MessageBox.Show("L'employee " + empTocreatee.Name + " " + empTocreatee.F_Name + " a bien ete insere dans votre DB ! ", "Infos");
-                            reader2.Close();
+                            
                         }//end if 
 
                     }//end if 
 
-                    reader.Close();
 
                 }
                 catch (Exception ex)
@@ -215,38 +230,85 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
 
 
-
+        // test ok 
         public override bool delete(Employee EmployeeToDelete)
         {
             bool flag = true;
 
-           if (EmployeeToDelete != null)
+            if (EmployeeToDelete != null)
             {
-                try
+                string sql = "SELECT e.id_emp , e.is_active FROM facture f inner join employee e WHERE e.id_emp = @num ;";
+
+               
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@num", EmployeeToDelete.Id);
+
+                //Execuction of my sql query
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())  //if the Employee existe in facture
                 {
+                   if (reader.GetBoolean("is_active")) //if the employee is active 
+                    {
 
-                    string sql = string.Format("DELETE FROM list_of_art WHERE id_facture in (SELECTE ID_f FROM facture WHERE emp_num = {0} ; ); DELETE FROM facture WHERE emp_nom = {0} ; DELETE FROM  employee WHERE id_emp = {0};", EmployeeToDelete.Id);
+                        if (MessageBox.Show("vous ne pouvez pas supprimer l'employee num " + EmployeeToDelete.Id + " car il existe dans des factures, voulez vous le randre inactive ?", "infos", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        {
+                            reader.Close();
+                            sql = "UPDATE employee SET is_active = @bool WHERE  ID_emp = @id ; ";
 
 
-                    MySqlCommand cmd = new MySqlCommand(sql, conn);
-                    MySqlDataReader reader = cmd.ExecuteReader();
+                            MySqlCommand cmd2 = new MySqlCommand(sql, conn);
+                            cmd2.Parameters.AddWithValue("@bool", false);
+                            cmd2.Parameters.AddWithValue("@id", EmployeeToDelete.Id);
+
+                            //Execuction of my sql query
+                            cmd2.ExecuteNonQuery();
+
+                            MessageBox.Show("L'employee num " + EmployeeToDelete.Id + " n'est pas supprimé de votre DB, mais il est inactive, donc vous ne pouvez plus  l'insere dans une facture", "infos");
+                        }
+                        else
+                        {
+                            // the user don't want update this employee, in this case flag is false and i do nothing 
+                            flag = false;
+                            reader.Close();
+
+                        }//end if 
+                    }else // the Employee existe in facture and he is inactive 
+                    {
+                        flag = false;
+                        reader.Close();
+                        MessageBox.Show("Vous ne pouvez pas supprimé l'Employee num " + EmployeeToDelete.Id + " de votre DB, et il est déjà inactive.", "infos");
+
+                    }//end if 
+                    
 
                 }
-                catch (Exception ex)
+                else // here our employee don't existe in my factures 
                 {
-                    Console.WriteLine(ex.Message);
-                    flag = false;
-                }//end trycatch
-            }else
+                    reader.Close();
+                    sql = "DELETE FROM employee WHERE id_emp = @id ; ";
+
+                    
+                    MySqlCommand cmd3 = new MySqlCommand(sql, conn);
+                    cmd3.Parameters.AddWithValue("@id",EmployeeToDelete.Id);
+
+                    //Execuction of my sql query
+                    cmd3.ExecuteNonQuery();
+                }//end if 
+            }
+            else
             {
                 flag = false;
-                MessageBox.Show("L'employee est null !", "Infos");
-            }
+                MessageBox.Show("L'employee est null !", "infos");
+            }//end if 
+
 
             return flag;
         }//end delete
 
 
+
+        //no test 
         public override bool update(Employee EmployeeToUpdate) 
         { 
 
@@ -257,11 +319,17 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
             {
                 try
                 {
-                    string sql = string.Format("UPDATE employee SET emp_name = '{0}' , emp_f_name = '{1}' , Login = '{2}' , _password = '{3}' WHERE id_emp = {4} ", EmployeeToUpdate.Name, EmployeeToUpdate.F_Name, EmployeeToUpdate.Login, EmployeeToUpdate.Password, EmployeeToUpdate.Id);
+                    string sql = "UPDATE employee SET emp_name = @name , emp_f_name = @f_name, _password = @passwrd WHERE id_emp = @id ";
 
 
                     MySqlCommand cmd = new MySqlCommand(sql, conn);
-                    MySqlDataReader reader = cmd.ExecuteReader();
+                    cmd.Parameters.AddWithValue("@name", EmployeeToUpdate.Name);
+                    cmd.Parameters.AddWithValue("@f_name", EmployeeToUpdate.F_Name);
+                    cmd.Parameters.AddWithValue("@passwrd", EmployeeToUpdate.Password);
+                    cmd.Parameters.AddWithValue("@id", EmployeeToUpdate.Id);
+
+                    //Execuction of my sql query
+                    cmd.ExecuteNonQuery();
 
                 }
                 catch (Exception ex)
@@ -273,9 +341,12 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
             {
                 flag = false;
                 MessageBox.Show("L'employee est null !", "Infos");
-            }
+
+            }//end if 
 
             return flag;
+
+
         }//end update
 
 

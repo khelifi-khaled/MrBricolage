@@ -121,13 +121,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\Article.cs" />
-    <Compile Include="Models\ArticleCollection.cs" />
     <Compile Include="Models\Client.cs" />
-    <Compile Include="Models\ClientCollection.cs" />
     <Compile Include="Models\Employee.cs" />
-    <Compile Include="Models\EmployeeCollection.cs" />
     <Compile Include="Models\Facture.cs" />
-    <Compile Include="Models\FactureCollection.cs" />
     <Compile Include="Singelton\BDDConnection.cs" />
     <Compile Include="Utilities\DAO\DAO.cs" />
     <Compile Include="Utilities\DAO\DAOFactory.cs" />
@@ -174,8 +170,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Images\" />
     <Folder Include="Utilities\Interfaces\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\MainWindow.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Login.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\empWindow.jpeg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
