@@ -158,7 +158,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                             }
                             else
                             {
-                                // the user don't want update this client, in this case flag is false          and i do nothing 
+                                // the user don't want update this client, in this case flag is false and i do nothing 
                                 flag = false;
                                 reader.Close();
                             }//end if 
@@ -237,7 +237,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
             if (EmployeeToDelete != null)
             {
-                string sql = "SELECT e.id_emp , e.is_active FROM facture f inner join employee e WHERE e.id_emp = @num ;";
+                string sql = "SELECT emp_num FROM facture WHERE emp_num = @num ; SELECT is_active FROM employee WHERE id_emp = @num ;";
 
                
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
@@ -248,10 +248,12 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
                 if (reader.Read())  //if the Employee existe in facture
                 {
+                    reader.NextResult();//here i'm geting the second result Obj 
+                    reader.Read();
                    if (reader.GetBoolean("is_active")) //if the employee is active 
                     {
 
-                        if (MessageBox.Show("vous ne pouvez pas supprimer l'employee num " + EmployeeToDelete.Id + " car il existe dans des factures, voulez vous le randre inactive ?", "infos", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        if (MessageBox.Show("vous ne pouvez pas supprimé l'employee num " + EmployeeToDelete.Id + " car il existe dans des factures, voulez vous le randre inactive ?", "infos", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                         {
                             reader.Close();
                             sql = "UPDATE employee SET is_active = @bool WHERE  ID_emp = @id ; ";
@@ -264,7 +266,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                             //Execuction of my sql query
                             cmd2.ExecuteNonQuery();
 
-                            MessageBox.Show("L'employee num " + EmployeeToDelete.Id + " n'est pas supprimé de votre DB, mais il est inactive, donc vous ne pouvez plus  l'insere dans une facture", "infos");
+                            MessageBox.Show("L'employee num " + EmployeeToDelete.Id + " n'est pas supprimé de votre DB, mais il est inactive, donc vous ne pouvez plus l'insere dans une facture", "infos");
                         }
                         else
                         {
@@ -277,7 +279,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                     {
                         flag = false;
                         reader.Close();
-                        MessageBox.Show("Vous ne pouvez pas supprimé l'Employee num " + EmployeeToDelete.Id + " de votre DB, et il est déjà inactive.", "infos");
+                        MessageBox.Show("Vous ne pouvez pas supprimé l'Employee num " + EmployeeToDelete.Id + " de votre DB car il existe dans des facture, et il est déjà inactive.", "infos");
 
                     }//end if 
                     
@@ -286,6 +288,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                 else // here our employee don't existe in my factures 
                 {
                     reader.Close();
+
                     sql = "DELETE FROM employee WHERE id_emp = @id ; ";
 
                     
@@ -294,6 +297,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
                     //Execuction of my sql query
                     cmd3.ExecuteNonQuery();
+                    MessageBox.Show("L'employé " + EmployeeToDelete.Name + " " + EmployeeToDelete.F_Name + " a bien été suprimé de votre DB !");
                 }//end if 
             }
             else

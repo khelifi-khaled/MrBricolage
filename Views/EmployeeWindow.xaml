@@ -11,6 +11,28 @@
         <ImageBrush ImageSource="/Images/empWindow.jpeg" />
     </Window.Background>
     <StackPanel>
+
+        <Menu IsMainMenu="True">
+            <MenuItem Header="Connexion">
+                <MenuItem x:Name="Sign_out" Header="se déconnecter"  Click="Sign_out_Click"/>
+                <MenuItem x:Name="change_user" Header="change l'utilisateur"  Click="change_user_Click"/>
+            </MenuItem>
+            <MenuItem Header="_Management">
+                <Separator/>
+                <MenuItem x:Name="managementEmployee" Header="gestion des Employees"  Click="managementEmployee_Click"/>
+                <MenuItem x:Name="managementArticle" Header="gestion des Articles"  Click="managementArticle_Click"/>
+                <MenuItem x:Name="managementFactures" Header="gestion des Factures"  Click="managementFactures_Click"/>
+                <MenuItem x:Name="managementClients" Header="gestion des Clients"  Click="managementClients_Click"/>
+            </MenuItem>
+            <MenuItem Header="Archive">
+                <MenuItem x:Name="ArchiveEmployee" Header="Archive des Employees"  Click="ArchiveEmployee_Click"/>
+                <MenuItem x:Name="ArchiveArticle" Header="Archive des Articles"  Click="ArchiveArticle_Click"/>
+                <MenuItem x:Name="ArchiveClients" Header="Archive des Clients"  Click="ArchiveClients_Click"/>
+            </MenuItem>
+            
+
+        </Menu>
+
         <StackPanel Orientation="Horizontal" Margin="0 10 0 0" HorizontalAlignment="Center" Height="20" Width="200" >
             <!-- hi my dear -->
             <TextBlock Text="Bonjour Mr "  Margin="0 0 0 0 " Width="90" Height="19" Foreground="Red"/>

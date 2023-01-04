@@ -96,14 +96,30 @@
     <Compile Include="Utilities\DAO\DAOImplement\ArticleDAO.cs" />
     <Compile Include="Utilities\DAO\DAOImplement\ClientDAO.cs" />
     <Compile Include="Utilities\DAO\DAOImplement\FactureDAO.cs" />
+    <Compile Include="ViewModels\AddEmployeeVM.cs" />
     <Compile Include="ViewModels\EmployeeWindowVM.cs" />
+    <Compile Include="ViewModels\ManagementEmployeeVM.cs" />
+    <Compile Include="ViewModels\ModifieEmpVM.cs" />
     <Compile Include="ViewModels\SignInVM.cs" />
+    <Compile Include="Views\AddEmployeeWindow.xaml.cs">
+      <DependentUpon>AddEmployeeWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EmployeeWindow.xaml.cs">
       <DependentUpon>EmployeeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManagementEmpWindow.xaml.cs">
+      <DependentUpon>ManagementEmpWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ModifieEmployeeWindow.xaml.cs">
+      <DependentUpon>ModifieEmployeeWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SignInWindow.xaml.cs">
       <DependentUpon>SignInWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\AddEmployeeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\EmployeeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -137,6 +153,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\ManagementEmpWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ModifieEmployeeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SignInWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
