@@ -128,7 +128,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                         //if the client existe with the same name and same f_name so i check, if he is active or not 
                         if (reader.GetBoolean("is_active"))
                         {
-                            MessageBox.Show("Le client " + client.Name + " "+ client.F_name +  " existe deja dans votre DB","infos");
+                            MessageBox.Show("Le client " + client.Name + " "+ client.F_name +  " existe deja dans votre DB, et il est bien active  ","infos");
                             flag= false;
                             reader.Close();
                         }
