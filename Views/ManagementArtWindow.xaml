@@ -1,0 +1,40 @@
+﻿<Window x:Class="MrBricolage.Views.ManagementArtWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MrBricolage.Views"
+        mc:Ignorable="d"
+        Title="ManagementArtWindow" Height="450" Width="800">
+    <StackPanel>
+        <StackPanel Grid.Column="1" Margin="0,0,0,80">
+
+            <DataGrid ItemsSource="{Binding Articles,UpdateSourceTrigger=PropertyChanged}" 
+                      SelectedItem="{Binding Path = SelectedArticle, Mode=TwoWay}"
+                      MouseDoubleClick="DataGrid_MouseDoubleClick" 
+                      IsReadOnly="True"
+                      AutoGenerateColumns="False" 
+                      Margin="5 10" 
+                      ScrollViewer.CanContentScroll="True" 
+                      CanUserAddRows="true"
+                      HorizontalAlignment="Center"
+                      SelectionUnit="FullRow"
+                      CanUserDeleteRows="true" 
+                      Height="Auto"  
+                      AlternatingRowBackground="LightCyan">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Num.Art" Binding="{Binding Id}"/>
+                    <DataGridTextColumn Header="Nom Art" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Header="Price Art" Binding="{Binding Price}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            
+        </StackPanel>
+
+        <StackPanel Height="20" Width="250" Orientation="Horizontal"  >
+            <Button x:Name="AddArt" Content="Ajouter un Article"   HorizontalAlignment="Center" Click="AddArt_Click" />
+
+        </StackPanel>
+
+    </StackPanel>
+</Window>

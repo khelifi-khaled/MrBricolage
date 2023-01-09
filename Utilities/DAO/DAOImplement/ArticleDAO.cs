@@ -108,7 +108,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                 {
                     flag = false;
                     Console.WriteLine(ex.Message);
-                    MessageBox.Show("Problem d'insertion de  " + article.Name, "infos");
+                    MessageBox.Show("Problem d'insertion de  l'article N°" + article.Name, "infos");
                     
                    
                 }//end trycatch
@@ -153,6 +153,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                         if (MessageBox.Show("vous ne pouvez pas supprimer l'article num " + article.Id + " car il existe dans des factures, voulez vous le randre inactive ?", "infos", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                         {
                             reader.Close();
+                            flag = false;
                             sql = "UPDATE article SET is_active = @bool WHERE  id_art = @id ; ";
 
                             MySqlCommand cmd2 = new MySqlCommand(sql, conn);

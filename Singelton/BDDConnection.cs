@@ -20,6 +20,8 @@ namespace MrBricolage.Singelton
         //singleton 
         private volatile static BDDConnection single;
 
+
+        
         /**
 	    * private constructor  
 	    */
@@ -43,7 +45,7 @@ namespace MrBricolage.Singelton
 
 
 
-
+        
 
 
 
@@ -59,6 +61,8 @@ namespace MrBricolage.Singelton
             }
 
             return conn;
+
+
         }//end getInstance
 
 

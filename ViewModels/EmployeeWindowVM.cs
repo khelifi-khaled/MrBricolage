@@ -14,13 +14,10 @@ namespace MrBricolage.ViewModels
 
         
 
-        public EmployeeWindowVM(Employee employeeConnected , ObservableCollection <Employee> employees)
+        public EmployeeWindowVM(Employee employeeConnected )
         {
             this.EmployeeConnected = employeeConnected;
-            this.Employees = employees;
-            this.Factures = DAOFactory.GetFactureDAO.findAll();
-            this.Articles = DAOFactory.GetArticleDAO.findAll();
-
+            this.Employees = DAOFactory.GetEmployeeDAO.findAll();
         }
 
 
@@ -30,17 +27,7 @@ namespace MrBricolage.ViewModels
         }
         
 
-        public ObservableCollection<Facture> Factures
-        {
-            get; set;
-        }
-
-
-
-        public ObservableCollection<Article>  Articles
-        { 
-            get; set;
-        }   
+         
 
         public ObservableCollection<Employee> Employees { get; set; }
 
@@ -76,7 +63,26 @@ namespace MrBricolage.ViewModels
            
 
         }//end  managementEmployee
-         
+
+
+
+
+        public void ManagementArticle ()
+        {
+            ManagementArtWindow window = new ManagementArtWindow();
+            window.Show();
+        }
+
+
+
+
+        public void ManagementClient()
+        {
+            ManagementClientWindow window = new ManagementClientWindow();
+            window.Show();
+        }
+
+
         /// <summary>
         /// binding  
         /// </summary>

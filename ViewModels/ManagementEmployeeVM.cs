@@ -68,4 +68,4 @@ namespace MrBricolage.ViewModels
 
 
     }//end class
-}
+}//end namespace 

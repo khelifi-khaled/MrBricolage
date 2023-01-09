@@ -20,7 +20,7 @@ namespace MrBricolage.Views
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
-            ModifieVM.Exite(this);
+            ModifieVM.Exit(this);
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)

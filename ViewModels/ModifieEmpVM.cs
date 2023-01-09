@@ -32,7 +32,7 @@ namespace MrBricolage.ViewModels
 
 
 
-        public void Exite(ModifieEmployeeWindow win )
+        public void Exit(ModifieEmployeeWindow win )
         {
             ManagementEmpWindow window = new ManagementEmpWindow();
             window.Show();

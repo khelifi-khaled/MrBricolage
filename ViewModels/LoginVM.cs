@@ -46,7 +46,7 @@ namespace MrBricolage.ViewModels
                     if (e.Password.Equals(this.EmployeeConnected.Password))
                     {
                         this.EmployeeConnected = e;
-                        EmployeeWindow empWin = new EmployeeWindow(this.EmployeeConnected, this.Employees);
+                        EmployeeWindow empWin = new EmployeeWindow(this.EmployeeConnected);
                         empWin.Show();
                         win.Close();
                         break;

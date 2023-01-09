@@ -26,9 +26,9 @@ namespace MrBricolage.Views
         EmployeeWindowVM EmployeeVM { get; set; }
 
 
-        public EmployeeWindow(Employee employeeConnected , ObservableCollection <Employee> employees )
+        public EmployeeWindow(Employee employeeConnected  )
         {
-            this.EmployeeVM = new EmployeeWindowVM(employeeConnected, employees);
+            this.EmployeeVM = new EmployeeWindowVM(employeeConnected);
             this.DataContext = this.EmployeeVM;
             InitializeComponent();
         }
@@ -42,7 +42,7 @@ namespace MrBricolage.Views
 
         private void managementArticle_Click(object sender, RoutedEventArgs e)
         {
-
+            EmployeeVM.ManagementArticle();
         }
 
         private void managementFactures_Click(object sender, RoutedEventArgs e)
@@ -52,7 +52,7 @@ namespace MrBricolage.Views
 
         private void managementClients_Click(object sender, RoutedEventArgs e)
         {
-
+            EmployeeVM.ManagementClient();
         }
 
         private void Sign_out_Click(object sender, RoutedEventArgs e)
