@@ -45,13 +45,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
                 }//end if 
 
-
-
-
                 reader.Close();
-
-
-
             }
             catch(Exception ex)
             {
@@ -311,16 +305,8 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                     cmd.Parameters.AddWithValue("@email", client.Email);
                     cmd.Parameters.AddWithValue("@adresse", client.Adresse);
                     cmd.Parameters.AddWithValue("@id", client.Id);
-
-
-                    if (client.IsCompany)
-                    {
-                        cmd.Parameters.AddWithValue("@f_name", "     ");
-                    }
-                    else
-                    {
-                        cmd.Parameters.AddWithValue("@f_name", client.F_name);
-                    }
+                    cmd.Parameters.AddWithValue("@f_name", client.F_name);
+                    
                     //Execuction of my sql query 
                     cmd.ExecuteNonQuery();
 

@@ -5,8 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MrBricolage.Views"
         mc:Ignorable="d"
-        Title="ModifieClientWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="ModifieClientWindow" Height="500" Width="250">
+    <StackPanel>
+        <!--Client id-->
+        <Label Content="N°:" Margin="10 0 0 0"/>
+        <TextBox x:Name="Client_Id" Width="200" IsReadOnly="True" Background="LightGray" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=SelectedClient.Id, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <!--Client name-->
+        <Label Content="Prénom:" Margin="10 0 0 0"/>
+        <TextBox x:Name="Client_name" Width="200" IsReadOnly="False" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=SelectedClient.Name, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <!--Client f_name-->
+        <Label Content="Nom:" Margin="10 0 0 0"/>
+        <TextBox x:Name="Client_f_name" Width="200" IsReadOnly="False" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=SelectedClient.F_name, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <!--Client Email-->
+        <Label Content="Email :" Margin="10 0 0 0"/>
+        <TextBox x:Name="Client_email" Width="200" IsReadOnly="False"  HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=SelectedClient.Email, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <!--Client Adresse-->
+        <Label Content="Adresse :" Margin="10 0 0 0"/>
+        <TextBox x:Name="Client_adresse"  AcceptsReturn="True" TextWrapping="Wrap" Width="200" Height="120" IsReadOnly="False" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=SelectedClient.Adresse, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <!--Client Is_company-->
+        <Label Content="Is company :" Margin="10 0 0 0"/>
+        <CheckBox x:Name="Is_Company" Width="200"  HorizontalAlignment="Left"  Margin="10 0 0 0" IsChecked="{Binding Path=SelectedClient.IsCompany, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <!--BTNs-->
+        <StackPanel Orientation ="Horizontal" Margin="0 60 0 0" Width="200" Height="30">
+            <Button x:Name="Exit" Content="Exit" HorizontalAlignment="Left" Width="60"   Click="Exit_Click" />
+            <Button x:Name="Delete" Content="Delete" HorizontalAlignment="Center" Width="60"  Margin="10 0 0 0"   Click="Delete_Click" />
+            <Button x:Name="Save" Content="Save" HorizontalAlignment="Right" Margin="10 0 0 0"  Width="60"   Click="Save_Click" />
+        </StackPanel>
+    </StackPanel>
 </Window>

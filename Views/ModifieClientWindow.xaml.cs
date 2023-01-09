@@ -1,27 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MrBricolage.Models;
+using MrBricolage.ViewModels;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 
 namespace MrBricolage.Views
 {
-    /// <summary>
-    /// Logique d'interaction pour ModifieClientWindow.xaml
-    /// </summary>
+    
     public partial class ModifieClientWindow : Window
     {
-        public ModifieClientWindow()
+        ModifieClientVM ModifieClientVM { get; set; }
+
+        public ModifieClientWindow(Client selectedClient)
         {
+            this.ModifieClientVM = new ModifieClientVM(selectedClient);
+            DataContext = this.ModifieClientVM;
             InitializeComponent();
         }
-    }
-}
+
+
+
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            this.ModifieClientVM.Exit(this);
+
+        }//end Exit_Click
+
+
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            this.ModifieClientVM.Delete(this);
+
+        }//end Delete_Click
+
+
+
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+            this.ModifieClientVM.Save(this);
+
+        }//end Save_Click
+
+
+
+    }//end class 
+}//end naespace 

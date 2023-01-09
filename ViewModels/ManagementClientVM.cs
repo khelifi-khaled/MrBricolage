@@ -1,5 +1,6 @@
 ﻿using MrBricolage.Models;
 using MrBricolage.Utilities.DAO;
+using MrBricolage.Views;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
@@ -30,7 +31,12 @@ namespace MrBricolage.ViewModels
 
 
 
-
+        public void DataGrid_Click (ManagementClientWindow window )
+        {
+            ModifieClientWindow modifie = new ModifieClientWindow(SelectedClient);
+            modifie.Show();
+            window.Close();
+        }//end DataGrid_Click
 
 
 

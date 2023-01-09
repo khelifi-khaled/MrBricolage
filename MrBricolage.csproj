@@ -103,6 +103,7 @@
     <Compile Include="ViewModels\ManagementClientVM.cs" />
     <Compile Include="ViewModels\ManagementEmployeeVM.cs" />
     <Compile Include="ViewModels\ModifieArtVM.cs" />
+    <Compile Include="ViewModels\ModifieClientVM.cs" />
     <Compile Include="ViewModels\ModifieEmpVM.cs" />
     <Compile Include="ViewModels\SignInVM.cs" />
     <Compile Include="Views\AddArticleWindow.xaml.cs">
@@ -125,6 +126,9 @@
     </Compile>
     <Compile Include="Views\ModifieArtWindow.xaml.cs">
       <DependentUpon>ModifieArtWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ModifieClientWindow.xaml.cs">
+      <DependentUpon>ModifieClientWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ModifieEmployeeWindow.xaml.cs">
       <DependentUpon>ModifieEmployeeWindow.xaml</DependentUpon>
@@ -186,6 +190,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ModifieArtWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ModifieClientWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

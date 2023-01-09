@@ -41,6 +41,8 @@ namespace MrBricolage.Singelton
                 Console.WriteLine(ex.Message);
             }
 
+            
+
         }//end constructor 
 
 

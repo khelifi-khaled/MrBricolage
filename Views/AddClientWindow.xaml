@@ -1,0 +1,35 @@
+﻿<Window x:Class="MrBricolage.Views.AddClientWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MrBricolage.Views"
+        mc:Ignorable="d"
+        Title="AddClientWindow"  Height="500" Width="250">
+    <StackPanel>
+        <!--Client name-->
+        <Label Content="Prénom:" Margin="10 0 0 0"/>
+        <TextBox x:Name="Client_name" Width="200" IsReadOnly="False" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=ClientToAdd.Name, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <!--Client f_name-->
+        <Label Content="Nom:" Margin="10 0 0 0"/>
+        <TextBox x:Name="Client_f_name" Width="200" IsReadOnly="False" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=ClientToAdd.F_name, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <!--Client Email-->
+        <Label Content="Email:" Margin="10 0 0 0"/>
+        <TextBox x:Name="Client_Email" Width="200" IsReadOnly="False" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=ClientToAdd.Email, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <!--Client Adresse-->
+        <Label Content="Adresse :" Margin="10 0 0 0"/>
+        <TextBox x:Name="Client_adresse"  AcceptsReturn="True" TextWrapping="Wrap" Width="200" Height="120" IsReadOnly="False" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=ClientToAdd.Adresse, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <!--Client Is_company-->
+        <Label Content="Is company :" Margin="10 0 0 0"/>
+        <CheckBox x:Name="Is_Company" Width="200"  HorizontalAlignment="Left"  Margin="10 0 0 0" IsChecked="{Binding Path=ClientToAdd.IsCompany, UpdateSourceTrigger=PropertyChanged}"/>
+        <StackPanel Orientation ="Horizontal" Margin="0 60 0 0" Width="200" Height="30">
+            <Button x:Name="Exit" Content="Exit" HorizontalAlignment="Left" Width="60"   Click="Exit_Click" />
+            <Button x:Name="Save" Content="Save" HorizontalAlignment="Right" Margin="80 0 0 0"  Width="60"   Click="Save_Click" />
+            
+        </StackPanel>
+    </StackPanel>
+</Window>
