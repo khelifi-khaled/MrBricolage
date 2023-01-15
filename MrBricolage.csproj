@@ -97,20 +97,34 @@
     <Compile Include="Utilities\DAO\DAOImplement\ClientDAO.cs" />
     <Compile Include="Utilities\DAO\DAOImplement\FactureDAO.cs" />
     <Compile Include="ViewModels\AddArticleVM.cs" />
+    <Compile Include="ViewModels\AddClientVM.cs" />
     <Compile Include="ViewModels\AddEmployeeVM.cs" />
+    <Compile Include="ViewModels\ChangeClientInFactureVM.cs" />
+    <Compile Include="ViewModels\ChengeEmployeeInFactureVM.cs" />
     <Compile Include="ViewModels\EmployeeWindowVM.cs" />
     <Compile Include="ViewModels\ManagementArticleVM.cs" />
     <Compile Include="ViewModels\ManagementClientVM.cs" />
     <Compile Include="ViewModels\ManagementEmployeeVM.cs" />
+    <Compile Include="ViewModels\ManagementFactureVM.cs" />
     <Compile Include="ViewModels\ModifieArtVM.cs" />
     <Compile Include="ViewModels\ModifieClientVM.cs" />
     <Compile Include="ViewModels\ModifieEmpVM.cs" />
+    <Compile Include="ViewModels\ModifieFactureVM.cs" />
     <Compile Include="ViewModels\SignInVM.cs" />
     <Compile Include="Views\AddArticleWindow.xaml.cs">
       <DependentUpon>AddArticleWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\AddClientWindow.xaml.cs">
+      <DependentUpon>AddClientWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AddEmployeeWindow.xaml.cs">
       <DependentUpon>AddEmployeeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ChangeClientInFactureWindow.xaml.cs">
+      <DependentUpon>ChangeClientInFactureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ChangeEmployeeInFactureWindow.xaml.cs">
+      <DependentUpon>ChangeEmployeeInFactureWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EmployeeWindow.xaml.cs">
       <DependentUpon>EmployeeWindow.xaml</DependentUpon>
@@ -124,6 +138,9 @@
     <Compile Include="Views\ManagementEmpWindow.xaml.cs">
       <DependentUpon>ManagementEmpWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ManagementFactureWindow.xaml.cs">
+      <DependentUpon>ManagementFactureWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ModifieArtWindow.xaml.cs">
       <DependentUpon>ModifieArtWindow.xaml</DependentUpon>
     </Compile>
@@ -133,6 +150,9 @@
     <Compile Include="Views\ModifieEmployeeWindow.xaml.cs">
       <DependentUpon>ModifieEmployeeWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ModifieFactureWindow.xaml.cs">
+      <DependentUpon>ModifieFactureWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SignInWindow.xaml.cs">
       <DependentUpon>SignInWindow.xaml</DependentUpon>
     </Compile>
@@ -140,7 +160,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\AddClientWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AddEmployeeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ChangeClientInFactureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ChangeEmployeeInFactureWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -189,6 +221,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ManagementFactureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ModifieArtWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -198,6 +234,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ModifieEmployeeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ModifieFactureWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

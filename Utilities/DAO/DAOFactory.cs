@@ -25,7 +25,7 @@ namespace MrBricolage.Utilities.DAO
         /// <summary>
         /// an anstance of DAO type Employee
         /// </summary>
-        public static DAO<Employee> GetEmployeeDAO
+        public static EmployeeDAO GetEmployeeDAO
         {
             get { return new EmployeeDAO(conn); }
         }
@@ -36,7 +36,7 @@ namespace MrBricolage.Utilities.DAO
         /// <summary>
         /// an anstance of DAO type Client 
         /// </summary>
-        public static DAO<Client> GetClientDAO
+        public static ClientDAO GetClientDAO
         {
             get { return new ClientDAO(conn); }
         }
@@ -44,7 +44,7 @@ namespace MrBricolage.Utilities.DAO
         /// <summary>
         /// an anstance of DAO type Article 
         /// </summary>
-        public static DAO<Article> GetArticleDAO
+        public static ArticleDAO GetArticleDAO
         {
             get { return new ArticleDAO(conn); }
         }
@@ -52,7 +52,7 @@ namespace MrBricolage.Utilities.DAO
         /// <summary>
         /// an anstance of DAO type Facture 
         /// </summary>
-        public static DAO<Facture> GetFactureDAO
+        public static FactureDAO GetFactureDAO
         {
             get { return new FactureDAO(conn); }
         }

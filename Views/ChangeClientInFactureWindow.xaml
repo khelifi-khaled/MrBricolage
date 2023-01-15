@@ -1,0 +1,41 @@
+﻿<Window x:Class="MrBricolage.Views.ChangeClientInFactureWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MrBricolage.Views"
+        mc:Ignorable="d"
+        Title="ChangeClientInFactureWindow" Height="500" Width="300">
+    <StackPanel>
+        <!--Client id-->
+        <Label Content="N°:" Margin="10 0 0 0"/>
+        <TextBox x:Name="Client_Id" Width="200" IsReadOnly="False" KeyDown ="Client_Id_TextChanged"  HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=ClientToReplace.Id, UpdateSourceTrigger=PropertyChanged}" />
+
+        <!--Client name-->
+        <Label Content="Prénom:" Margin="10 0 0 0"/>
+        <TextBox x:Name="Client_name" Width="200" IsReadOnly="True" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=ClientToReplace.Name, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <!--Client f_name-->
+        <Label Content="Nom:" Margin="10 0 0 0"/>
+        <TextBox x:Name="Client_f_name" Width="200" IsReadOnly="True" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=ClientToReplace.F_name, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <!--Client Email-->
+        <Label Content="Email :" Margin="10 0 0 0"/>
+        <TextBox x:Name="Client_email" Width="200" IsReadOnly="True"  HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=ClientToReplace.Email, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <!--Client Adresse-->
+        <Label Content="Adresse :" Margin="10 0 0 0"/>
+        <TextBox x:Name="Client_adresse"  AcceptsReturn="True" TextWrapping="Wrap" Width="200" Height="120" IsReadOnly="True" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=ClientToReplace.Adresse, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <!--Client Is_company-->
+        <Label Content="Is company :" Margin="10 0 0 0"/>
+        <CheckBox x:Name="Is_Company" Width="200"  HorizontalAlignment="Left"  Margin="10 0 0 0" IsEnabled="False" IsChecked="{Binding Path=ClientToReplace.IsCompany, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <StackPanel Orientation="Horizontal" Width="250" Height="20" Margin="0 50 0 0">
+            <!--BTN Cancel -->
+            <Button x:Name="BtnCancel" Width="100" Margin="0 0 0 0" Click="BtnCancel_Click" Content="Cancel" />
+            <!--BTN Change -->
+            <Button x:Name="BtnChange" Width="100" Margin="50 0 0 0" Click="BtnChange_Click" Content="Changer" />
+        </StackPanel>
+    </StackPanel>
+</Window>

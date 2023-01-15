@@ -1,12 +1,8 @@
 ﻿using MrBricolage.Models;
 using MrBricolage.Utilities.DAO;
 using MrBricolage.Views;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 
 namespace MrBricolage.ViewModels
 {
@@ -46,12 +42,42 @@ namespace MrBricolage.ViewModels
         public void Save(AddArticleWindow win)
         {
 
-            if(DAOFactory.GetArticleDAO.create(ArticleToAdd))
+            if(ArticleToAdd != null)
             {
-                ManagementArtWindow window = new ManagementArtWindow();
-                window.Show();
-                win.Close();
+                if(DAOFactory.GetArticleDAO.CheckExistedArticle(ArticleToAdd))
+                {
+                    //if the article existe in our db , i check if the article is active or not
+                    if (DAOFactory.GetArticleDAO.GetArticleStatus(ArticleToAdd))
+                    {
+                        MessageBox.Show("l'article existe dans votre DB, et il est bien active ", "infos");
+                    }else
+                    {
+                        // if the article exist in our DB and he is just inactive 
+                        if (MessageBox.Show("L'article avec le nom " + ArticleToAdd.Name + " existe deja dans votre DB, voulez vous l'activé ?", "infos", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        {
+                            DAOFactory.GetArticleDAO.UpdateArticleStatus(ArticleToAdd, true);
+                            MessageBox.Show("l'article "+ ArticleToAdd.Name + " est bien active maintenant sur votre DB ", "infos");
+                            ManagementArtWindow window = new ManagementArtWindow();
+                            window.Show();
+                            win.Close();
 
+                        }//end if 
+                    }//end if 
+                }else
+                {
+                    //the article don't exist in our DB, so i will try to create it 
+                    if (DAOFactory.GetArticleDAO.create(ArticleToAdd))
+                    {
+                        ManagementArtWindow window = new ManagementArtWindow();
+                        window.Show();
+                        win.Close();
+                    }//end if 
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("L'article est a null");
             }//end if 
 
         }//end save

@@ -1,19 +1,6 @@
-﻿using MrBricolage.Models;
-using MrBricolage.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MrBricolage.ViewModels;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 
 namespace MrBricolage.Views
 {
@@ -22,26 +9,26 @@ namespace MrBricolage.Views
     /// </summary>
     public partial class SignInWindow : Window
     {
-        SignInVM signInVM { get; set; }
+        SignInVM SignInVM { get; set; }
 
 
 
 
         public SignInWindow()
         {
-            signInVM = new SignInVM();
-            DataContext= signInVM;
+            this.SignInVM = new SignInVM();
+            DataContext= this.SignInVM;
             InitializeComponent();
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
-            signInVM.Close(this);
+            this.SignInVM.Close(this);
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            signInVM.save(this);
+            this.SignInVM.Save(this);
         }
     }//end class 
 }//end name space 

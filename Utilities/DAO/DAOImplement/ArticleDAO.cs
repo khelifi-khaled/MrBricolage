@@ -1,14 +1,7 @@
 ﻿using MrBricolage.Models;
 using MySql.Data.MySqlClient;
-using MySqlX.XDevAPI;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace MrBricolage.Utilities.DAO.DAOImplement
@@ -28,96 +21,38 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
 
 
-        //  test  ok 
+
+
+        /// <summary>
+        /// create an article in our DB
+        /// </summary>
+        /// <param name="article">the art that we want to insert in our DB</param>
+        /// <returns>true if the article hase been created in our DB, false if not </returns>
         public override bool create(Article article)
         {
             bool flag = true;
 
-            if (article != null)
+            try 
             {
-                try
-                {
-                    string sql ="SELECT name_art , is_active  FROM article WHERE name_art = @name ;";
+                string sql = "INSERT INTO article (name_art , price_art , is_active) VALUES (@name , @price , @bool ) ; ";
 
-                    
-                    MySqlCommand cmd = new MySqlCommand(sql, conn);
-                    cmd.Parameters.AddWithValue("@name", article.Name);
-
+                MySqlCommand cmd2 = new MySqlCommand(sql, conn);
+                cmd2.Parameters.AddWithValue("@name", article.Name);
+                cmd2.Parameters.AddWithValue("@price", article.Price);
+                cmd2.Parameters.AddWithValue("@bool", true);
 
 
-                    //Execuction of my sql query 
-                    MySqlDataReader reader = cmd.ExecuteReader();
+                //Execution of my sql query 
+                cmd2.ExecuteNonQuery();
 
-
-
-                    if (reader.Read())
-                    {
-                        //if the article existe in our db , i check if the article is active or not 
-                        if (reader.GetBoolean("is_active"))
-                        {
-                            flag = false;
-                            MessageBox.Show("l'article existe dans votre DB, et il est bien active ", "infos");
-                            reader.Close();
-                        }else
-                        {
-                            // if the article existe in our DB and he is just inactive 
-                            if (MessageBox.Show("voulez vous activé l'article " + article.Name + " ?", "infos", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                            {
-                                flag = false;
-                                reader.Close();
-                                sql = "UPDATE article SET is_active = @bool WHERE  name_art = @name ; ";
-                                 
-                                MySqlCommand cmd2 = new MySqlCommand(sql, conn);
-                                cmd2.Parameters.AddWithValue("@bool", true);
-                                cmd2.Parameters.AddWithValue("@name", article.Name);
-
-                                //Execuction of my sql query
-                                cmd2.ExecuteNonQuery();
-                               
-                            }
-                            else
-                            {
-                                //the user don't want update this article, in this case flag is false and i do nothing 
-                                flag = false;
-                                reader.Close();
-
-                            }//end if 
-
-
-                        }//end if 
-                    }
-                    else
-                    {
-                        reader.Close();
-                        sql = "INSERT INTO article (name_art , price_art , is_active) VALUES (@name , @price , @bool ) ; ";
-
-                        
-                        MySqlCommand cmd2 = new MySqlCommand(sql, conn);
-                        cmd2.Parameters.AddWithValue("@name",article.Name) ;
-                        cmd2.Parameters.AddWithValue("@price", article.Price);
-                        cmd2.Parameters.AddWithValue("@bool",true);
-
-
-                        //Execuction of my sql query 
-                        cmd2.ExecuteNonQuery();
-                       
-                    }//end if 
-
-                }
-                catch (Exception ex)
-                {
-                    flag = false;
-                    Console.WriteLine(ex.Message);
-                    MessageBox.Show("Problem d'insertion de  l'article N°" + article.Name, "infos");
-                    
-                   
-                }//end trycatch
-            }else
+            }
+            catch
             {
                 flag = false;
-                MessageBox.Show("L'article est null !", "infos");
-                
-            }//end if 
+                MessageBox.Show("problème sur create !", "infos");
+            }//end try catch 
+
+         
            
             return flag;
 
@@ -130,78 +65,232 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
 
 
-        // test ok 
+
+
+        /// <summary>
+        /// update our article status in our DB
+        /// </summary>
+        /// <param name="article"> the article to update </param>
+        /// <param name="status"> the status that we want to set to our article on DB</param>
+        /// <returns>true if article status has been updated, false if not </returns>
+        public bool UpdateArticleStatus(Article article , bool status)
+        {
+            bool flag = false;
+
+            try
+            {
+                string sql = "UPDATE article SET is_active = @bool WHERE  name_art = @name ; ";
+
+                MySqlCommand cmd2 = new MySqlCommand(sql, conn);
+                cmd2.Parameters.AddWithValue("@bool", status);
+                cmd2.Parameters.AddWithValue("@name", article.Name);
+
+                //Execution of my sql query
+                cmd2.ExecuteNonQuery();
+
+                flag = true;
+
+            }
+            catch
+            {
+                MessageBox.Show("problème sur UpdateArticleStatus !", "infos");
+            }
+
+            return flag;
+
+        }//end UpdateArticleStatus
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /// <summary>
+        /// get the actual article status from DB 
+        /// </summary>
+        /// <param name="article"></param>
+        /// <returns>art status located in DB (true, false)</returns>
+        public bool GetArticleStatus(Article article)
+        {
+            bool flag = false;
+
+            try
+            {
+                string sql = "SELECT is_active  FROM article WHERE name_art = @name ;";
+
+
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@name", article.Name);
+
+
+
+                //Execution of my sql query 
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    flag = reader.GetBoolean("is_active");
+
+                }//end if 
+
+                reader.Close();
+            }
+            catch
+            {
+                MessageBox.Show("problème sur GetArticleStatus !", "infos");
+            }
+
+            return flag;
+        }//end CheckArticleStatus
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /// <summary>
+        /// check if article.Name exist in our DB or not 
+        /// </summary>
+        /// <param name="article"> the article that we want to check </param>
+        /// <returns>true if the article exist in our BD, false if not </returns>
+        public bool CheckExistedArticle(Article article)
+        {
+            bool flag = false;
+
+            try
+            {
+                string sql = "SELECT name_art , is_active  FROM article WHERE name_art = @name ;";
+
+
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@name", article.Name);
+
+
+
+                //Execution of my sql query 
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                flag = reader.Read();
+
+                reader.Close();
+            }
+            catch
+            {
+                MessageBox.Show("problème sur checkExestedArticle !", "infos");
+            }
+
+            return flag;
+        }//end checkExestedArticle
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /// <summary>
+        /// check if the article exist in List_of_art 
+        /// </summary>
+        /// <param name="article">the article that we want to check </param>
+        /// <returns>true if article exist, false if not </returns>
+
+        public bool CheckExistedArticleInFacture(Article article)
+        {
+            bool flag = false; 
+
+            try
+            {
+                string sql = "SELECT id_art from list_of_art WHERE  id_art = @id ; ";
+
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@id", article.Id);
+
+                //Execution of my sql query
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                flag = reader.Read();
+
+                reader.Close();
+
+
+            }
+            catch
+            {
+                MessageBox.Show("problème sur CheckExistedArticleInFacture !", "infos");
+
+            }//end trycatch
+            return flag;
+        }//end CheckExistedArticleInFacture
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+        /// <summary>
+        /// delete the article from our DB
+        /// </summary>
+        /// <param name="article">the article that we want to delete </param>
+        /// <returns>true if the art has been deleted, false if not </returns>
         public override bool delete(Article article )
         {
             bool flag = true;
-            if (article != null)
-            {
-                string sql = "SELECT a.ID_art , a.is_active FROM list_of_art l INNER join article a on l.id_art = a.ID_art WHERE a.id_art = @id ;";
 
-                
+            try
+            {
+                string sql = "DELETE FROM article WHERE id_art = @id ; ";
+
+
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@id",article.Id);
+                cmd.Parameters.AddWithValue("@id", article.Id);
+
+                //Execution of my sql query
+                cmd.ExecuteNonQuery();
 
 
-                //Execuction of my sql query
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read()) //if the article existe in facture
-                {
-                    if (reader.GetBoolean(1))//if the article existe in facture and he is active 
-                    {
-                        if (MessageBox.Show("vous ne pouvez pas supprimer l'article num " + article.Id + " car il existe dans des factures, voulez vous le randre inactive ?", "infos", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                        {
-                            reader.Close();
-                            flag = false;
-                            sql = "UPDATE article SET is_active = @bool WHERE  id_art = @id ; ";
-
-                            MySqlCommand cmd2 = new MySqlCommand(sql, conn);
-                            cmd2.Parameters.AddWithValue("@bool", false);
-                            cmd2.Parameters.AddWithValue("@id", article.Id);
-
-                            //Execuction of my sql query
-                            cmd2.ExecuteNonQuery();
-
-                            MessageBox.Show("L'article num " + article.Id + " n'est pas supprimé de votre DB, mais il est inactive, donc vous ne pouvez plus  l'insere dans une facture", "infos");
-                        }
-                        else
-                        {
-                            // the user don't want update this article, in this case flag is false and i do nothing 
-                            flag = false;
-                            reader.Close();
-
-                        }//end if 
-
-                    }
-                    else // Here the article existe in facture, and he is inactive 
-                    {
-                        MessageBox.Show("L'article num " + article.Id + " n'est pas supprimé de votre DB, et il est inactive.", "infos");
-                        reader.Close();
-                        flag = false;
-                    }
-                   
-
-                }
-                else // here our article don't existe in my factures 
-                {
-                    reader.Close();
-                    sql = "DELETE FROM article WHERE id_art = @id ; ";
-
-                    
-                    MySqlCommand cmd3 = new MySqlCommand(sql, conn);
-                    cmd3.Parameters.AddWithValue("@id",article.Id);
-
-                    //Execuction of my sql query
-                    cmd3.ExecuteNonQuery();
-                    
-                }//end if 
             }
-            else
+            catch
             {
+                MessageBox.Show("problème sur delete !", "infos");
                 flag = false;
-                MessageBox.Show("L'article est null !", "infos");
-            }//end if 
+            }
 
             return flag;
         }//end delete
@@ -209,7 +298,25 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
 
 
-        //  test  ok 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /// <summary>
+        /// find an article from our DB
+        /// </summary>
+        /// <param name="id"> article id that we are looking for </param>
+        /// <returns>the article if found, null if not </returns>
         public override Article find(int id)
         {
             Article article = null;
@@ -251,7 +358,28 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
 
 
-        // test ok 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /// <summary>
+        /// find all existed articles in our db, with active status  
+        /// </summary>
+        /// <returns>Observable Collection of type article contains all article in our DB</returns>
         public override ObservableCollection<Article> findAll()
         {
             ObservableCollection < Article > articles = new ObservableCollection<Article>();
@@ -276,10 +404,10 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
                 reader.Close();
                 
-            }catch(Exception ex)
+            }catch
             {
-                Console.WriteLine(ex.Message);
-                Console.WriteLine("problem de récupération des Articles");
+                
+                Console.WriteLine("problème de récupération des Articles");
             }//end trycatch 
 
             return articles;
@@ -291,44 +419,52 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
 
 
-        // test ok !!!
+
+
+
+
+
+
+
+
+
+
+
+
+        /// <summary>
+        /// update the article infos in our DB
+        /// </summary>
+        /// <param name="articleToUpdate">the article that we want to update </param>
+        /// <returns>true if articleToUpdate has been updated, false if not  </returns>
         public override bool update(Article articleToUpdate)
         {
             bool flag= true;
 
-            if (articleToUpdate != null)
+            
+            try
             {
-                try
-                {
 
-
-
-                    string sql = "UPDATE article SET  name_art = @name , price_art = @price WHERE ID_art = @id";
+                string sql = "UPDATE article SET  name_art = @name , price_art = @price WHERE ID_art = @id";
 
                    
-                    MySqlCommand cmd = new MySqlCommand(sql, conn);
-                    cmd.Parameters.AddWithValue("@name" , articleToUpdate.Name);
-                    cmd.Parameters.AddWithValue("@price", articleToUpdate.Price);
-                    cmd.Parameters.AddWithValue("@id", articleToUpdate.Id);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@name" , articleToUpdate.Name);
+                cmd.Parameters.AddWithValue("@price", articleToUpdate.Price);
+                cmd.Parameters.AddWithValue("@id", articleToUpdate.Id);
 
-                    //Execuction of my sql query
-                    cmd.ExecuteNonQuery();
+                //Execution of my sql query
+                cmd.ExecuteNonQuery();
 
 
-
-                }
-                catch(Exception ex )
-                {
-                    flag = false;
-                    Console.WriteLine(ex.Message);
-                }//end trycatch 
             }
-            else
+            catch
             {
                 flag = false;
-                MessageBox.Show("L'article est null ! ", "infos");
-            }//end if 
-            return flag;
+                MessageBox.Show("problème sur update");
+            }//end trycatch 
+           
+           
+           return flag;
 
         }//end update
 

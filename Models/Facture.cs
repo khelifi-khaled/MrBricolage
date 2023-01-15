@@ -72,7 +72,68 @@ namespace MrBricolage.Models
         {
             get { return this._totalAmount; }
             set { this._totalAmount = value; }
-        } 
+        }
+
+
+        /// <summary>
+        /// void function to add an article to this.Articles, Modifie this.TotalAmount 
+        /// </summary>
+        /// <param name="artToAdd"></param>
+        public void AddArticle(Article artToAdd)
+        {
+            if (Check_existed_art(artToAdd))
+            {
+                foreach(Article art in this.Articles)
+                {
+                    if (art.Id == artToAdd.Id)
+                    {
+                        art.Quantity += artToAdd.Quantity;
+
+                    }//end if 
+                }//end foreach loop 
+
+            }else
+            {
+                this.Articles.Add(artToAdd);
+            }//end if 
+
+        }//AddArticle
+
+
+
+
+
+        public void CalculTotalAmount()
+        {
+
+
+        }//end CalculTotalAmount
+
+
+
+
+
+
+        /// <summary>
+        /// Check if the article exist in this.Articles
+        /// </summary>
+        /// <param name="art"> article that we want to check</param>
+        /// <returns>true is exist, false if not </returns>
+        public bool Check_existed_art(Article art)
+        {
+            bool flag = false;
+
+            foreach(Article article in this.Articles)
+            {
+                if (article.Id== art.Id)
+                {
+                    flag = true;
+                }//end if 
+            }//end foreach loop 
+
+
+            return flag;
+        }//end Check_existed_art
 
 
     }//end class 

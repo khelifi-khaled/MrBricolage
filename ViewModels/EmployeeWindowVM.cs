@@ -83,6 +83,12 @@ namespace MrBricolage.ViewModels
         }
 
 
+        public void ManagementFacture ()
+        {
+            ManagementFactureWindow win = new ManagementFactureWindow();
+            win.Show();
+        }
+
         /// <summary>
         /// binding  
         /// </summary>

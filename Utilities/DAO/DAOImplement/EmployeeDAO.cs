@@ -1,7 +1,5 @@
 ﻿using MrBricolage.Models;
 using MySql.Data.MySqlClient;
-using MySqlX.XDevAPI;
-using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 
@@ -32,7 +30,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                 MySqlCommand cmd = new MySqlCommand(sql,conn);
                 cmd.Parameters.AddWithValue("@id", id);
 
-                //Execuction of my sql query
+                //Execution of my sql query
                 MySqlDataReader reader = cmd.ExecuteReader();
 
                 if (reader.Read())
@@ -50,10 +48,10 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
 
             }
-            catch (Exception ex)
+            catch 
             {
-                Console.WriteLine(ex.Message);
-                Console.WriteLine("problem de recuperation de l'employée num "+ id );
+              
+                MessageBox.Show("problème de recuperation de l'employée num " + id );
             }//end tryCatch 
 
             return employeeToFind;
@@ -63,7 +61,20 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
 
 
-        //test ok 
+
+
+
+
+
+
+
+
+
+
+        /// <summary>
+        /// get all Active Emplpotee existed from our DB
+        /// </summary>
+        /// <returns> Observable Collection type Employee  </returns>        
         public override ObservableCollection<Employee> findAll()
         {
             ObservableCollection<Employee> employees = new ObservableCollection<Employee>();
@@ -75,7 +86,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 
 
-                //Execuction of my sql query 
+                //Execution of my sql query 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
 
@@ -89,10 +100,9 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                 reader.Close();
 
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                MessageBox.Show("problem de recuperation des employées !");
+            catch 
+            {  
+                MessageBox.Show("problème de recuperation des employées !");
             }
 
             return employees;
@@ -103,125 +113,246 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
 
 
-        //test ok  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /// <summary>
+        /// get  the emp status from our DB 
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns>Employee status from our DB</returns>
+        public bool CheckEmployeeStatus(Employee employee)
+        {
+            bool flag = false;
+
+            try
+            {
+                string sql = "SELECT is_active  FROM employee WHERE  emp_name = @name AND emp_f_name =  @f_name ;";
+
+
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@name", employee.Name);
+                cmd.Parameters.AddWithValue("@f_name", employee.F_Name);
+
+                //Execution of mysql query
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    flag = reader.GetBoolean("is_active");
+                }
+
+                reader.Close();
+
+            }
+            catch
+            {
+                MessageBox.Show("problème de GetEmployeeStatus !");
+            }
+
+            return flag;
+
+
+        }//end CheckEmployeeStatus
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /// <summary>
+        /// ceck if employee Login existe in our DB
+        /// </summary>
+        /// <param name="employee">Employee to check </param>
+        /// <returns>true if Login exist, false if not</returns>
+
+        public bool CheckEmployeeLogin(Employee employee)
+        {
+            bool flag = false;
+
+            try
+            {
+                string sql = "SELECT Login  FROM employee WHERE Login = @Lg ;";
+
+
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@Lg", employee.Login);
+
+                //Execution of mysql query
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                flag = reader.Read();
+
+                reader.Close();
+
+            }
+            catch
+            {
+                MessageBox.Show("problème de GetEmployeeStatus !");
+            }
+
+            return flag;
+
+        }//end GetEmployeeStatus
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /// <summary>
+        /// check if we have an existed employee with same FullName in our DB
+        /// </summary>
+        /// <param name="employee"> emp to check </param>
+        /// <returns>true if exist, false if not </returns>
+        public bool CheckExistedEmployeeFullName(Employee employee)
+        {
+            bool flag = false;
+            try
+            {
+                string sql = "SELECT emp_name , emp_f_name , is_active FROM employee WHERE emp_name = @name AND emp_f_name = @f_name ;";
+
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@name", employee.Name);
+                cmd.Parameters.AddWithValue("@f_name", employee.F_Name);
+
+                //Execution of my sql query 
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                flag = reader.Read();
+
+                reader.Close();
+            }
+            catch
+            {
+                MessageBox.Show("problème de CheckExistedEmploueeFullName !");
+                
+            }
+
+            return flag;
+        }//end checkExistedEmploueeFullName
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /// <summary>
+        /// update emp status 
+        /// </summary>
+        /// <param name="employee">emp to update </param>
+        /// <param name="status">the status that we want to insert in our DB</param>
+        /// <returns>true , if update is done , false if not </returns>
+        public bool UpdateEmployeeStatus(Employee employee , bool status )
+        {
+
+            bool flag = true;
+            
+            try
+            {
+                string sql = "UPDATE employee SET is_active = @Bool WHERE  emp_name = @name AND emp_f_name = @f_name ;";
+
+
+                MySqlCommand cmd2 = new MySqlCommand(sql, conn);
+                cmd2.Parameters.AddWithValue("@Bool", status);
+                cmd2.Parameters.AddWithValue("@name", employee.Name);
+                cmd2.Parameters.AddWithValue("@f_name", employee.F_Name);
+
+                //Execution of my sql query 
+                cmd2.ExecuteNonQuery();
+
+                
+
+            }
+            catch
+            {
+                MessageBox.Show("problème de UpdateEmployeeStatus !");
+                flag = false;
+            }
+
+            return flag;
+
+        }//end UpdateEmployeeStatus
+
+
+
+
+
+
+
+
+
+
+        /// <summary>
+        /// create an employee in our DB
+        /// </summary>
+        /// <param name="empTocreatee">employee to create </param>
+        /// <returns>true if the employee has been created , false if not </returns>        
         public override bool create(Employee empTocreatee) 
         {
             bool flag = true;
-            
-            if (empTocreatee != null)
-            {
-                try
-                {
 
+           try
+           {
 
+                string sql = "INSERT INTO employee (emp_name , emp_f_name , Login , _password , is_active) VALUES (@name , @f_name , @Login , @pwrd , @Bool);";
 
+                MySqlCommand cmd2 = new MySqlCommand(sql, conn);
+                cmd2.Parameters.AddWithValue("@name", empTocreatee.Name);
+                cmd2.Parameters.AddWithValue("@f_name", empTocreatee.F_Name);
+                cmd2.Parameters.AddWithValue("@Login", empTocreatee.Login);
+                cmd2.Parameters.AddWithValue("@pwrd", empTocreatee.Password);
+                cmd2.Parameters.AddWithValue("@Bool", true);
 
-                    string sql = "SELECT emp_name , emp_f_name , is_active FROM employee WHERE emp_name = @name AND emp_f_name = @f_name ; SELECT Login  FROM employee WHERE Login = @Lg ;";
+                //Execuion of my sql query
+                cmd2.ExecuteNonQuery();
 
-
-
-                    MySqlCommand cmd = new MySqlCommand(sql, conn);
-                    cmd.Parameters.AddWithValue("@name", empTocreatee.Name);
-                    cmd.Parameters.AddWithValue("@f_name", empTocreatee.F_Name);
-                    cmd.Parameters.AddWithValue("@Lg", empTocreatee.Login);
-                    MySqlDataReader reader = cmd.ExecuteReader();
-
-                    if (reader.Read())
-                    {
-                        if (reader.GetBoolean("is_active"))
-                        {
-                            //if the Emlpoyee with the same name and same f_name exist in our DB and he is active as well.
-                            MessageBox.Show("l'employee " + empTocreatee.Name + " " + empTocreatee.F_Name + " existe deja dans votre DB, et il est bien active ! ", "Infos");
-                            flag = false;
-                            reader.Close();
-                        }else
-                        {
-                            //in this case, the employee with the same name and same f_name exist in our db, he is just inactive, i will propose to my user if he wan to activate it or no
-                            if (MessageBox.Show("L'employee " + empTocreatee.Name + " " + empTocreatee.F_Name + " existe deja dans votre DB, voulez vous l'activé  ?", "infos", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                            {
-                                reader.Close();
-                                flag = false;
-                                sql ="UPDATE employee SET is_active = @Bool WHERE  emp_name = @name AND emp_f_name = @f_name ;";
-
-                                
-                                MySqlCommand cmd2 = new MySqlCommand(sql, conn);
-                                cmd2.Parameters.AddWithValue("@Bool", true);
-                                cmd2.Parameters.AddWithValue("@name", empTocreatee.Name);
-                                cmd2.Parameters.AddWithValue("@f_name", empTocreatee.F_Name);
-
-                                //Execuction of my sql query 
-                                cmd2.ExecuteNonQuery();
-
-                                MessageBox.Show("L'employee " + empTocreatee.Name + " " + empTocreatee.F_Name + " est active maintenant ! ", "infos");
-
-
-                            }
-                            else
-                            {
-                                // the user don't want update this client, in this case flag is false and i do nothing 
-                                flag = false;
-                                reader.Close();
-                            }//end if 
-
-                        }//end if 
-
-
-
-                    }
-                    else
-                    {
-                        //execution of my second query, the reader will have the second resultSet obj
-                        reader.NextResult();
-                        if (reader.Read())
-                        {
-                            //in this block, the Login exist in our DB.
-                            MessageBox.Show("Login existe deja dans la DB , changé votre Login SVP !", "Infos");
-                            flag = false;
-                            reader.Close();
-
-                        }
-                        else
-                        {
-                            //if there's no login, in this block i will insert my new Employee 
-                            reader.Close();
-
-                            sql ="INSERT INTO employee (emp_name , emp_f_name , Login , _password , is_active) VALUES (@name , @f_name , @Login , @pwrd , @Bool);";
-
-
-                            
-                            MySqlCommand cmd2 = new MySqlCommand(sql, conn);
-                            cmd2.Parameters.AddWithValue("@name", empTocreatee.Name);
-                            cmd2.Parameters.AddWithValue("@f_name", empTocreatee.F_Name);
-                            cmd2.Parameters.AddWithValue("@Login", empTocreatee.Login);
-                            cmd2.Parameters.AddWithValue("@pwrd", empTocreatee.Password);
-                            cmd2.Parameters.AddWithValue("@Bool", true);
-
-                            //Execuction of my sql query
-                            cmd2.ExecuteNonQuery();
-
-
-                            MessageBox.Show("L'employee " + empTocreatee.Name + " " + empTocreatee.F_Name + " a bien ete insere dans votre DB ! ", "Infos");
-                            
-                        }//end if 
-
-                    }//end if 
-
-
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    MessageBox.Show("problem d'insertion d'employee " + empTocreatee.Name + " " + empTocreatee.F_Name + " dans votre DB", "Infos");
-                    flag = false;
-
-
-                }//end try catch
-            }else
-            {
+           }
+            catch
+           {
+                MessageBox.Show("problème de create !");
                 flag = false;
-                MessageBox.Show("L'employee est null !", "Infos");
-            }
-
+           }
+           
             return flag;
            
         }//end create
@@ -230,123 +361,138 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
 
 
-        // test ok 
+
+
+
+
+
+
+
+
+
+
+
+
+        /// <summary>
+        /// check if emloyee exist in Facture table in our DB
+        /// </summary>
+        /// <param name="employee">employee ti check </param>
+        /// <returns>true if exist , false if not </returns>
+        public bool CheckExistedEmployeeInFacture (Employee employee)
+        {
+            bool flag;
+            try
+            {
+                string sql = "SELECT emp_num FROM facture WHERE emp_num = @num ;";
+
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@num", employee.Id);
+
+                //Execution of my sql query
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                flag = reader.Read();
+
+                reader.Close();
+
+            }
+            catch
+            {
+                MessageBox.Show("problème de CheckExistedEmployeeInFacture !");
+                flag = false;
+            }
+
+
+            return flag;
+
+        }//end CheckExistedEmployeeInFacture
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /// <summary>
+        /// delete an employee from our DB
+        /// </summary>
+        /// <param name="EmployeeToDelete">employee to delete </param>
+        /// <returns>true if our employee has been deleted , false if not </returns>        
         public override bool delete(Employee EmployeeToDelete)
         {
             bool flag = true;
 
-            if (EmployeeToDelete != null)
+            try
             {
-                string sql = "SELECT emp_num FROM facture WHERE emp_num = @num ; SELECT is_active FROM employee WHERE id_emp = @num ;";
-
-               
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@num", EmployeeToDelete.Id);
-
-                //Execuction of my sql query
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read())  //if the Employee existe in facture
-                {
-                    reader.NextResult();//here i'm geting the second result Obj 
-                    reader.Read();
-                   if (reader.GetBoolean("is_active")) //if the employee is active 
-                    {
-
-                        if (MessageBox.Show("vous ne pouvez pas supprimé l'employee num " + EmployeeToDelete.Id + " car il existe dans des factures, voulez vous le randre inactive ?", "infos", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                        {
-                            reader.Close();
-                            sql = "UPDATE employee SET is_active = @bool WHERE  ID_emp = @id ; ";
+                string sql = "DELETE FROM employee WHERE id_emp = @id ; ";
 
 
-                            MySqlCommand cmd2 = new MySqlCommand(sql, conn);
-                            cmd2.Parameters.AddWithValue("@bool", false);
-                            cmd2.Parameters.AddWithValue("@id", EmployeeToDelete.Id);
+                MySqlCommand cmd3 = new MySqlCommand(sql, conn);
+                cmd3.Parameters.AddWithValue("@id", EmployeeToDelete.Id);
 
-                            //Execuction of my sql query
-                            cmd2.ExecuteNonQuery();
-
-                            MessageBox.Show("L'employee num " + EmployeeToDelete.Id + " n'est pas supprimé de votre DB, mais il est inactive, donc vous ne pouvez plus l'insere dans une facture", "infos");
-                        }
-                        else
-                        {
-                            // the user don't want update this employee, in this case flag is false and i do nothing 
-                            flag = false;
-                            reader.Close();
-
-                        }//end if 
-                    }else // the Employee existe in facture and he is inactive 
-                    {
-                        flag = false;
-                        reader.Close();
-                        MessageBox.Show("Vous ne pouvez pas supprimé l'Employee num " + EmployeeToDelete.Id + " de votre DB car il existe dans des facture, et il est déjà inactive.", "infos");
-
-                    }//end if 
-                    
-
-                }
-                else // here our employee don't existe in my factures 
-                {
-                    reader.Close();
-
-                    sql = "DELETE FROM employee WHERE id_emp = @id ; ";
-
-                    
-                    MySqlCommand cmd3 = new MySqlCommand(sql, conn);
-                    cmd3.Parameters.AddWithValue("@id",EmployeeToDelete.Id);
-
-                    //Execuction of my sql query
-                    cmd3.ExecuteNonQuery();
-                    MessageBox.Show("L'employé " + EmployeeToDelete.Name + " " + EmployeeToDelete.F_Name + " a bien été suprimé de votre DB !");
-                }//end if 
+                //Execution of my sql query
+                cmd3.ExecuteNonQuery();
             }
-            else
+            catch
             {
+                MessageBox.Show("problème de delete !");
                 flag = false;
-                MessageBox.Show("L'employee est null !", "infos");
-            }//end if 
-
-
+            }
+            
             return flag;
         }//end delete
 
 
 
-        //no test 
+
+
+
+
+
+
+
+
+
+        /// <summary>
+        /// update employee infos in our DB
+        /// </summary>
+        /// <param name="EmployeeToUpdate"> employee to update </param>
+        /// <returns>true if employee has been updated , false if not </returns>        
         public override bool update(Employee EmployeeToUpdate) 
         { 
 
             bool flag = true;
 
 
-            if (EmployeeToUpdate!= null)
+            try
             {
-                try
-                {
-                    string sql = "UPDATE employee SET emp_name = @name , emp_f_name = @f_name, _password = @passwrd WHERE id_emp = @id ";
+                string sql = "UPDATE employee SET emp_name = @name , emp_f_name = @f_name, _password = @passwrd WHERE id_emp = @id ";
 
 
-                    MySqlCommand cmd = new MySqlCommand(sql, conn);
-                    cmd.Parameters.AddWithValue("@name", EmployeeToUpdate.Name);
-                    cmd.Parameters.AddWithValue("@f_name", EmployeeToUpdate.F_Name);
-                    cmd.Parameters.AddWithValue("@passwrd", EmployeeToUpdate.Password);
-                    cmd.Parameters.AddWithValue("@id", EmployeeToUpdate.Id);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@name", EmployeeToUpdate.Name);
+                cmd.Parameters.AddWithValue("@f_name", EmployeeToUpdate.F_Name);
+                cmd.Parameters.AddWithValue("@passwrd", EmployeeToUpdate.Password);
+                cmd.Parameters.AddWithValue("@id", EmployeeToUpdate.Id);
 
-                    //Execuction of my sql query
-                    cmd.ExecuteNonQuery();
+                //Execuction of my sql query
+                cmd.ExecuteNonQuery();
 
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    flag = false;
-                }//end trycatch 
-            }else
+            }
+            catch 
             {
+                MessageBox.Show("problème de update !");
                 flag = false;
-                MessageBox.Show("L'employee est null !", "Infos");
-
-            }//end if 
+            }//end trycatch 
 
             return flag;
 

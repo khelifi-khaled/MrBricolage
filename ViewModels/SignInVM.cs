@@ -1,13 +1,7 @@
 ﻿using MrBricolage.Models;
 using MrBricolage.Utilities.DAO;
 using MrBricolage.Views;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace MrBricolage.ViewModels
@@ -38,19 +32,62 @@ namespace MrBricolage.ViewModels
             myWindow.Close();
         }
 
-        public void save(SignInWindow myWindow)
+        public void Save(SignInWindow win)
         {
-
-            if (DAOFactory.GetEmployeeDAO.create(ThisEmployee))
+            if (ThisEmployee != null)
             {
-                MainWindow main = new MainWindow();
-                main.Show();
-                myWindow.Close();
+                if (DAOFactory.GetEmployeeDAO.CheckExistedEmployeeFullName(ThisEmployee))//check if the EmployeeToAdd whith the same name and same f_name exist in our DB
+                {
+                    if (DAOFactory.GetEmployeeDAO.CheckEmployeeStatus(ThisEmployee))
+                    {
+                        //if the Emlpoyee with the same name and same f_name exist in our DB and he is active as well.
+                        MessageBox.Show("l'employee " + ThisEmployee.Name + " " + ThisEmployee.F_Name + " existe deja dans votre DB !! ", "Infos");
+
+
+                    }
+                    else
+                    {
+                        //in this case, the employee with the same name and same f_name exist in our db, he is just inactive,
+                        MessageBox.Show("l'employee " + ThisEmployee.Name + " " + ThisEmployee.F_Name + " existe deja dans votre DB !!!", "Infos");
+
+
+                    }//end if 
+                }
+                else
+                {
+                    //in this block, EmployeeToAdd whith the same name and same f_name don't exist in our DB, i will check if Login EmployeeToAdd exist in our DB 
+                    if (DAOFactory.GetEmployeeDAO.CheckEmployeeLogin(ThisEmployee))//check if the Employee Login is Unique 
+                    {
+                        MessageBox.Show("Login existe deja dans la DB , changé votre Login SVP !", "Infos");
+                    }
+                    else
+                    {
+                        if (DAOFactory.GetEmployeeDAO.create(ThisEmployee))
+                        {
+                            MessageBox.Show("L'employee " + ThisEmployee.Name + " " + ThisEmployee.F_Name + " est bien cree dans votre DB ! ", "infos");
+                            MainWindow window = new MainWindow();
+                            window.Show();
+                            win.Close();
+                        }//end if 
+                    }//end if 
+                }
+
             }
+            else
+            {
+                MessageBox.Show("L'employeeest a null !");
+
+            }//end if 
 
         }//end save
 
 
+            //if (DAOFactory.GetEmployeeDAO.create(ThisEmployee))
+            //{
+            //    MainWindow main = new MainWindow();
+            //    main.Show();
+            //    myWindow.Close();
+            //}
 
         /// <summary>
         /// binding  

@@ -40,7 +40,13 @@ namespace MrBricolage.ViewModels
 
 
 
+        public void AddClient(ManagementClientWindow window)
+        {
+            AddClientWindow addClient = new AddClientWindow();
+            addClient.Show();
+            window.Close();
 
+        }//end AddClient
 
         /// <summary>
         /// binding  

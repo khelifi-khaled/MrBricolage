@@ -1,12 +1,7 @@
 ﻿using MrBricolage.Models;
 using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Dynamic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace MrBricolage.Utilities.DAO.DAOImplement
@@ -21,78 +16,63 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
 
 
-
+        /// <summary>
+        /// insert the invoice  in our DB
+        /// </summary>
+        /// <param name="factureToCreate"> invoice the we want to insert </param>
+        /// <returns>true if the invoice has been inserted, false if not </returns>
         public override bool create(Facture factureToCreate)
         {
             bool flag = true;
-            if (factureToCreate != null)
+
+            try
             {
-                try
+                string sql = "INSERT INTO facture (date_f , Client_num , emp_num , totalPrice) VALUES (@date,@idClient,@idEmp,@totelPrice)";
+
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@date", factureToCreate.Date);
+                cmd.Parameters.AddWithValue("@idClient", factureToCreate.Client.Id);
+                cmd.Parameters.AddWithValue("@idEmp", factureToCreate.Employee.Id);
+                cmd.Parameters.AddWithValue("@totelPrice", factureToCreate.TotalAmount);
+
+
+                //Execuction of my sql query 
+                cmd.ExecuteNonQuery();
+
+
+                foreach (Article art in factureToCreate.Articles)
                 {
-                    string sql = "INSERT INTO facture (date_f , Client_num , emp_num , totalPrice) VALUES (@date,@idClient,@idEmp,@totelPrice)";
-
-                    MySqlCommand cmd = new MySqlCommand(sql, conn);
-                    cmd.Parameters.AddWithValue("@date",factureToCreate.Date);
-                    cmd.Parameters.AddWithValue("@idClient", factureToCreate.Client.Id);
-                    cmd.Parameters.AddWithValue("@idEmp", factureToCreate.Employee.Id);
-                    cmd.Parameters.AddWithValue("@totelPrice", factureToCreate.TotalAmount);
-
+                    sql = "INSERT INTO list_of_art (id_art , id_Facture , quantity ) VALUES (@id_art , @id_facture , @quantity) ;";
+                    MySqlCommand cmd2 = new MySqlCommand(sql, conn);
+                    cmd2.Parameters.AddWithValue("@id_art", art.Id);
+                    cmd2.Parameters.AddWithValue("@id_facture", factureToCreate.Id);
+                    cmd2.Parameters.AddWithValue("@quantity", art.Quantity);
 
                     //Execuction of my sql query 
-                    cmd.ExecuteNonQuery();
-                   
+                    cmd2.ExecuteNonQuery();
 
-                    foreach(Article art in  factureToCreate.Articles)
-                    {
-                        sql = "INSERT INTO list_of_art (id_art , id_Facture , quantity ) VALUES (@id_art , @id_facture , @quantity) ;";
-                        MySqlCommand cmd2 = new MySqlCommand(sql, conn);
-                        cmd2.Parameters.AddWithValue("@id_art", art.Id);
-                        cmd2.Parameters.AddWithValue("@id_facture", factureToCreate.Id);
-                        cmd2.Parameters.AddWithValue("@quantity", art.Quantity);
+                }//end foreach loop 
 
-                        //Execuction of my sql query 
-                        cmd2.ExecuteNonQuery();
-
-                    }//end foreach loop 
-
-                    MessageBox.Show("la facture num " + factureToCreate.Id + " a bien ete insere dans vore DB");
-
-                }
-                catch(Exception ex)
-                {
-                    flag = false;
-                    Console.WriteLine(ex.Message);
-                    MessageBox.Show("Problem de creation de la Facture !");
-                }//end try catch 
-
-
-
-
-            }else
+            }
+            catch (Exception ex)
             {
                 flag = false;
-                MessageBox.Show("La facture est null !.");
-            }//end if
-
+                Console.WriteLine(ex.Message);
+                MessageBox.Show("Problem de creation de la Facture !");
+            }//end try catch 
 
 
             return flag;
         }//end create
 
-        
-
-        public override bool delete(Facture obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override Facture find(int id)
-        {
-            throw new NotImplementedException();
-        }
 
 
-        //no test 
+
+
+        /// <summary>
+        /// get all Factures existed in our DB
+        /// </summary>
+        /// <returns>Observable Collection of type Facture </returns>        
         public override ObservableCollection<Facture> findAll()
         {
             ObservableCollection<Facture> factures = new ObservableCollection<Facture>();
@@ -173,9 +153,25 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
            
         }//end GetFactureArt
 
+        public override bool delete(Facture obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Facture find(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
         public override bool update(Facture obj)
         {
             throw new NotImplementedException();
         }
+
+
+
+        
     }//end class 
 }//end namespace 

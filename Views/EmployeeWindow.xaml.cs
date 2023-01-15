@@ -47,7 +47,7 @@ namespace MrBricolage.Views
 
         private void managementFactures_Click(object sender, RoutedEventArgs e)
         {
-
+            EmployeeVM.ManagementFacture();
         }
 
         private void managementClients_Click(object sender, RoutedEventArgs e)

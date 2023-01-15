@@ -22,6 +22,7 @@ namespace MrBricolage.Views
 
         private void AddClient_Click(object sender, RoutedEventArgs e)
         {
+            this.ManagementClientVM.AddClient(this);
 
         }//end AddClient_Click
 
