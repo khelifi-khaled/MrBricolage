@@ -75,7 +75,7 @@ namespace MrBricolage.ViewModels
                         if ( val <= 0  )
                         {
 
-                            MessageBox.Show("La valeure de la Quantité d'article  ( "+ ArticleToAdd.Name + "    ) doit etre strictement supérieur a 0 ! ", "infos");
+                            MessageBox.Show("La valeure de la Quantité d'article  ("+ ArticleToAdd.Name + ") doit etre strictement supérieur a 0 ! ", "infos");
 
                         }else if (ArticleToAdd.Quantity < val)
                         {

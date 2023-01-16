@@ -447,11 +447,14 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
                 }//end while loop 
 
-                mySqlTransaction.Commit();
+              
 
                 reader.Close();
-                
-            }catch
+
+                mySqlTransaction.Commit();
+
+            }
+            catch
             {
                 mySqlTransaction.Rollback();
                 Console.WriteLine("problème de récupération des Articles");

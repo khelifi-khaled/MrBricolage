@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="AddArticleToFactureWindow" Height="400" Width="250">
     <StackPanel>
+        
         <!--Art Number-->
         <Label Content="N° Article:" Margin="10 0 0 0"/>
         <TextBox x:Name="Article_Number" Width="200" IsReadOnly="False" HorizontalAlignment="Left"  KeyDown ="Article_Number_KeyDown" Margin="10 0 0 0" Text="{Binding Path=ArticleToAdd.Id, UpdateSourceTrigger=PropertyChanged}"/>
