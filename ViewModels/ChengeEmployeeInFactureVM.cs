@@ -83,14 +83,21 @@ namespace MrBricolage.ViewModels
         {
             if (EmployeeToRepace != null)
             {
-                FactureToModifie.Employee = EmployeeToRepace;
-                ModifieFactureWindow window = new ModifieFactureWindow(FactureToModifie);
-                window.Show();
-                thisWin.Close();
+                if (DAOFactory.GetEmployeeDAO.CheckEmployeeStatus(EmployeeToRepace))
+                {
+                    FactureToModifie.Employee = EmployeeToRepace;
+                    ModifieFactureWindow window = new ModifieFactureWindow(FactureToModifie);
+                    window.Show();
+                    thisWin.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Vous ne pouvez pas inserer l'employée  " + EmployeeToRepace.F_Name + " " + EmployeeToRepace.Name + " car il est Inactive dans votre DB", "infos");
+                }
 
             }else
             {
-                MessageBox.Show("pour ne pouvez pas inserer un  employee vide a la place de " + FactureToModifie.Employee.F_Name + " " + FactureToModifie.Employee.Name, "infos");
+                MessageBox.Show("Vous ne pouvez pas inserer un  employee vide a la place de " + FactureToModifie.Employee.F_Name + " " + FactureToModifie.Employee.Name, "infos");
             }//end if 
         }//end ChangeEmployeeBTN
 

@@ -59,6 +59,13 @@ namespace MrBricolage.ViewModels
 
 
 
+        public void AddArticle()
+        {
+            AddArticleToFactureWindow add = new AddArticleToFactureWindow(SelectedFacture);
+            add.Show();
+        }//end AddArticle
+
+
 
         /// <summary>
         /// binding  

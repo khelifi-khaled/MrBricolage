@@ -108,6 +108,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                 if (reader.NextResult())
                 {
                     GetFactureArt(reader , factures);
+
                 }//end if 
 
                 
@@ -167,6 +168,26 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
            
         }//end GetFactureArt
+
+        /// <summary>
+        /// Method to check if the article existe in facture or not  in our DB
+        /// </summary>
+        /// <returns>true if article exist , false if not </returns>
+        public bool Check_existed_art()
+        {
+            bool flag = false;
+
+            try
+            {
+
+            }catch
+            {
+
+            }
+
+            return flag;
+
+        }// end Check_existed_art
 
         public override bool delete(Facture obj)
         {

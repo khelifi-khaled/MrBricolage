@@ -9,17 +9,17 @@
     <StackPanel>
         <!--Art Number-->
         <Label Content="N° Article:" Margin="10 0 0 0"/>
-        <TextBox x:Name="Article_Number" Width="200" IsReadOnly="False" HorizontalAlignment="Left"  KeyDown ="Article_Number_KeyDown" Margin="10 0 0 0" Text="{Binding Path=ArticleToAdd.Name, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox x:Name="Article_Number" Width="200" IsReadOnly="False" HorizontalAlignment="Left"  KeyDown ="Article_Number_KeyDown" Margin="10 0 0 0" Text="{Binding Path=ArticleToAdd.Id, UpdateSourceTrigger=PropertyChanged}"/>
 
         <!--Art Name-->
         <Label Content="Nom Article :" Margin="10 0 0 0"/>
-        <TextBox x:Name="Article_name" Width="200" IsReadOnly="True" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=ArticleToAdd.Price, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox x:Name="Article_name" Width="200" IsReadOnly="True" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=ArticleToAdd.Name, UpdateSourceTrigger=PropertyChanged}"/>
 
         <!--Art Price-->
         <Label Content="Prix Article :" Margin="10 0 0 0"/>
         <TextBox x:Name="Price_art" Width="200" IsReadOnly="True" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=ArticleToAdd.Price, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <!--Art Quantity-->
+        <!--Art Quantity stock-->
         <Label Content="Quantité Article en Stock :" Margin="10 0 0 0"/>
         <TextBox x:Name="Quantity_art" Width="200" IsReadOnly="True" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=ArticleToAdd.Quantity, UpdateSourceTrigger=PropertyChanged}"/>
 

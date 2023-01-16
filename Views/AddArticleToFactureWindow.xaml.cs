@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MrBricolage.Models;
+using MrBricolage.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,8 +21,13 @@ namespace MrBricolage.Views
     /// </summary>
     public partial class AddArticleToFactureWindow : Window
     {
-        public AddArticleToFactureWindow()
+        AddArticleToFactureVM AddArticleVM { get; set; }
+
+
+        public AddArticleToFactureWindow(Facture facture)
         {
+            AddArticleVM = new AddArticleToFactureVM(facture);
+            DataContext = AddArticleVM;
             InitializeComponent();
         }
 
@@ -36,7 +43,7 @@ namespace MrBricolage.Views
 
         private void Article_Number_KeyDown(object sender, KeyEventArgs e)
         {
-
+            AddArticleVM.Getarticle(this, e);
         }
     }
 }

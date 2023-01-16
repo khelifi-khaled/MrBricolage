@@ -1,10 +1,14 @@
 ﻿using MrBricolage.Models;
+using MrBricolage.Utilities.DAO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using System.Windows;
+using MrBricolage.Views;
 
 namespace MrBricolage.ViewModels
 {
@@ -42,7 +46,22 @@ namespace MrBricolage.ViewModels
 
 
 
+        public void Getarticle(AddArticleToFactureWindow win, KeyEventArgs e)
+        {
 
+            if (e.Key == Key.Enter)
+            {
+                if (int.TryParse(win.Article_Number.Text, out int val))
+                {
+                    ArticleToAdd = DAOFactory.GetArticleDAO.find(val);
+                }
+                else
+                {
+                    MessageBox.Show("Format d'Id est incorrecte !!");
+                }//end if 
+            }//end if 
+
+        }//end Getarticle
 
 
 

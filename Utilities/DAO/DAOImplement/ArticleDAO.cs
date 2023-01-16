@@ -362,7 +362,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
             try
             {
-                string sql = "SELECT ID_art , name_art , price_art FROM article WHERE ID_art = @id ; ";
+                string sql = "SELECT ID_art , name_art , price_art ,current_quantity  FROM article WHERE ID_art = @id ; ";
 
                 
                 MySqlCommand cmd = new MySqlCommand(sql, conn, mySqlTransaction);
@@ -374,7 +374,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                 if (reader.Read())
                 {
                     //if the art with the same id existe in our DB
-                    article = new Article(reader.GetInt32("ID_art") , reader.GetString("name_art"),reader.GetDouble("price_art"));
+                    article = new Article(reader.GetInt32("ID_art") , reader.GetString("name_art"),reader.GetDouble("price_art"),reader.GetInt32("current_quantity"));
 
                 }else
                 {

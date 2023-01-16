@@ -14,7 +14,11 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         }
 
 
-        // test  ok 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="idClient"></param>
+        /// <returns></returns>
         public override Client find(int idClient )
         {
             Client clientToFind= null;
