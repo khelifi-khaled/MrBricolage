@@ -24,6 +24,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
             Employee employeeToFind = null;
 
             MySqlTransaction mySqlTransaction = conn.BeginTransaction();
+
             try
             {
                 string sql ="SELECT id_emp as id , emp_name as name, emp_f_name as f_name , Login , _password FROM employee WHERE id_emp = @id ;";
@@ -45,11 +46,13 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                 }
 
 
-                mySqlTransaction.Commit();
+                
 
 
                 reader.Close();
 
+
+                mySqlTransaction.Commit();
 
             }
             catch 
@@ -103,8 +106,11 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                     employees.Add(e);
                 }
 
-                mySqlTransaction.Commit();  
+                
                 reader.Close();
+
+                mySqlTransaction.Commit();
+
 
             }
             catch 
@@ -162,8 +168,10 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                     flag = reader.GetBoolean("is_active");
                 }
 
-                mySqlTransaction.Commit();
+               
                 reader.Close();
+
+                mySqlTransaction.Commit();
 
             }
             catch
@@ -215,9 +223,11 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
                 flag = reader.Read();
 
-                mySqlTransaction.Commit();
+                
 
                 reader.Close();
+
+                mySqlTransaction.Commit();
 
             }
             catch
@@ -268,8 +278,10 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
                 flag = reader.Read();
 
-                mySqlTransaction.Commit();
+                
                 reader.Close();
+
+                mySqlTransaction.Commit();
             }
             catch
             {
@@ -420,9 +432,11 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
                 flag = reader.Read();
 
-                mySqlTransaction.Commit();
+                
 
                 reader.Close();
+
+                mySqlTransaction.Commit();
 
             }
             catch
@@ -461,21 +475,26 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         {
             bool flag = true;
 
+            MySqlTransaction mySqlTransaction = conn.BeginTransaction();
+
             try
             {
                 string sql = "DELETE FROM employee WHERE id_emp = @id ; ";
 
 
-                MySqlCommand cmd3 = new MySqlCommand(sql, conn);
+                MySqlCommand cmd3 = new MySqlCommand(sql, conn, mySqlTransaction);
                 cmd3.Parameters.AddWithValue("@id", EmployeeToDelete.Id);
 
                 //Execution of my sql query
                 cmd3.ExecuteNonQuery();
+
+                mySqlTransaction.Commit();
             }
             catch
             {
                 MessageBox.Show("problème de delete !");
                 flag = false;
+                mySqlTransaction.Rollback();
             }
             
             return flag;
@@ -502,13 +521,14 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
             bool flag = true;
 
+            MySqlTransaction mySqlTransaction = conn.BeginTransaction();
 
             try
             {
                 string sql = "UPDATE employee SET emp_name = @name , emp_f_name = @f_name, _password = @passwrd WHERE id_emp = @id ";
 
 
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn, mySqlTransaction);
                 cmd.Parameters.AddWithValue("@name", EmployeeToUpdate.Name);
                 cmd.Parameters.AddWithValue("@f_name", EmployeeToUpdate.F_Name);
                 cmd.Parameters.AddWithValue("@passwrd", EmployeeToUpdate.Password);
@@ -517,9 +537,12 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                 //Execuction of my sql query
                 cmd.ExecuteNonQuery();
 
+
+                mySqlTransaction.Commit();
             }
             catch 
             {
+                mySqlTransaction.Rollback();
                 MessageBox.Show("problème de update !");
                 flag = false;
             }//end trycatch 

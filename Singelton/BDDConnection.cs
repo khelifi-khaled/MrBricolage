@@ -41,8 +41,8 @@ namespace MrBricolage.Singelton
                     }
                 }
                 return _instance;
-            } 
-        }
+            }//end get  
+        }//end Instance
 
 
 

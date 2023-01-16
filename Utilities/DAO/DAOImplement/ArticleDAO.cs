@@ -2,6 +2,7 @@
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.ObjectModel;
+using System.Data.SqlClient;
 using System.Windows;
 
 namespace MrBricolage.Utilities.DAO.DAOImplement
@@ -32,11 +33,13 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         {
             bool flag = true;
 
+            MySqlTransaction mySqlTransaction = conn.BeginTransaction();
+
             try 
             {
                 string sql = "INSERT INTO article (name_art , price_art , is_active , current_quantity) VALUES (@name , @price , @bool ,@current_quantity) ; ";
 
-                MySqlCommand cmd2 = new MySqlCommand(sql, conn);
+                MySqlCommand cmd2 = new MySqlCommand(sql, conn, mySqlTransaction);
                 cmd2.Parameters.AddWithValue("@name", article.Name);
                 cmd2.Parameters.AddWithValue("@price", article.Price);
                 cmd2.Parameters.AddWithValue("@bool", true);
@@ -46,11 +49,13 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                 //Execution of my sql query 
                 cmd2.ExecuteNonQuery();
 
+                mySqlTransaction.Commit();
             }
             catch
             {
                 flag = false;
                 MessageBox.Show("problème sur create !", "infos");
+                mySqlTransaction.Rollback();
             }//end try catch 
 
          
@@ -78,11 +83,13 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         {
             bool flag = false;
 
+            MySqlTransaction mySqlTransaction = conn.BeginTransaction();
+
             try
             {
                 string sql = "UPDATE article SET is_active = @bool WHERE  name_art = @name ; ";
 
-                MySqlCommand cmd2 = new MySqlCommand(sql, conn);
+                MySqlCommand cmd2 = new MySqlCommand(sql, conn, mySqlTransaction);
                 cmd2.Parameters.AddWithValue("@bool", status);
                 cmd2.Parameters.AddWithValue("@name", article.Name);
 
@@ -91,10 +98,13 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
                 flag = true;
 
+                mySqlTransaction.Commit();
+
             }
             catch
             {
                 MessageBox.Show("problème sur UpdateArticleStatus !", "infos");
+                mySqlTransaction.Rollback();
             }
 
             return flag;
@@ -125,12 +135,14 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         {
             bool flag = false;
 
+            MySqlTransaction mySqlTransaction = conn.BeginTransaction();
+
             try
             {
                 string sql = "SELECT is_active  FROM article WHERE name_art = @name ;";
 
 
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn, mySqlTransaction);
                 cmd.Parameters.AddWithValue("@name", article.Name);
 
 
@@ -144,10 +156,15 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
                 }//end if 
 
+                
+
                 reader.Close();
+
+                mySqlTransaction.Commit();
             }
             catch
             {
+                mySqlTransaction.Rollback();
                 MessageBox.Show("problème sur GetArticleStatus !", "infos");
             }
 
@@ -177,12 +194,14 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         {
             bool flag = false;
 
+            MySqlTransaction mySqlTransaction = conn.BeginTransaction();
+
             try
             {
                 string sql = "SELECT name_art , is_active  FROM article WHERE name_art = @name ;";
 
 
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn, mySqlTransaction);
                 cmd.Parameters.AddWithValue("@name", article.Name);
 
 
@@ -192,10 +211,15 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
                 flag = reader.Read();
 
+
+                
                 reader.Close();
+
+                mySqlTransaction.Commit();
             }
             catch
             {
+                mySqlTransaction.Rollback();
                 MessageBox.Show("problème sur checkExestedArticle !", "infos");
             }
 
@@ -223,13 +247,15 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
         public bool CheckExistedArticleInFacture(Article article)
         {
-            bool flag = false; 
+            bool flag = false;
+
+            MySqlTransaction mySqlTransaction = conn.BeginTransaction();
 
             try
             {
                 string sql = "SELECT id_art from list_of_art WHERE  id_art = @id ; ";
 
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn, mySqlTransaction);
                 cmd.Parameters.AddWithValue("@id", article.Id);
 
                 //Execution of my sql query
@@ -237,12 +263,17 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
                 flag = reader.Read();
 
+                
+
                 reader.Close();
+
+                mySqlTransaction.Commit();
 
 
             }
             catch
             {
+                mySqlTransaction.Rollback();
                 MessageBox.Show("problème sur CheckExistedArticleInFacture !", "infos");
 
             }//end trycatch
@@ -274,21 +305,26 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         {
             bool flag = true;
 
+            MySqlTransaction mySqlTransaction = conn.BeginTransaction();
+
             try
             {
                 string sql = "DELETE FROM article WHERE id_art = @id ; ";
 
 
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn, mySqlTransaction);
                 cmd.Parameters.AddWithValue("@id", article.Id);
 
                 //Execution of my sql query
                 cmd.ExecuteNonQuery();
 
 
+                mySqlTransaction.Commit();
+
             }
             catch
             {
+                mySqlTransaction.Rollback();
                 MessageBox.Show("problème sur delete !", "infos");
                 flag = false;
             }
@@ -321,12 +357,15 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         public override Article find(int id)
         {
             Article article = null;
+
+            MySqlTransaction mySqlTransaction = conn.BeginTransaction();
+
             try
             {
                 string sql = "SELECT ID_art , name_art , price_art FROM article WHERE ID_art = @id ; ";
 
                 
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn, mySqlTransaction);
                 cmd.Parameters.AddWithValue("@id", id);
 
                 //Execuction of my sql query
@@ -344,11 +383,14 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
                 }//end if 
 
-
+               
                 reader.Close();
+
+                mySqlTransaction.Commit();
             }
             catch(Exception e)
             {
+                mySqlTransaction.Rollback();
                 Console.WriteLine(e.Message);
                 
             }//end trycatch 
@@ -385,12 +427,14 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         {
             ObservableCollection < Article > articles = new ObservableCollection<Article>();
 
+            MySqlTransaction mySqlTransaction = conn.BeginTransaction();
+
             try
             {
                 string sql = "SELECT ID_art , name_art , price_art , current_quantity FROM article WHERE is_active ; ";
 
                 
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn, mySqlTransaction);
 
                 //Execuction of my sql query
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -403,11 +447,13 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
                 }//end while loop 
 
+                mySqlTransaction.Commit();
+
                 reader.Close();
                 
             }catch
             {
-                
+                mySqlTransaction.Rollback();
                 Console.WriteLine("problème de récupération des Articles");
             }//end trycatch 
 
@@ -441,14 +487,15 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         {
             bool flag= true;
 
-            
+            MySqlTransaction mySqlTransaction = conn.BeginTransaction();
+
             try
             {
 
-                string sql = "UPDATE article SET  name_art = @name , price_art = @price, current_quantity = @quantity WHERE ID_art = @id";
+                string sql = "UPDATE article SET  name_art = @name , price_art = @price , current_quantity = @quantity WHERE ID_art = @id";
 
                    
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn, mySqlTransaction);
                 cmd.Parameters.AddWithValue("@name" , articleToUpdate.Name);
                 cmd.Parameters.AddWithValue("@price", articleToUpdate.Price);
                 cmd.Parameters.AddWithValue("@id", articleToUpdate.Id);
@@ -457,10 +504,11 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                 //Execution of my sql query
                 cmd.ExecuteNonQuery();
 
-
+                mySqlTransaction.Commit();
             }
             catch
             {
+                mySqlTransaction.Rollback();
                 flag = false;
                 MessageBox.Show("problème sur update");
             }//end trycatch 

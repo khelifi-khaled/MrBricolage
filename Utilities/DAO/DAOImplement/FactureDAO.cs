@@ -48,7 +48,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                 foreach (Article art in factureToCreate.Articles)
                 {
                     sql = "INSERT INTO list_of_art (id_art , id_Facture , quantity ) VALUES (@id_art , @id_facture , @quantity) ;";
-                    MySqlCommand cmd2 = new MySqlCommand(sql, conn, mySqlTransaction);
+                    MySqlCommand cmd2 = new MySqlCommand(sql, conn,mySqlTransaction);
                     cmd2.Parameters.AddWithValue("@id_art", art.Id);
                     cmd2.Parameters.AddWithValue("@id_facture", factureToCreate.Id);
                     cmd2.Parameters.AddWithValue("@quantity", art.Quantity);
@@ -110,12 +110,15 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                     GetFactureArt(reader , factures);
                 }//end if 
 
-                mySqlTransaction.Commit();
+                
 
                 reader.Close();
+
+                mySqlTransaction.Commit();
             }
             catch(Exception ex)
             {
+                mySqlTransaction.Rollback();
                 Console.WriteLine(ex.Message);
             }//end trycatch 
 

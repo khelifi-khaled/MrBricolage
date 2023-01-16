@@ -102,6 +102,14 @@ namespace MrBricolage.Models
         }//AddArticle
 
 
+        public bool Check_Quantity_art(Article artToAdd,int StockQuantity)
+        {
+            bool flag = false ;
+
+
+            return flag;
+        }
+
 
         /// <summary>
         /// Method to calcul total amount 

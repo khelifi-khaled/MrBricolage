@@ -47,8 +47,10 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
                 }//end if 
 
-                mySqlTransaction.Commit();
                 reader.Close();
+
+                mySqlTransaction.Commit();
+
             }
             catch
             {
@@ -106,9 +108,12 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                 }//end while loop 
 
 
-                mySqlTransaction.Commit();
+                
 
                 reader.Close();
+
+
+                mySqlTransaction.Commit();
             }
             catch
             {
@@ -273,9 +278,12 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
                 }//end if
 
-                mySqlTransaction.Commit();
+                
 
                 reader.Close();
+
+
+                mySqlTransaction.Commit();
 
             }
             catch 
@@ -331,8 +339,11 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
                 flag = (reader.Read());
 
-                mySqlTransaction.Commit();
+                
                 reader.Close();
+
+                mySqlTransaction.Commit();
+
             }
             catch 
             {
@@ -388,6 +399,9 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
                 //Execution of my sql query
                 cmd.ExecuteNonQuery();
+
+
+
                 mySqlTransaction.Commit();
 
             }
@@ -441,8 +455,10 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
                 flag = reader.Read();
 
-                mySqlTransaction.Commit();
+                
                 reader.Close();
+
+                mySqlTransaction.Commit();
             }
             catch
             {
