@@ -1,9 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MrBricolage.Singelton
 {
@@ -14,26 +10,59 @@ namespace MrBricolage.Singelton
         private string connString = "SERVER= localhost ; DATABASE = mrbricolage ; UID= root ; PASSWORD =;";
 
         //object connection 
-        private static MySqlConnection conn;
+        private  MySqlConnection _conn;
 
 
         //singleton 
-        private volatile static BDDConnection single;
+        //private volatile static BDDConnection single;
 
 
-        
-        /**
-	    * private constructor  
-	    */
+        private volatile static BDDConnection _instance;
+
+
+
+        public static BDDConnection Instance
+        { 
+            get 
+            {
+                //Est-ce que l'_instance est !=null?
+                _instance = _instance ?? new BDDConnection();
+                //est-ce que ma connection est toujours en vie (alive)
+                if(_instance.Conn.State== System.Data.ConnectionState.Broken)
+                {
+                    try
+                    {
+                        _instance.Conn.Close();
+                        _instance.Conn.Open();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+                return _instance;
+            } 
+        }
+
+
+
+        public MySqlConnection Conn { get => _conn; set => _conn = value; }
+
+
+
+
+
+
+        /// <summary>
+        /// private constructor  
+        /// </summary>
         private BDDConnection()
         {
             try
             {
-
-                conn = new MySqlConnection(connString);
-                conn.Open();
+                Conn = new MySqlConnection(connString);
+                Conn.Open();
                 Console.WriteLine("Connection to database opened !");
-
             }
             catch (Exception ex)
             {
@@ -51,21 +80,21 @@ namespace MrBricolage.Singelton
 
 
 
-        /**
-         * method connect to our DB  
-         * @return Connection
-         */
-        public static MySqlConnection getInstance()
-        {
-            if (single == null)
-            {
-                single = new BDDConnection();
-            }
+        ///**
+        // * method connect to our DB  
+        // * @return Connection
+        // */
+        //public static MySqlConnection getInstance()
+        //{
+        //    if (single == null)
+        //    {
+        //        single = new BDDConnection();
+        //    }
 
-            return conn;
+        //    return conn;
 
 
-        }//end getInstance
+        //}//end getInstance
 
 
 

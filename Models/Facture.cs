@@ -97,15 +97,25 @@ namespace MrBricolage.Models
                 this.Articles.Add(artToAdd);
             }//end if 
 
+            this.TotalAmount = CalculTotalAmount();
+
         }//AddArticle
 
 
 
+        /// <summary>
+        /// Method to calcul total amount 
+        /// </summary>
+        /// <returns>if the client is a company, it will return total without VAT , if not total + VAT</returns>
 
-
-        public void CalculTotalAmount()
+        public double CalculTotalAmount()
         {
-
+            double total = 0.0;
+           foreach(Article article in this.Articles)
+            {
+                total += (this.Client.IsCompany) ? (article.Price * article.Quantity) : (article.Price * article.Quantity * 1.21);
+            }
+           return Math.Round(total,2);
 
         }//end CalculTotalAmount
 

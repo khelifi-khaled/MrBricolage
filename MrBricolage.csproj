@@ -96,6 +96,7 @@
     <Compile Include="Utilities\DAO\DAOImplement\ArticleDAO.cs" />
     <Compile Include="Utilities\DAO\DAOImplement\ClientDAO.cs" />
     <Compile Include="Utilities\DAO\DAOImplement\FactureDAO.cs" />
+    <Compile Include="ViewModels\AddArticleToFactureVM.cs" />
     <Compile Include="ViewModels\AddArticleVM.cs" />
     <Compile Include="ViewModels\AddClientVM.cs" />
     <Compile Include="ViewModels\AddEmployeeVM.cs" />
@@ -111,6 +112,9 @@
     <Compile Include="ViewModels\ModifieEmpVM.cs" />
     <Compile Include="ViewModels\ModifieFactureVM.cs" />
     <Compile Include="ViewModels\SignInVM.cs" />
+    <Compile Include="Views\AddArticleToFactureWindow.xaml.cs">
+      <DependentUpon>AddArticleToFactureWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AddArticleWindow.xaml.cs">
       <DependentUpon>AddArticleWindow.xaml</DependentUpon>
     </Compile>
@@ -156,6 +160,10 @@
     <Compile Include="Views\SignInWindow.xaml.cs">
       <DependentUpon>SignInWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\AddArticleToFactureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AddArticleWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

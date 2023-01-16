@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MrBricolage.Views"
         mc:Ignorable="d"
-        Title="AddArticleWindow" Height="250" Width="250">
+        Title="AddArticleWindow" Height="300" Width="250">
     <StackPanel>
         <!--Art name-->
         <Label Content="Nom Article:" Margin="10 0 0 0"/>
@@ -14,6 +14,11 @@
         <!--Art Price-->
         <Label Content="Prix :" Margin="10 0 0 0"/>
         <TextBox x:Name="Price_art" Width="200" IsReadOnly="False" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=ArticleToAdd.Price, UpdateSourceTrigger=PropertyChanged}"/>
+
+
+        <!--Art current quantity-->
+        <Label Content="la quantité actuelle  :" Margin="10 0 0 0"/>
+        <TextBox x:Name="current_quantity" Width="200" IsReadOnly="False" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=ArticleToAdd.Quantity, UpdateSourceTrigger=PropertyChanged}"/>
 
 
         <StackPanel Orientation ="Horizontal" Margin="0 60 0 0" Width="200" Height="30">

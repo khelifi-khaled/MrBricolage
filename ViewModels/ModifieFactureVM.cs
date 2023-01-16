@@ -34,8 +34,12 @@ namespace MrBricolage.ViewModels
 
         
 
-
-
+        public void Exit (ModifieFactureWindow thisWin)
+        {
+            ManagementFactureWindow window = new ManagementFactureWindow();
+            window.Show();
+            thisWin.Close();
+        }
 
         public void Chenge_Client (ModifieFactureWindow thisWin)
         {

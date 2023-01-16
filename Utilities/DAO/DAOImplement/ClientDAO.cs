@@ -19,6 +19,8 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         {
             Client clientToFind= null;
 
+            MySqlTransaction mySqlTransaction = conn.BeginTransaction();
+
             try
             {
 
@@ -26,7 +28,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
 
                 
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn, mySqlTransaction);
                 cmd.Parameters.AddWithValue("@id", idClient);
 
                 //Execution of my sql query 
@@ -42,14 +44,16 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                     //else there's no rows in the reader, so the client don't exist on my DB 
                     MessageBox.Show("le client num " + idClient +  "   n'existe pas dans votre DB !");
 
+
                 }//end if 
 
+                mySqlTransaction.Commit();
                 reader.Close();
             }
             catch
             {
                 MessageBox.Show("problème de récupération de client num" + idClient , "infos");
-
+                mySqlTransaction.Rollback();
 
             }//end trycatch 
             
@@ -81,14 +85,14 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         public override ObservableCollection<Client> findAll()
         {
             ObservableCollection < Client > clients = new ObservableCollection<Client>();
-
+            MySqlTransaction mySqlTransaction = conn.BeginTransaction();
             try
             {
 
                 string sql = "SELECT ID_client , is_company, name_client , f_name_client , Email_client , Adresse_client FROM client WHERE is_active  ;";
 
                 
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn, mySqlTransaction);
                 
 
                 //Execution of my sql query 
@@ -101,10 +105,14 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
                 }//end while loop 
 
+
+                mySqlTransaction.Commit();
+
                 reader.Close();
             }
             catch
-            { 
+            {
+                mySqlTransaction.Rollback();
                 MessageBox.Show("problème de récupération des clients  ", "infos");
 
             }//end trycatch 
@@ -133,12 +141,15 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         public override bool create(Client client)
         {
             bool flag  = true;
+
+            MySqlTransaction mySqlTransaction = conn.BeginTransaction();
+
             try
             {
                 string sql = "INSERT INTO client (is_Company , name_client , f_name_client , Email_client , Adresse_client , is_active) VALUES (@company, @name , @f_name , @email , @adresse , @bool) ; ";
 
 
-                MySqlCommand cmd2 = new MySqlCommand(sql, conn);
+                MySqlCommand cmd2 = new MySqlCommand(sql, conn, mySqlTransaction);
                 cmd2.Parameters.AddWithValue("@company", client.IsCompany);
                 cmd2.Parameters.AddWithValue("@name", client.Name);
                 cmd2.Parameters.AddWithValue("@f_name", client.F_name);
@@ -148,12 +159,14 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
                 //Execution of my sql query 
                 cmd2.ExecuteNonQuery();
+
+                mySqlTransaction.Commit();
             }
             catch 
             {
                 flag = false;
                 MessageBox.Show("problème de  create " + client.Name + " " + client.F_name, "infos");
-
+                mySqlTransaction.Rollback();
             }//end trycatch 
 
             return flag;
@@ -184,22 +197,27 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         public bool UpdateClientStatus(Client client,bool status)
         {
             bool flag = true;
+
+            MySqlTransaction mySqlTransaction = conn.BeginTransaction();
             try
             {
                 string sql = "UPDATE client SET is_active = @bool WHERE  name_client = @name and f_name_client = @f_name ;";
 
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn, mySqlTransaction);
                 cmd.Parameters.AddWithValue("@bool", status);
                 cmd.Parameters.AddWithValue("@name", client.Name);
                 cmd.Parameters.AddWithValue("@f_name", client.F_name);
 
                 //Execution of my sql query
                 cmd.ExecuteNonQuery();
+
+                mySqlTransaction.Commit();
             }
             catch
             {
                 flag = false;
                 MessageBox.Show("problème de  UpdateClientStatusToActive " + client.Name + " " + client.F_name, "infos");
+                mySqlTransaction.Rollback();
             }
 
             return flag;
@@ -234,12 +252,14 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         {
             bool flag = false;
 
+            MySqlTransaction mySqlTransaction = conn.BeginTransaction();
+
             try
             {
                 string sql = "SELECT  is_active FROM client WHERE  name_client = @name and f_name_client = @f_name ; ";
 
 
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn, mySqlTransaction);
 
                 cmd.Parameters.AddWithValue("@name", client.Name);
                 cmd.Parameters.AddWithValue("@f_name", client.F_name);
@@ -251,7 +271,9 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                 {
                     flag = reader.GetBoolean("is_active");
 
-                }//end if                
+                }//end if
+
+                mySqlTransaction.Commit();
 
                 reader.Close();
 
@@ -261,6 +283,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                 
                 MessageBox.Show("problème de  CheckClientStatus " + client.Name + " " + client.F_name, "infos");
                 flag = false;
+                mySqlTransaction.Rollback();
             }//end trycatch 
 
             return flag;
@@ -293,13 +316,13 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         public bool CheckExistedClientFullName(Client client)
         {
             bool flag;
-
+            MySqlTransaction mySqlTransaction = conn.BeginTransaction();
             try
             {
                 string sql = "SELECT name_Client , f_name_client  FROM client WHERE name_Client = @name AND f_name_client = @f_name ; ";
 
 
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn, mySqlTransaction);
                 cmd.Parameters.AddWithValue("@name", client.Name);
                 cmd.Parameters.AddWithValue("@f_name", client.F_name);
 
@@ -308,12 +331,14 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
                 flag = (reader.Read());
 
+                mySqlTransaction.Commit();
                 reader.Close();
             }
             catch 
             {
                 MessageBox.Show("problème de  CheckExistedClientFullName " + client.Name + " " + client.F_name, "infos");
                 flag = false;
+                mySqlTransaction.Rollback();
             }//end trycatch 
 
 
@@ -350,22 +375,27 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         {
             bool flag = true;
 
+            MySqlTransaction mySqlTransaction = conn.BeginTransaction();
+
             try
             {
                 string sql = "DELETE FROM client WHERE id_client = @id ; ";
 
 
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn, mySqlTransaction);
                 cmd.Parameters.AddWithValue("@id", client.Id);
 
 
                 //Execution of my sql query
                 cmd.ExecuteNonQuery();
+                mySqlTransaction.Commit();
+
             }
             catch
             {
                 MessageBox.Show("problème sur delete ! ");
                 flag = false;
+                mySqlTransaction.Rollback();
             }
 
             return flag;
@@ -396,12 +426,14 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         public bool CheckExistedClientInFacture(Client client)
         {
             bool flag;
+
+            MySqlTransaction mySqlTransaction = conn.BeginTransaction();
             try
             {
                 string sql = "SELECT client_num FROM facture WHERE client_num = @id ;";
 
 
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn, mySqlTransaction);
                 cmd.Parameters.AddWithValue("@id", client.Id);
 
                 //Execution of my sql query
@@ -409,12 +441,14 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
                 flag = reader.Read();
 
+                mySqlTransaction.Commit();
                 reader.Close();
             }
             catch
             {
                 MessageBox.Show("problème sur CheckExistedClientInFacture !", "infos");
                 flag = false;
+                mySqlTransaction.Rollback();
             }
 
 
@@ -450,13 +484,13 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         public override  bool update(Client client)
         {
             bool flag = true;
-
+            MySqlTransaction mySqlTransaction = conn.BeginTransaction();
             try
             {
                 string sql = "UPDATE client SET is_Company = @company , name_client = @name , f_name_client = @f_name , Email_client = @email , Adresse_client = @adresse WHERE ID_client = @id ";
 
 
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn, mySqlTransaction);
                 cmd.Parameters.AddWithValue("@company", client.IsCompany);
                 cmd.Parameters.AddWithValue("@name", client.Name);
                 cmd.Parameters.AddWithValue("@email", client.Email);
@@ -467,11 +501,14 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                 //Execution of my sql query 
                 cmd.ExecuteNonQuery();
 
+                mySqlTransaction.Commit();
+
             }
             catch
             {
                 MessageBox.Show("problème de mis à jour  de  " + client.Name + " " + client.F_name, "infos");
                 flag = false;
+                mySqlTransaction.Rollback();
             }//end trycatch  
 
             return flag;

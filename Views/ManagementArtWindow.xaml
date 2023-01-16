@@ -26,6 +26,7 @@
                     <DataGridTextColumn Header="Num.Art" Binding="{Binding Id}"/>
                     <DataGridTextColumn Header="Nom Art" Binding="{Binding Name}"/>
                     <DataGridTextColumn Header="Price Art" Binding="{Binding Price}"/>
+                    <DataGridTextColumn Header="Quantity Art Stock" Binding="{Binding Quantity}"/>
                 </DataGrid.Columns>
             </DataGrid>
             

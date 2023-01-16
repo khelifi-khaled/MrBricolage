@@ -24,11 +24,7 @@
                 <MenuItem x:Name="managementFactures" Header="gestion des Factures"  Click="managementFactures_Click"/>
                 <MenuItem x:Name="managementClients" Header="gestion des Clients"  Click="managementClients_Click"/>
             </MenuItem>
-            <MenuItem Header="Archive">
-                <MenuItem x:Name="ArchiveEmployee" Header="Archive des Employees"  Click="ArchiveEmployee_Click"/>
-                <MenuItem x:Name="ArchiveArticle" Header="Archive des Articles"  Click="ArchiveArticle_Click"/>
-                <MenuItem x:Name="ArchiveClients" Header="Archive des Clients"  Click="ArchiveClients_Click"/>
-            </MenuItem>
+           
             
 
         </Menu>
@@ -37,7 +33,7 @@
             <!-- hi my dear -->
             <TextBlock Text="Bonjour Mr "  Margin="0 0 0 0 " Width="90" Height="19" Foreground="Red"/>
 
-            <!--nom + prenom d'employee  -->
+            <!--Employee F_name -->
 
             <TextBlock  Text="{Binding EmployeeConnected.F_Name , UpdateSourceTrigger=PropertyChanged}" Margin="0 0 0 0"  Foreground="Red" Height="17" Width="100" />
         </StackPanel>

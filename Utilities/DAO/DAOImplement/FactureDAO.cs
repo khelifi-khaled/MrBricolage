@@ -2,6 +2,7 @@
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.ObjectModel;
+using System.Data.SqlClient;
 using System.Windows;
 
 namespace MrBricolage.Utilities.DAO.DAOImplement
@@ -24,12 +25,15 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         public override bool create(Facture factureToCreate)
         {
             bool flag = true;
-
+            MySqlTransaction mySqlTransaction = conn.BeginTransaction();
             try
             {
+
+               
+
                 string sql = "INSERT INTO facture (date_f , Client_num , emp_num , totalPrice) VALUES (@date,@idClient,@idEmp,@totelPrice)";
 
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn, mySqlTransaction);
                 cmd.Parameters.AddWithValue("@date", factureToCreate.Date);
                 cmd.Parameters.AddWithValue("@idClient", factureToCreate.Client.Id);
                 cmd.Parameters.AddWithValue("@idEmp", factureToCreate.Employee.Id);
@@ -39,11 +43,12 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                 //Execuction of my sql query 
                 cmd.ExecuteNonQuery();
 
+                
 
                 foreach (Article art in factureToCreate.Articles)
                 {
                     sql = "INSERT INTO list_of_art (id_art , id_Facture , quantity ) VALUES (@id_art , @id_facture , @quantity) ;";
-                    MySqlCommand cmd2 = new MySqlCommand(sql, conn);
+                    MySqlCommand cmd2 = new MySqlCommand(sql, conn, mySqlTransaction);
                     cmd2.Parameters.AddWithValue("@id_art", art.Id);
                     cmd2.Parameters.AddWithValue("@id_facture", factureToCreate.Id);
                     cmd2.Parameters.AddWithValue("@quantity", art.Quantity);
@@ -53,12 +58,16 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
                 }//end foreach loop 
 
+                mySqlTransaction.Commit();
+
             }
             catch (Exception ex)
             {
                 flag = false;
                 Console.WriteLine(ex.Message);
                 MessageBox.Show("Problem de creation de la Facture !");
+                mySqlTransaction.Rollback();
+
             }//end try catch 
 
 
@@ -76,13 +85,13 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         public override ObservableCollection<Facture> findAll()
         {
             ObservableCollection<Facture> factures = new ObservableCollection<Facture>();
-
+            MySqlTransaction mySqlTransaction = conn.BeginTransaction();
             try
             {
                 string sql = "SELECT  date_f , ID_f, Client_num , emp_num , totalPrice  , Is_Company , name_client , f_name_client , Email_client , Adresse_client , emp_name , emp_f_name , Login , _password FROM facture join employee ON id_emp = emp_num join client ON ID_client = client_num;" +
                     "SELECT a.id_art , l.id_facture , l.quantity as q , a.name_art as name , a.price_art as price from list_of_art l join article a  ON  l.id_art = a.id_art ;";
 
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn, mySqlTransaction);
 
 
                 //Execuction of my sql query 
@@ -98,8 +107,11 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
                 if (reader.NextResult())
                 {
-                    GetFactureArt(reader, factures);
+                    GetFactureArt(reader , factures);
                 }//end if 
+
+                mySqlTransaction.Commit();
+
                 reader.Close();
             }
             catch(Exception ex)

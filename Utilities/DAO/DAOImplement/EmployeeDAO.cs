@@ -20,14 +20,17 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         //test ok 
         public override Employee find(int id)
         {
+           
             Employee employeeToFind = null;
+
+            MySqlTransaction mySqlTransaction = conn.BeginTransaction();
             try
             {
                 string sql ="SELECT id_emp as id , emp_name as name, emp_f_name as f_name , Login , _password FROM employee WHERE id_emp = @id ;";
 
 
                  
-                MySqlCommand cmd = new MySqlCommand(sql,conn);
+                MySqlCommand cmd = new MySqlCommand(sql,conn, mySqlTransaction);
                 cmd.Parameters.AddWithValue("@id", id);
 
                 //Execution of my sql query
@@ -41,16 +44,17 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                     MessageBox.Show("l'employee num " + id + "n'existe pas dans votre DB !");
                 }
 
-                
 
-                
+                mySqlTransaction.Commit();
+
+
                 reader.Close();
 
 
             }
             catch 
             {
-              
+                mySqlTransaction.Rollback();
                 MessageBox.Show("problème de recuperation de l'employée num " + id );
             }//end tryCatch 
 
@@ -77,13 +81,14 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         /// <returns> Observable Collection type Employee  </returns>        
         public override ObservableCollection<Employee> findAll()
         {
+            MySqlTransaction mySqlTransaction = conn.BeginTransaction();
             ObservableCollection<Employee> employees = new ObservableCollection<Employee>();
 
             try
             {
                 string sql = "SELECT id_emp as id , emp_name as name, emp_f_name as f_name , Login , _password FROM employee WHERE is_active  ;";
                 
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn, mySqlTransaction);
                 
 
                 //Execution of my sql query 
@@ -97,11 +102,14 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                     Employee e = new Employee(reader.GetInt32("id"), reader.GetString("name"), reader.GetString("f_name"), reader.GetString("Login"), reader.GetString("_password"));
                     employees.Add(e);
                 }
+
+                mySqlTransaction.Commit();  
                 reader.Close();
 
             }
             catch 
-            {  
+            {
+                mySqlTransaction.Rollback();
                 MessageBox.Show("problème de recuperation des employées !");
             }
 
@@ -135,13 +143,14 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         public bool CheckEmployeeStatus(Employee employee)
         {
             bool flag = false;
+            MySqlTransaction mySqlTransaction = conn.BeginTransaction();
 
             try
             {
                 string sql = "SELECT is_active  FROM employee WHERE  emp_name = @name AND emp_f_name =  @f_name ;";
 
 
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn, mySqlTransaction);
                 cmd.Parameters.AddWithValue("@name", employee.Name);
                 cmd.Parameters.AddWithValue("@f_name", employee.F_Name);
 
@@ -153,11 +162,13 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                     flag = reader.GetBoolean("is_active");
                 }
 
+                mySqlTransaction.Commit();
                 reader.Close();
 
             }
             catch
             {
+                mySqlTransaction.Rollback();
                 MessageBox.Show("problème de GetEmployeeStatus !");
             }
 
@@ -190,13 +201,13 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         public bool CheckEmployeeLogin(Employee employee)
         {
             bool flag = false;
-
+            MySqlTransaction mySqlTransaction = conn.BeginTransaction();
             try
             {
                 string sql = "SELECT Login  FROM employee WHERE Login = @Lg ;";
 
 
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn, mySqlTransaction);
                 cmd.Parameters.AddWithValue("@Lg", employee.Login);
 
                 //Execution of mysql query
@@ -204,11 +215,14 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
                 flag = reader.Read();
 
+                mySqlTransaction.Commit();
+
                 reader.Close();
 
             }
             catch
             {
+                mySqlTransaction.Rollback();
                 MessageBox.Show("problème de GetEmployeeStatus !");
             }
 
@@ -240,11 +254,12 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         public bool CheckExistedEmployeeFullName(Employee employee)
         {
             bool flag = false;
+            MySqlTransaction mySqlTransaction = conn.BeginTransaction();
             try
             {
                 string sql = "SELECT emp_name , emp_f_name , is_active FROM employee WHERE emp_name = @name AND emp_f_name = @f_name ;";
 
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn, mySqlTransaction);
                 cmd.Parameters.AddWithValue("@name", employee.Name);
                 cmd.Parameters.AddWithValue("@f_name", employee.F_Name);
 
@@ -253,10 +268,12 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
                 flag = reader.Read();
 
+                mySqlTransaction.Commit();
                 reader.Close();
             }
             catch
             {
+                mySqlTransaction.Rollback();
                 MessageBox.Show("problème de CheckExistedEmploueeFullName !");
                 
             }
@@ -286,13 +303,14 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         {
 
             bool flag = true;
-            
+            MySqlTransaction mySqlTransaction = conn.BeginTransaction();
+
             try
             {
                 string sql = "UPDATE employee SET is_active = @Bool WHERE  emp_name = @name AND emp_f_name = @f_name ;";
 
 
-                MySqlCommand cmd2 = new MySqlCommand(sql, conn);
+                MySqlCommand cmd2 = new MySqlCommand(sql, conn, mySqlTransaction);
                 cmd2.Parameters.AddWithValue("@Bool", status);
                 cmd2.Parameters.AddWithValue("@name", employee.Name);
                 cmd2.Parameters.AddWithValue("@f_name", employee.F_Name);
@@ -300,11 +318,12 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                 //Execution of my sql query 
                 cmd2.ExecuteNonQuery();
 
-                
+                mySqlTransaction.Commit();
 
             }
             catch
             {
+                mySqlTransaction.Rollback();
                 MessageBox.Show("problème de UpdateEmployeeStatus !");
                 flag = false;
             }
@@ -331,12 +350,14 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         {
             bool flag = true;
 
-           try
+            MySqlTransaction mySqlTransaction = conn.BeginTransaction();
+
+            try
            {
 
                 string sql = "INSERT INTO employee (emp_name , emp_f_name , Login , _password , is_active) VALUES (@name , @f_name , @Login , @pwrd , @Bool);";
 
-                MySqlCommand cmd2 = new MySqlCommand(sql, conn);
+                MySqlCommand cmd2 = new MySqlCommand(sql, conn, mySqlTransaction);
                 cmd2.Parameters.AddWithValue("@name", empTocreatee.Name);
                 cmd2.Parameters.AddWithValue("@f_name", empTocreatee.F_Name);
                 cmd2.Parameters.AddWithValue("@Login", empTocreatee.Login);
@@ -346,9 +367,12 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                 //Execuion of my sql query
                 cmd2.ExecuteNonQuery();
 
+                mySqlTransaction.Commit();
+
            }
             catch
            {
+                mySqlTransaction.Rollback();
                 MessageBox.Show("problème de create !");
                 flag = false;
            }
@@ -381,11 +405,14 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         public bool CheckExistedEmployeeInFacture (Employee employee)
         {
             bool flag;
+
+            MySqlTransaction mySqlTransaction = conn.BeginTransaction();
+
             try
             {
                 string sql = "SELECT emp_num FROM facture WHERE emp_num = @num ;";
 
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlCommand cmd = new MySqlCommand(sql, conn, mySqlTransaction);
                 cmd.Parameters.AddWithValue("@num", employee.Id);
 
                 //Execution of my sql query
@@ -393,11 +420,14 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
                 flag = reader.Read();
 
+                mySqlTransaction.Commit();
+
                 reader.Close();
 
             }
             catch
             {
+                mySqlTransaction.Rollback();
                 MessageBox.Show("problème de CheckExistedEmployeeInFacture !");
                 flag = false;
             }

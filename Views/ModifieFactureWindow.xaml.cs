@@ -45,7 +45,7 @@ namespace MrBricolage.Views
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
-
+            this.ModifieFactureVM.Exit(this);
         }
 
         private void AddArticle_Click(object sender, RoutedEventArgs e)

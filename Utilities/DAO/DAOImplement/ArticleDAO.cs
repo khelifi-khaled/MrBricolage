@@ -34,12 +34,13 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
             try 
             {
-                string sql = "INSERT INTO article (name_art , price_art , is_active) VALUES (@name , @price , @bool ) ; ";
+                string sql = "INSERT INTO article (name_art , price_art , is_active , current_quantity) VALUES (@name , @price , @bool ,@current_quantity) ; ";
 
                 MySqlCommand cmd2 = new MySqlCommand(sql, conn);
                 cmd2.Parameters.AddWithValue("@name", article.Name);
                 cmd2.Parameters.AddWithValue("@price", article.Price);
                 cmd2.Parameters.AddWithValue("@bool", true);
+                cmd2.Parameters.AddWithValue("@current_quantity", article.Quantity);
 
 
                 //Execution of my sql query 
@@ -386,7 +387,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
             try
             {
-                string sql = "SELECT ID_art , name_art , price_art FROM article WHERE is_active ; ";
+                string sql = "SELECT ID_art , name_art , price_art , current_quantity FROM article WHERE is_active ; ";
 
                 
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
@@ -397,7 +398,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
                 while (reader.Read())
                 {
-                    Article art = new Article(reader.GetInt32("ID_art"),reader.GetString("name_art"),reader.GetDouble("price_art"));
+                    Article art = new Article(reader.GetInt32("ID_art"),reader.GetString("name_art"),reader.GetDouble("price_art"),reader.GetInt32("current_quantity"));
                     articles.Add(art);
 
                 }//end while loop 
@@ -444,13 +445,14 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
             try
             {
 
-                string sql = "UPDATE article SET  name_art = @name , price_art = @price WHERE ID_art = @id";
+                string sql = "UPDATE article SET  name_art = @name , price_art = @price, current_quantity = @quantity WHERE ID_art = @id";
 
                    
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@name" , articleToUpdate.Name);
                 cmd.Parameters.AddWithValue("@price", articleToUpdate.Price);
                 cmd.Parameters.AddWithValue("@id", articleToUpdate.Id);
+                cmd.Parameters.AddWithValue("@quantity", articleToUpdate.Quantity);
 
                 //Execution of my sql query
                 cmd.ExecuteNonQuery();

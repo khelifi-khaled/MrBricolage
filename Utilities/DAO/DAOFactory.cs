@@ -17,7 +17,7 @@ namespace MrBricolage.Utilities.DAO
     {
 
 
-         protected static MySqlConnection conn = BDDConnection.getInstance();
+         protected static MySqlConnection conn = BDDConnection.Instance.Conn;
 
 
 
