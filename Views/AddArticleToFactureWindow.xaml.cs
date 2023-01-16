@@ -38,10 +38,11 @@ namespace MrBricolage.Views
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-
+            AddArticleVM.AddArticleBTN(this);
         }
 
         private void Article_Number_KeyDown(object sender, KeyEventArgs e)
+        
         {
             AddArticleVM.Getarticle(this, e);
         }

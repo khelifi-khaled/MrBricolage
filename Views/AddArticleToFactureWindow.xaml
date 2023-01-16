@@ -21,11 +21,11 @@
 
         <!--Art Quantity stock-->
         <Label Content="Quantité Article en Stock :" Margin="10 0 0 0"/>
-        <TextBox x:Name="Quantity_art" Width="200" IsReadOnly="True" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=ArticleToAdd.Quantity, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox x:Name="Quantity_art_stock" Width="200" IsReadOnly="True" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=ArticleToAdd.Quantity, UpdateSourceTrigger=PropertyChanged}"/>
 
         <!--Art Quantity-->
         <Label Content="Quantité Article :" Margin="10 0 0 0"/>
-        <TextBox x:Name="Quantite_art" Width="200" IsReadOnly="False" HorizontalAlignment="Left" Margin="10 0 0 0" />
+        <TextBox x:Name="Quantity_art" Width="200" IsReadOnly="False" HorizontalAlignment="Left" Margin="10 0 0 0" />
 
 
         <StackPanel Orientation ="Horizontal" Margin="0 60 0 0" Width="200" Height="30">

@@ -50,7 +50,7 @@ namespace MrBricolage.Views
 
         private void AddArticle_Click(object sender, RoutedEventArgs e)
         {
-            this.ModifieFactureVM.AddArticle();
+            this.ModifieFactureVM.AddArticle(this);
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)

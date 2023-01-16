@@ -64,13 +64,54 @@ namespace MrBricolage.ViewModels
         }//end Getarticle
 
 
+        public void AddArticleBTN(AddArticleToFactureWindow window)
+        {
+            if (ArticleToAdd != null)
+            {
+                if (DAOFactory.GetArticleDAO.GetArticleStatus(ArticleToAdd))
+                {
+                    if(int.TryParse(window.Quantity_art.Text, out int val))
+                    {
+                        if ( val <= 0  )
+                        {
+
+                            MessageBox.Show("La valeure de la Quantité d'article  ( "+ ArticleToAdd.Name + "    ) doit etre strictement supérieur a 0 ! ", "infos");
+
+                        }else if (ArticleToAdd.Quantity < val)
+                        {
+                            MessageBox.Show("La quantité en stock est insuffisante", "infos");
+                        }else
+                        {
+                            ArticleToAdd.Quantity = val;
+                            FactureToModifie.AddArticle(ArticleToAdd);
+                            ModifieFactureWindow win = new ModifieFactureWindow(FactureToModifie);
+                            win.Show();
+                            window.Close();
+
+                        }
+
+                    }else
+                    {
+                        MessageBox.Show("Format de quantité d'article souhaité est incorrect ! ", "infos");
+                    }
+
+                }else
+                {
+                    MessageBox.Show("L'article N° " + ArticleToAdd.Id + " est inactive !", "infos");
+                } 
+
+            }else
+            {
+                MessageBox.Show("Vour ne pouvez pas inserer un article vide a la facture N° " + FactureToModifie.Id, "infos");
+            }
+
+        }//end AddArticleBTN
 
 
 
 
 
-
-
+        
 
 
 

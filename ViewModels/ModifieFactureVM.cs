@@ -59,10 +59,12 @@ namespace MrBricolage.ViewModels
 
 
 
-        public void AddArticle()
+        public void AddArticle(ModifieFactureWindow window)
         {
+
             AddArticleToFactureWindow add = new AddArticleToFactureWindow(SelectedFacture);
             add.Show();
+            window.Close();
         }//end AddArticle
 
 
