@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MrBricolage.Views"
         mc:Ignorable="d"
-        Title="ChangeEmployeeInFactureWindow" Height="400" Width="250">
+        Title="ChangeEmployeeInFactureWindow" Height="320" Width="250">
     <StackPanel>
         <!--Employee id-->
         <Label Content="N° Employée :" Margin="10 0 0 0"/>
@@ -13,19 +13,17 @@
 
         <!--Employee name-->
         <Label Content="Prénom Employée :" Margin="10 0 0 0"/>
-        <TextBox x:Name="Employee_name" Width="200" IsReadOnly="True" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=EmployeeToRepace.Name, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox x:Name="Employee_name" Width="200" IsReadOnly="True" Background="LightGray" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=EmployeeToRepace.Name, UpdateSourceTrigger=PropertyChanged}"/>
 
         <!--Employee f_name-->
         <Label Content="Nom Employée :" Margin="10 0 0 0"/>
-        <TextBox x:Name="Employee_f_name" Width="200" IsReadOnly="True" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=EmployeeToRepace.F_Name, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox x:Name="Employee_f_name" Width="200" IsReadOnly="True" Background="LightGray" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=EmployeeToRepace.F_Name, UpdateSourceTrigger=PropertyChanged}"/>
 
         <!--Employee Login-->
         <Label Content="Login Employée :" Margin="10 0 0 0"/>
-        <TextBox x:Name="Employee_Login" Width="200" IsReadOnly="True" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=EmployeeToRepace.Login, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox x:Name="Employee_Login" Width="200" IsReadOnly="True" Background="LightGray" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=EmployeeToRepace.Login, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <!--Employee password-->
-        <Label Content="Password Employée :" Margin="10 0 0 0"/>
-        <TextBox x:Name="Employee_password" Width="200" IsReadOnly="True" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=EmployeeToRepace.Password, UpdateSourceTrigger=PropertyChanged}"/>
+       
 
         <!--BTNs-->
         <StackPanel Orientation ="Horizontal" Margin="0 60 0 0" Width="200" Height="30">

@@ -19,23 +19,23 @@
                     <StackPanel  Margin="10 10 0 0" Height="392">
                         <!--Client id-->
                         <Label Content="N° Client:" Margin="10 0 0 0"/>
-                        <TextBox x:Name="Client_Id" Width="200" IsReadOnly="True" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=SelectedFacture.Client.Id, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox x:Name="Client_Id" Width="200" IsReadOnly="True" Background="LightGray" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=SelectedFacture.Client.Id, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <!--Client name-->
                         <Label Content="Prénom Client:" Margin="10 0 0 0"/>
-                        <TextBox x:Name="Client_name" Width="200" IsReadOnly="True" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=SelectedFacture.Client.Name, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox x:Name="Client_name" Width="200" IsReadOnly="True" Background="LightGray" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=SelectedFacture.Client.Name, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <!--Client f_name-->
                         <Label Content="Nom Client:" Margin="10 0 0 0"/>
-                        <TextBox x:Name="Client_f_name" Width="200" IsReadOnly="True" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=SelectedFacture.Client.F_name, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox x:Name="Client_f_name" Width="200" IsReadOnly="True"  Background="LightGray" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=SelectedFacture.Client.F_name, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <!--Client Email-->
                         <Label Content="Email Client :" Margin="10 0 0 0"/>
-                        <TextBox x:Name="Client_email" Width="200" IsReadOnly="True"  HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=SelectedFacture.Client.Email, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox x:Name="Client_email" Width="200" IsReadOnly="True" Background="LightGray"  HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=SelectedFacture.Client.Email, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <!--Client Adresse-->
                         <Label Content="Adresse Client :" Margin="10 0 0 0"/>
-                        <TextBox x:Name="Client_adresse"  AcceptsReturn="True" TextWrapping="Wrap" Width="200" Height="120" IsReadOnly="True" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=SelectedFacture.Client.Adresse, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox x:Name="Client_adresse"  AcceptsReturn="True" TextWrapping="Wrap" Width="200" Height="120" IsReadOnly="True" Background="LightGray" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=SelectedFacture.Client.Adresse, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <!--Client Is_company-->
                         <Label Content="Is company Client :" Margin="10 0 0 0"/>
@@ -54,23 +54,21 @@
                     <StackPanel Height="400">
                         <!--Employee id-->
                         <Label Content="N° Employée:" Margin="10 0 0 0"/>
-                        <TextBox x:Name="Employee_Id" Width="200" IsReadOnly="True"  HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=SelectedFacture.Employee.Id, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox x:Name="Employee_Id" Width="200" IsReadOnly="True" Background="LightGray" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=SelectedFacture.Employee.Id, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <!--Employee name-->
                         <Label Content="Prénom Employée:" Margin="10 0 0 0"/>
-                        <TextBox x:Name="Employee_name" Width="200" IsReadOnly="True" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=SelectedFacture.Employee.Name, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox x:Name="Employee_name" Width="200" IsReadOnly="True" Background="LightGray" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=SelectedFacture.Employee.Name, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <!--Employee f_name-->
                         <Label Content="Nom Employée:" Margin="10 0 0 0"/>
-                        <TextBox x:Name="Employee_f_name" Width="200" IsReadOnly="True" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=SelectedFacture.Employee.F_Name, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox x:Name="Employee_f_name" Width="200" IsReadOnly="True" Background="LightGray" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=SelectedFacture.Employee.F_Name, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <!--Employee Login-->
                         <Label Content="Login Employée:" Margin="10 0 0 0"/>
-                        <TextBox x:Name="Employee_Login" Width="200" IsReadOnly="True"  HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=SelectedFacture.Employee.Login, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox x:Name="Employee_Login" Width="200" IsReadOnly="True"  Background="LightGray" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=SelectedFacture.Employee.Login, UpdateSourceTrigger=PropertyChanged}"/>
 
-                        <!--Employee password-->
-                        <Label Content="Password Employée:" Margin="10 0 0 0"/>
-                        <TextBox x:Name="Employee_password" Width="200" IsReadOnly="True" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=SelectedFacture.Employee.Password, UpdateSourceTrigger=PropertyChanged}"/>
+                        
 
                     </StackPanel>
                 </Border>
@@ -102,7 +100,7 @@
                             </DataGrid.Columns>
                         </DataGrid>
                         <StackPanel Height="33" Margin="0 5 0 0">
-                            <TextBox x:Name="TotalPrice" Width="172" IsReadOnly="True" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=SelectedFacture.TotalAmount, UpdateSourceTrigger=PropertyChanged}" Height="33"/>
+                            <TextBox x:Name="TotalPrice" Width="172" IsReadOnly="True" Background="LightGray" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=SelectedFacture.TotalAmount, UpdateSourceTrigger=PropertyChanged}" Height="33"/>
                         </StackPanel>
                     </StackPanel>
                     
@@ -134,7 +132,6 @@
                 <StackPanel Height="25"  Orientation="Horizontal" Margin="0 20 0 0" >
                     <Button x:Name="Exit" Content="Exit" HorizontalAlignment="Center" Width="50" Height="20"   Click="Exit_Click"  />
                     <Button x:Name="AddArticle" Content="Ajouter Article" HorizontalAlignment="Center" Width="100" Height="20"   Click="AddArticle_Click" Margin="15 0 0 0" />
-                    <Button x:Name="Save" Content="Sauver" HorizontalAlignment="Center" Width="60" Height="20"   Click="Save_Click" Margin="15 0 0 0" />
                 </StackPanel>
             </StackPanel>
         </Grid>

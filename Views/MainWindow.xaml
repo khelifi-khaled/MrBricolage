@@ -25,21 +25,7 @@
                 </MenuItem>
                 
             </Menu>
-            <!--BTN test  -->
-            <Button x:Name="TestDAOArticle" Width="100" Margin="600 20 0 0" Click="TestDAOArticle_Click" Content="Test Article" />
-
-
-            <!--BTN test -->
-            <Button x:Name="TestDAOClient" Width="100" Margin="600 20 0 0" Click="TestDAOClient_Click" Content="Test Client" />
-
-
-            <!--BTN test -->
-            <Button x:Name="TestDAOEmployee" Width="100" Margin="600 20 0 0" Click="TestDAOEmployee_Click" Content="Test Employee" />
-
-
-
-            <!--BTN test -->
-            <Button x:Name="TestDAOFacture" Width="100" Margin="600 20 0 0" Click="TestDAOFacture_Click" Content="Test Facture" />
+           
         </StackPanel>
     </Grid>
 </Window>

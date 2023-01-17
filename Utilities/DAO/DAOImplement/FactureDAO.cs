@@ -26,6 +26,8 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         {
             bool flag = true;
             MySqlTransaction mySqlTransaction = conn.BeginTransaction();
+
+
             try
             {
 

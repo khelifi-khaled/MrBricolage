@@ -13,19 +13,19 @@
 
         <!--Client name-->
         <Label Content="Prénom:" Margin="10 0 0 0"/>
-        <TextBox x:Name="Client_name" Width="200" IsReadOnly="True" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=ClientToReplace.Name, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox x:Name="Client_name" Width="200" IsReadOnly="True" Background="LightGray" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=ClientToReplace.Name, UpdateSourceTrigger=PropertyChanged}"/>
 
         <!--Client f_name-->
         <Label Content="Nom:" Margin="10 0 0 0"/>
-        <TextBox x:Name="Client_f_name" Width="200" IsReadOnly="True" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=ClientToReplace.F_name, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox x:Name="Client_f_name" Width="200" IsReadOnly="True" Background="LightGray" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=ClientToReplace.F_name, UpdateSourceTrigger=PropertyChanged}"/>
 
         <!--Client Email-->
         <Label Content="Email :" Margin="10 0 0 0"/>
-        <TextBox x:Name="Client_email" Width="200" IsReadOnly="True"  HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=ClientToReplace.Email, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox x:Name="Client_email" Width="200" IsReadOnly="True" Background="LightGray"  HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=ClientToReplace.Email, UpdateSourceTrigger=PropertyChanged}"/>
 
         <!--Client Adresse-->
         <Label Content="Adresse :" Margin="10 0 0 0"/>
-        <TextBox x:Name="Client_adresse"  AcceptsReturn="True" TextWrapping="Wrap" Width="200" Height="120" IsReadOnly="True" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=ClientToReplace.Adresse, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox x:Name="Client_adresse"  AcceptsReturn="True" TextWrapping="Wrap" Width="200" Height="120" IsReadOnly="True" Background="LightGray" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=ClientToReplace.Adresse, UpdateSourceTrigger=PropertyChanged}"/>
 
         <!--Client Is_company-->
         <Label Content="Is company :" Margin="10 0 0 0"/>
