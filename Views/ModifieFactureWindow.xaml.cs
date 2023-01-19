@@ -53,9 +53,11 @@ namespace MrBricolage.Views
             this.ModifieFactureVM.AddArticle(this);
         }
 
-        private void Save_Click(object sender, RoutedEventArgs e)
-        {
 
-        }
+
+
+
+
+
     }//end class 
 }//end namespace  

@@ -84,26 +84,30 @@ namespace MrBricolage.ViewModels
                         {
                             ArticleToAdd.Quantity = val;
                             FactureToModifie.AddArticle(ArticleToAdd);
-                            ModifieFactureWindow win = new ModifieFactureWindow(FactureToModifie);
-                            win.Show();
-                            window.Close();
+                            FactureToModifie.Date = DateTime.Now;
 
-                        }
+                            if(DAOFactory.GetFactureDAO.Add_article_facture(FactureToModifie, ArticleToAdd))
+                            {
+                                ModifieFactureWindow win = new ModifieFactureWindow(FactureToModifie);
+                                win.Show();
+                                window.Close();
+                            }//ned if 
+                        }//end if 
 
                     }else
                     {
                         MessageBox.Show("Format de quantité d'article souhaité est incorrect ! ", "infos");
-                    }
+                    }//end if 
 
                 }else
                 {
                     MessageBox.Show("L'article N° " + ArticleToAdd.Id + " est inactive !", "infos");
-                } 
+                } //end if 
 
             }else
             {
                 MessageBox.Show("Vour ne pouvez pas inserer un article vide a la facture N° " + FactureToModifie.Id, "infos");
-            }
+            }//end if 
 
         }//end AddArticleBTN
 

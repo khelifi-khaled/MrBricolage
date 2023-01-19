@@ -69,6 +69,12 @@ namespace MrBricolage.ViewModels
 
 
 
+        public void DataGrid_MouseClick(ModifieFactureWindow window)
+        {
+
+
+        }//end DataGrid_MouseClick
+
         /// <summary>
         /// binding  
         /// </summary>

@@ -86,14 +86,21 @@ namespace MrBricolage.ViewModels
                 if (DAOFactory.GetEmployeeDAO.CheckEmployeeStatus(EmployeeToRepace))
                 {
                     FactureToModifie.Employee = EmployeeToRepace;
-                    ModifieFactureWindow window = new ModifieFactureWindow(FactureToModifie);
-                    window.Show();
-                    thisWin.Close();
+                    FactureToModifie.Date= DateTime.Now;
+                    if (DAOFactory.GetFactureDAO.Update_employee_facture(FactureToModifie))
+                    {
+                        MessageBox.Show("L'employée " + EmployeeToRepace.F_Name + " " + EmployeeToRepace.Name + " est bien inserer dans la facture N° " + FactureToModifie.Id + " dans votre DB", "infos");
+                        
+                        ModifieFactureWindow window = new ModifieFactureWindow(FactureToModifie);
+                        window.Show();
+                        thisWin.Close();
+                    }//end if 
+                    
                 }
                 else
                 {
                     MessageBox.Show("Vous ne pouvez pas inserer l'employée  " + EmployeeToRepace.F_Name + " " + EmployeeToRepace.Name + " car il est Inactive dans votre DB", "infos");
-                }
+                }//end if 
 
             }else
             {

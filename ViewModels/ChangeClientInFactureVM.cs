@@ -92,14 +92,22 @@ namespace MrBricolage.ViewModels
                 if (DAOFactory.GetClientDAO.CheckClientStatus(ClientToReplace))
                 {
                     FactureToModifie.Client = ClientToReplace;
+                    FactureToModifie.Date = DateTime.Now;
 
-                    ModifieFactureWindow window = new ModifieFactureWindow(FactureToModifie);
-                    window.Show();
-                    win.Close();
+                    if (DAOFactory.GetFactureDAO.Update_client_facture(FactureToModifie))
+                    {
+                        MessageBox.Show("Le client " + ClientToReplace.F_name + " " + ClientToReplace.Name + " est bien inserer dans la facture N° " + FactureToModifie.Id + " dans votre DB", "infos");
+                        ModifieFactureWindow window = new ModifieFactureWindow(FactureToModifie);
+                        window.Show();
+                        win.Close();
+                       
+                    }//end if 
+                    
                 }else
                 {
                     MessageBox.Show("Vous ne pouvez pas inserer le  client "+ ClientToReplace.F_name + " "+ ClientToReplace.Name + " car il est Inactive dans votre DB", "infos");
-                }
+
+                }//end if 
             }
             else 
             {

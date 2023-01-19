@@ -171,25 +171,160 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
            
         }//end GetFactureArt
 
+       
+
         /// <summary>
-        /// Method to check if the article existe in facture or not  in our DB
+        /// function to change client in facture 
         /// </summary>
-        /// <returns>true if article exist , false if not </returns>
-        public bool Check_existed_art()
+        /// <param name="facture"> facture to update </param>
+        /// <returns></returns>
+
+        public bool Update_client_facture (Facture facture)
         {
             bool flag = false;
+            MySqlTransaction mySqlTransaction = conn.BeginTransaction();
 
             try
             {
+                string sql = "UPDATE facture SET Client_num = @client ,  date_f = @date  WHERE ID_f = @id ; ";
+                MySqlCommand cmd = new MySqlCommand(sql, conn, mySqlTransaction);
+                cmd.Parameters.AddWithValue("@client", facture.Client.Id);
+                cmd.Parameters.AddWithValue("@id", facture.Id);
+                cmd.Parameters.AddWithValue("@date", facture.Date);
 
-            }catch
+                //Execuction of my sql query 
+                cmd.ExecuteNonQuery();
+
+                mySqlTransaction.Commit();
+                flag = true;
+            }
+            catch
             {
+                MessageBox.Show("Problem de Change_client_facture ! ");
+                mySqlTransaction.Rollback();
+
+            }//end trycatch 
+
+
+            return flag;
+        }//end Update_client_facture
+
+
+
+        /// <summary>
+        /// function to change employee in facture 
+        /// </summary>
+        /// <param name="facture"> facture to update </param>
+        /// <returns></returns>
+
+        public bool Update_employee_facture(Facture facture)
+        {
+            bool flag = false;
+            MySqlTransaction mySqlTransaction = conn.BeginTransaction();
+
+            try
+            {
+                string sql = "UPDATE facture SET emp_num = @emp , date_f = @date WHERE ID_f = @id ; ";
+                MySqlCommand cmd = new MySqlCommand(sql, conn, mySqlTransaction);
+                cmd.Parameters.AddWithValue("@emp", facture.Employee.Id);
+                cmd.Parameters.AddWithValue("@id", facture.Id);
+                cmd.Parameters.AddWithValue("@date", facture.Date);
+
+                //Execuction of my sql query 
+                cmd.ExecuteNonQuery();
+
+                mySqlTransaction.Commit();
+                flag = true;
+            }
+            catch
+            {
+                MessageBox.Show("Problem de Update_employee_facture ! ");
+                mySqlTransaction.Rollback();
+
+            }//end trycatch 
+
+
+            return flag;
+        }//end Update_employee_facture
+
+
+
+
+        public bool Add_article_facture(Facture facture, Article artToAdd)
+        {
+            bool flag = false;
+
+            MySqlTransaction mySqlTransaction = conn.BeginTransaction();
+
+
+            try
+            {
+                string sql = "DELETE FROM list_of_art WHERE id_facture = @id ; ";
+
+                MySqlCommand cmd = new MySqlCommand(sql, conn, mySqlTransaction);
+
+                cmd.Parameters.AddWithValue("@id", facture.Id);
+
+
+
+
+                //Execuction of my sql query 
+                cmd.ExecuteNonQuery();
+
+                foreach(Article article in facture.Articles)
+                {
+                    sql = "INSERT INTO list_of_art (id_art , id_Facture , quantity ) VALUES (@id_art , @id_facture , @quantity) ;";
+                    MySqlCommand cmd2 = new MySqlCommand(sql, conn, mySqlTransaction);
+                    cmd2.Parameters.AddWithValue("@id_art", article.Id);
+                    cmd2.Parameters.AddWithValue("@id_facture", facture.Id);
+                    cmd2.Parameters.AddWithValue("@quantity", article.Quantity);
+
+                    //Execuction of my sql query 
+                    cmd2.ExecuteNonQuery();
+
+
+                }//end for loop 
+
+
+                //i will modifie the stock of my artToAdd
+                sql = "UPDATE article SET current_quantity  = current_quantity - @quantity WHERE ID_art = @id ;";
+
+                MySqlCommand cmd3 = new MySqlCommand(sql, conn, mySqlTransaction);
+
+                cmd3.Parameters.AddWithValue("@quantity", artToAdd.Quantity);
+                cmd3.Parameters.AddWithValue("@id", artToAdd.Id);
+
+                cmd3.ExecuteNonQuery();
+
+
+                //here i will modifie my date and total price of Facture 
+                sql = "UPDATE facture SET date_f = @date , totalPrice = @total WHERE ID_f = @id ;  ";
+
+                MySqlCommand cmd4 = new MySqlCommand(sql, conn, mySqlTransaction);
+
+                cmd4.Parameters.AddWithValue("@date", facture.Date);
+                cmd4.Parameters.AddWithValue("@total", facture.TotalAmount);
+                cmd4.Parameters.AddWithValue("@id", facture.Id);
+
+
+                cmd4.ExecuteNonQuery();
+
+
+                mySqlTransaction.Commit();
+
+
+                flag = true;
 
             }
+            catch
+            {
+                MessageBox.Show("Problem de Add_article_facture !");
+                mySqlTransaction.Rollback();
+            }//end trycatch 
 
             return flag;
 
-        }// end Check_existed_art
+        }//end Update_article_facture
 
         public override bool delete(Facture obj)
         {

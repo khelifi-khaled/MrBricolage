@@ -60,7 +60,7 @@ namespace MrBricolage.ViewModels
                 {
                     MessageBox.Show("Login ou Password est incorrect, vous devez vérifier vos infos SVP.");
                     break;
-                }
+                }//end if 
             }//end foreach loop 
 
         }//end BTN_Login
