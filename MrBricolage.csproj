@@ -124,9 +124,6 @@
     <Compile Include="Views\AddEmployeeWindow.xaml.cs">
       <DependentUpon>AddEmployeeWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ChangeArticleInFactureWindow.xaml.cs">
-      <DependentUpon>ChangeArticleInFactureWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\ChangeClientInFactureWindow.xaml.cs">
       <DependentUpon>ChangeClientInFactureWindow.xaml</DependentUpon>
     </Compile>
@@ -176,10 +173,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AddEmployeeWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ChangeArticleInFactureWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

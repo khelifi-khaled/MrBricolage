@@ -1,7 +1,9 @@
 ﻿using MrBricolage.Models;
+using MrBricolage.Utilities.DAO;
 using MrBricolage.Views;
+using System;
 using System.ComponentModel;
-
+using System.Windows;
 
 namespace MrBricolage.ViewModels
 {
@@ -31,7 +33,7 @@ namespace MrBricolage.ViewModels
         }
 
 
-
+        public Article SelectedArticleToDelete { get; set; }
         
 
         public void Exit (ModifieFactureWindow thisWin)
@@ -71,7 +73,33 @@ namespace MrBricolage.ViewModels
 
         public void DataGrid_MouseClick(ModifieFactureWindow window)
         {
+            
+            if(SelectedArticleToDelete!= null)
 
+            {
+                int id = SelectedArticleToDelete.Id; 
+                int quantity = SelectedArticleToDelete.Quantity;
+
+                if (MessageBox.Show("Les modifications vont etre faite sur votre DB,  etes-vous  sur de suprimé l'article N° " + SelectedArticleToDelete.Id + " de la facture N° " + SelectedFacture.Id, "infos", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    SelectedFacture.Delete_art_facture(id);
+                    SelectedFacture.Date = DateTime.Now;
+
+                    if (DAOFactory.GetFactureDAO.Delete_art_facture(SelectedFacture, id, quantity))
+                    {
+
+                        ModifieFactureWindow win = new ModifieFactureWindow(SelectedFacture);
+                        win.Show();
+                        window.Close();
+
+                    }//end if 
+                }//end if 
+            }
+            else
+            {
+                MessageBox.Show("L'aricle est null !! ");
+
+            }//end if 
 
         }//end DataGrid_MouseClick
 

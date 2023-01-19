@@ -30,7 +30,7 @@ namespace MrBricolage.Views
 
         private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
+            this.ModifieFactureVM.DataGrid_MouseClick(this);
         }
 
         private void ChengeClientBtn_Click(object sender, RoutedEventArgs e)

@@ -293,7 +293,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
                 cmd3.Parameters.AddWithValue("@quantity", artToAdd.Quantity);
                 cmd3.Parameters.AddWithValue("@id", artToAdd.Id);
-
+                //Execuction of my sql query 
                 cmd3.ExecuteNonQuery();
 
 
@@ -325,6 +325,70 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
             return flag;
 
         }//end Update_article_facture
+
+
+
+
+        public bool Delete_art_facture(Facture facture , int id , int quantity)
+        {
+            bool flag = false;
+
+            MySqlTransaction mySqlTransaction = conn.BeginTransaction();
+
+            try
+            {
+                string sql = "DELETE FROM list_of_art WHERE id_facture =@id_f  AND  id_art  = @id_art ; ";
+
+                MySqlCommand cmd = new MySqlCommand(sql, conn, mySqlTransaction);
+                cmd.Parameters.AddWithValue("@id_f", facture.Id);
+                cmd.Parameters.AddWithValue("@id_art", id);
+
+
+                //Execuction of my sql query 
+                cmd.ExecuteNonQuery();
+
+                sql = "UPDATE article SET current_quantity = current_quantity + @quantity WHERE ID_art = @id ;  ";
+
+                MySqlCommand cmd2 = new MySqlCommand(sql, conn, mySqlTransaction);
+
+                cmd2.Parameters.AddWithValue("@quantity", quantity);
+                cmd2.Parameters.AddWithValue("@id", id);
+
+
+                //Execuction of my sql query 
+                cmd2.ExecuteNonQuery();
+
+
+
+                sql = "UPDATE facture SET date_f = @date , totalPrice = @total WHERE ID_f = @id ;";
+
+
+                MySqlCommand cmd3 = new MySqlCommand(sql, conn, mySqlTransaction);
+
+
+
+                cmd3.Parameters.AddWithValue("@date", facture.Date);
+                cmd3.Parameters.AddWithValue("@id", facture.Id);
+                cmd3.Parameters.AddWithValue("@total", facture.TotalAmount);
+
+                mySqlTransaction.Commit();
+
+                flag = true;
+
+            }
+            catch
+            {
+                mySqlTransaction.Rollback();
+                MessageBox.Show("Problem de Delete_art_facture !");
+            }
+
+
+
+
+            return flag;
+
+        }//end Delete_art_facture
+
 
         public override bool delete(Facture obj)
         {

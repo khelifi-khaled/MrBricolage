@@ -75,6 +75,25 @@ namespace MrBricolage.Models
         }
 
 
+
+
+        public void Delete_art_facture(int id)
+        {
+            for (int i=0; i<this.Articles.Count;i++)
+            {
+                if (this.Articles[i].Id ==  id )
+                {
+                    this.Articles.Remove(this.Articles[i]);
+                }//end if 
+            }//end 
+
+            this.TotalAmount = CalculTotalAmount();
+
+        }//end Delete_art_facture
+
+
+
+
         /// <summary>
         /// void function to add an article to this.Articles, Modifie this.TotalAmount 
         /// </summary>

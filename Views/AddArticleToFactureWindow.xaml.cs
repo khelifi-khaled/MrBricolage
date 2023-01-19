@@ -10,8 +10,6 @@ using System.Windows.Input;
 namespace MrBricolage.Views
 {
     
-
-
     public partial class AddArticleToFactureWindow : Window
     {
         AddArticleToFactureVM AddArticleVM { get; set; }
