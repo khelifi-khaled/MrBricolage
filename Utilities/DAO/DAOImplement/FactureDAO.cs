@@ -3,6 +3,7 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.ObjectModel;
 using System.Data.SqlClient;
+using System.IO.Packaging;
 using System.Windows;
 
 namespace MrBricolage.Utilities.DAO.DAOImplement
@@ -26,7 +27,6 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         {
             bool flag = true;
             MySqlTransaction mySqlTransaction = conn.BeginTransaction();
-
 
             try
             {
@@ -390,10 +390,34 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         }//end Delete_art_facture
 
 
-        public override bool delete(Facture obj)
+        public override bool delete(Facture facture)
         {
-            throw new NotImplementedException();
-        }
+            bool flag = false;
+            MySqlTransaction mySqlTransaction = conn.BeginTransaction();
+            try
+            {
+                string sql = "DELETE FROM list_of_art WHERE id_facture = @id_facture;" +
+                    "DELETE FROM facture WHERE ID_f = @id_facture ";
+                MySqlCommand cmd = new MySqlCommand(sql, conn, mySqlTransaction);
+
+                cmd.Parameters.AddWithValue("@id_facture", facture.Id);
+
+                //Execuction of my sql query 
+                cmd.ExecuteNonQuery();
+
+
+                mySqlTransaction.Commit();
+
+                flag = true;
+            }
+            catch
+            {
+                mySqlTransaction.Rollback();
+                MessageBox.Show("Problem de delete !");
+            }//end trycatch 
+
+            return flag;
+        }//end delete 
 
         public override Facture find(int id)
         {

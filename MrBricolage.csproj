@@ -97,9 +97,11 @@
     <Compile Include="Utilities\DAO\DAOImplement\ClientDAO.cs" />
     <Compile Include="Utilities\DAO\DAOImplement\FactureDAO.cs" />
     <Compile Include="ViewModels\AddArticleToFactureVM.cs" />
+    <Compile Include="ViewModels\AddArticleToNewFactureVM.cs" />
     <Compile Include="ViewModels\AddArticleVM.cs" />
     <Compile Include="ViewModels\AddClientVM.cs" />
     <Compile Include="ViewModels\AddEmployeeVM.cs" />
+    <Compile Include="ViewModels\AddFactureVM.cs" />
     <Compile Include="ViewModels\ChangeClientInFactureVM.cs" />
     <Compile Include="ViewModels\ChengeEmployeeInFactureVM.cs" />
     <Compile Include="ViewModels\EmployeeWindowVM.cs" />
@@ -115,6 +117,9 @@
     <Compile Include="Views\AddArticleToFactureWindow.xaml.cs">
       <DependentUpon>AddArticleToFactureWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\AddArticleToNewFactureWindow.xaml.cs">
+      <DependentUpon>AddArticleToNewFactureWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AddArticleWindow.xaml.cs">
       <DependentUpon>AddArticleWindow.xaml</DependentUpon>
     </Compile>
@@ -123,6 +128,9 @@
     </Compile>
     <Compile Include="Views\AddEmployeeWindow.xaml.cs">
       <DependentUpon>AddEmployeeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddFactureWindow.xaml.cs">
+      <DependentUpon>AddFactureWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ChangeClientInFactureWindow.xaml.cs">
       <DependentUpon>ChangeClientInFactureWindow.xaml</DependentUpon>
@@ -164,6 +172,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\AddArticleToNewFactureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AddArticleWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -173,6 +185,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AddEmployeeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddFactureWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

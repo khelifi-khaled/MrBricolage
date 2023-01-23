@@ -17,6 +17,7 @@ namespace MrBricolage.Models
 
         public Facture()
         {
+            _date = DateTime.Now;
             this._articles = new ObservableCollection<Article>();
         }
 

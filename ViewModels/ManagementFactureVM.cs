@@ -48,7 +48,13 @@ namespace MrBricolage.ViewModels
 
 
 
-
+        public void AddFacture(ManagementFactureWindow win)
+        {
+            Facture factureToAdd = new Facture();
+            AddFactureWindow add = new AddFactureWindow(factureToAdd);
+            add.Show();
+            win.Close();
+        }
 
 
 

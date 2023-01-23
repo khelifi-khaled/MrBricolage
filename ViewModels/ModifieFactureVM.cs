@@ -43,6 +43,24 @@ namespace MrBricolage.ViewModels
             thisWin.Close();
         }
 
+
+        public void Delete (ModifieFactureWindow thisWin)
+        {
+
+            if (MessageBox.Show("êtes vous sûr de vouloir supprimer la facture N° " + SelectedFacture.Id + " ?", "infos", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                if (DAOFactory.GetFactureDAO.delete(SelectedFacture))
+                {
+                    ManagementFactureWindow window = new ManagementFactureWindow();
+                    window.Show();
+                    thisWin.Close();
+                }//end if 
+            }
+            
+
+        }//end Delete
+
+
         public void Chenge_Client (ModifieFactureWindow thisWin)
         {
             ChangeClientInFactureWindow win = new ChangeClientInFactureWindow(SelectedFacture);

@@ -116,8 +116,6 @@ namespace MrBricolage.ViewModels
             ModifieFactureWindow window = new ModifieFactureWindow(FactureToModifie);
             window.Show();
             win.Close();
-
-
         }//end exit
 
 
