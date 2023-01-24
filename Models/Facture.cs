@@ -139,10 +139,7 @@ namespace MrBricolage.Models
 
         }//end CalculTotalAmount
 
-
-
-
-
+    
 
         /// <summary>
         /// Check if the article exist in this.Articles
@@ -164,6 +161,23 @@ namespace MrBricolage.Models
 
             return flag;
         }//end Check_existed_art
+
+
+
+
+        public Article UpdateArtQuatity(Article artFromDB)
+        {
+            foreach (Article article in this.Articles)
+            {
+                if (article.Id == artFromDB.Id)
+                {
+                    artFromDB.Quantity -= article.Quantity;
+                }
+            }
+
+            return artFromDB;
+
+        }//end UpdateArtQuatity
 
 
     }//end class 

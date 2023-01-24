@@ -32,13 +32,14 @@ namespace MrBricolage.Views
         private void Client_Id_KeyDown(object sender, KeyEventArgs e)
         {
             
-            this.AddFactureVM.GetClient(this, e);
+            this.AddFactureVM.GetClient(this,e);
 
         }
 
         private void Employee_Id_KeyDown(object sender, KeyEventArgs e)
+        
         {
-            this.AddFactureVM.GetEmployee(this, e);
+            this.AddFactureVM.GetEmployee(this,e);
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
@@ -48,12 +49,12 @@ namespace MrBricolage.Views
 
         private void AddArticle_Click(object sender, RoutedEventArgs e)
         {
-            this.AddFactureVM.AddArticle();
+            this.AddFactureVM.AddArticle(this);
         }
 
         private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
+            this.AddFactureVM.DataGrid_MouseClick(this);
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)

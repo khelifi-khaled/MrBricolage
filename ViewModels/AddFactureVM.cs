@@ -9,17 +9,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace MrBricolage.ViewModels
 {
-    public  class AddFactureVM : INotifyPropertyChanged
+    public  class AddFactureVM :  INotifyPropertyChanged 
     {
 
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         private Facture _factureToCreate;
-        private Client _clientFacture;
         private Employee _employeeFacture;
 
         public AddFactureVM(Facture facture)
@@ -28,7 +28,7 @@ namespace MrBricolage.ViewModels
         }
 
 
-
+        
 
 
         public Facture FactureToCreate 
@@ -42,30 +42,7 @@ namespace MrBricolage.ViewModels
         }
 
 
-        public Client ClientFacture
-        {
-
-            get => _clientFacture;
-            set
-            {
-                _clientFacture = value;
-                OnPropertyChanged(nameof(ClientFacture));
-            }
-        }
-
-
-
-
-        public Employee EmployeeFacture
-        {
-
-            get => _employeeFacture;
-            set
-            {
-                _employeeFacture = value;
-                OnPropertyChanged(nameof(EmployeeFacture));
-            }
-        }
+      
 
 
 
@@ -83,12 +60,35 @@ namespace MrBricolage.ViewModels
 
         }//end Exit
 
-        public void AddArticle()
+        public void AddArticle(AddFactureWindow win)
         {
-            AddArticleToNewFactureWindow addArticle = new AddArticleToNewFactureWindow(FactureToCreate);
-            addArticle.Show();
+           if (FactureToCreate.Client ==null)
+            {
+                MessageBox.Show("Vous devez choisir un client avant de commencer a choisir des articles ! ");
+            }
+            else if(FactureToCreate.Employee == null)
+            {
+                MessageBox.Show("Vous devez choisir un employée avant de commencer a choisir des articles ! ");
+            }
+            else
+            {
+                AddArticleToNewFactureWindow addArticle = new AddArticleToNewFactureWindow(FactureToCreate);
+                addArticle.Show();
+                win.Close();
+            }
         }
 
+
+        public void DataGrid_MouseClick(AddFactureWindow win)
+        {
+            if(SelectedArticleToDelete != null)
+            {
+                FactureToCreate.Delete_art_facture(SelectedArticleToDelete.Id);
+                AddFactureWindow add = new AddFactureWindow(FactureToCreate);
+                add.Show();
+                win.Close();
+            }
+        }//end DataGrid_MouseClick
 
         public void GetClient (AddFactureWindow win,KeyEventArgs e)
         {
@@ -96,9 +96,10 @@ namespace MrBricolage.ViewModels
             {
                 if (int.TryParse(win.Client_Id.Text, out int val))
                 {
-                    ClientFacture = DAOFactory.GetClientDAO.find(val);
-                    FactureToCreate.Client = ClientFacture;
-
+                    FactureToCreate.Client = DAOFactory.GetClientDAO.find(val);
+                    AddFactureWindow window = new AddFactureWindow(FactureToCreate);
+                    window.Show();
+                    win.Close();
                 }
                 else
                 {
@@ -114,8 +115,10 @@ namespace MrBricolage.ViewModels
             {
                 if (int.TryParse(win.Employee_Id.Text, out int val))
                 {
-                    EmployeeFacture = DAOFactory.GetEmployeeDAO.find(val);
-                    FactureToCreate.Employee = EmployeeFacture;
+                    FactureToCreate.Employee = DAOFactory.GetEmployeeDAO.find(val);
+                    AddFactureWindow window = new AddFactureWindow(FactureToCreate);
+                    window.Show();
+                    win.Close();
                 }
                 else
                 {

@@ -1,12 +1,7 @@
 ﻿using MrBricolage.Models;
 using MrBricolage.Utilities.DAO;
 using MrBricolage.Views;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -52,6 +47,8 @@ namespace MrBricolage.ViewModels
 
         public void Exit(AddArticleToNewFactureWindow win)
         {
+            AddFactureWindow add = new AddFactureWindow(ThisFacture);
+            add.Show();
             win.Close();
         }//end exit
 
@@ -84,12 +81,10 @@ namespace MrBricolage.ViewModels
                         {
                             ArticleToAdd.Quantity = val;
                             ThisFacture.AddArticle(ArticleToAdd);
+                            AddFactureWindow add = new AddFactureWindow(ThisFacture);
+                            add.Show();
+                            window.Close();
 
-                            if (DAOFactory.GetFactureDAO.Add_article_facture(ThisFacture, ArticleToAdd))
-                            {
-                                ThisFacture.AddArticle(ArticleToAdd);
-                                window.Close();
-                            }//ned if 
                         }//end if 
 
                     }
@@ -119,6 +114,7 @@ namespace MrBricolage.ViewModels
         
         
         public void Getarticle(AddArticleToNewFactureWindow win, KeyEventArgs e)
+        
         {
 
             if (e.Key == Key.Enter)
@@ -126,6 +122,11 @@ namespace MrBricolage.ViewModels
                 if (int.TryParse(win.Article_Number.Text, out int val))
                 {
                     ArticleToAdd = DAOFactory.GetArticleDAO.find(val);
+
+                    if (ArticleToAdd != null)
+                    {
+                        ArticleToAdd = ThisFacture.UpdateArtQuatity(ArticleToAdd);
+                    }
                 }
                 else
                 {
