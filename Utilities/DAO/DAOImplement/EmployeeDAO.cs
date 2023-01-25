@@ -16,8 +16,12 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
         }
 
-       
-        //test ok 
+
+        /// <summary>
+        /// find a Employee from our DB
+        /// </summary>
+        /// <param name="id">Employee id that we are looking for </param>
+        /// <returns>the Employee if found, null if not</returns>
         public override Employee find(int id)
         {
            
@@ -201,7 +205,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
 
         /// <summary>
-        /// ceck if employee Login existe in our DB
+        /// check if employee Login existe in our DB
         /// </summary>
         /// <param name="employee">Employee to check </param>
         /// <returns>true if Login exist, false if not</returns>

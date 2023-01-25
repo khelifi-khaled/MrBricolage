@@ -15,10 +15,10 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
 
         /// <summary>
-        /// 
+        /// find a Client from our DB
         /// </summary>
-        /// <param name="idClient"></param>
-        /// <returns></returns>
+        /// <param name="idClient">Client id that we are looking for </param>
+        /// <returns>the Client if found, null if not</returns>
         public override Client find(int idClient )
         {
             Client clientToFind= null;

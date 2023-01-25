@@ -31,19 +31,29 @@ namespace MrBricolage.Models
 
 
 
-
+        /// <summary>
+        /// employee id
+        /// </summary>
         public int Id
         {
             get { return this._id; }
             set { this._id = value; }
         }
 
+
+        /// <summary>
+        /// employee name 
+        /// </summary>
         public string Name
         {
             get { return this._name; }
             set { this._name = value; }
         }
 
+
+        /// <summary>
+        /// employee last name (family name )
+        /// </summary>
         public string F_Name
         {
             get { return this._f_name; }
@@ -51,6 +61,10 @@ namespace MrBricolage.Models
         }
 
 
+
+        /// <summary>
+        /// emloyee Login
+        /// </summary>
         public string Login
         {
             get { return this._login; }
@@ -58,6 +72,10 @@ namespace MrBricolage.Models
         }
 
 
+
+        /// <summary>
+        /// employee password
+        /// </summary>
         public string Password
         {
             get { return this._password; }

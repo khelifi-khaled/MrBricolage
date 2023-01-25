@@ -4,6 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Data.SqlClient;
 using System.IO.Packaging;
+using System.Security.RightsManagement;
 using System.Windows;
 
 namespace MrBricolage.Utilities.DAO.DAOImplement
@@ -19,9 +20,9 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
 
         /// <summary>
-        /// insert the invoice  in our DB
+        /// insert  Facture  in our DB
         /// </summary>
-        /// <param name="factureToCreate"> invoice the we want to insert </param>
+        /// <param name="factureToCreate"> invoice that we want to insert </param>
         /// <returns>true if the invoice has been inserted, false if not </returns>
         public override bool create(Facture factureToCreate)
         {
@@ -45,20 +46,33 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                 //Execuction of my sql query 
                 cmd.ExecuteNonQuery();
 
-                
 
-                foreach (Article art in factureToCreate.Articles)
+
+                if (GetFactureIdFromDB(factureToCreate))
                 {
-                    sql = "INSERT INTO list_of_art (id_art , id_Facture , quantity ) VALUES (@id_art , @id_facture , @quantity) ;";
-                    MySqlCommand cmd2 = new MySqlCommand(sql, conn,mySqlTransaction);
-                    cmd2.Parameters.AddWithValue("@id_art", art.Id);
-                    cmd2.Parameters.AddWithValue("@id_facture", factureToCreate.Id);
-                    cmd2.Parameters.AddWithValue("@quantity", art.Quantity);
+                    foreach (Article art in factureToCreate.Articles)
+                    {
+                        sql = "INSERT INTO list_of_art (id_art , id_Facture , quantity ) VALUES (@id_art , @id_facture , @quantity) ;";
+                        MySqlCommand cmd2 = new MySqlCommand(sql, conn, mySqlTransaction);
+                        cmd2.Parameters.AddWithValue("@id_art", art.Id);
+                        cmd2.Parameters.AddWithValue("@id_facture", factureToCreate.Id);
+                        cmd2.Parameters.AddWithValue("@quantity", art.Quantity);
 
-                    //Execuction of my sql query 
-                    cmd2.ExecuteNonQuery();
+                        //Execuction of my sql query 
+                        cmd2.ExecuteNonQuery();
 
-                }//end foreach loop 
+                        //i will modifie the stock of my art
+                        sql = "UPDATE article SET current_quantity  = current_quantity - @quantity WHERE ID_art = @id ;";
+
+                        MySqlCommand cmd3 = new MySqlCommand(sql, conn, mySqlTransaction);
+
+                        cmd3.Parameters.AddWithValue("@quantity", art.Quantity);
+                        cmd3.Parameters.AddWithValue("@id", art.Id);
+                        //Execuction of my sql query 
+                        cmd3.ExecuteNonQuery();
+
+                    }//end foreach loop 
+                }
 
                 mySqlTransaction.Commit();
 
@@ -76,8 +90,39 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
             return flag;
         }//end create
 
+        /// <summary>
+        /// get the last Facture Id From our DB
+        /// </summary>
+        /// <param name="facture"></param>
+        /// <returns>true if found , false if not </returns>
+        private bool  GetFactureIdFromDB(Facture facture)
+        {
+            bool flag = false;
+            
+            try
+            {
+                string sql = "select id_f from facture ORDER BY id_f DESC LIMIT 1";
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
 
+                //Execuction of my sql query 
+                MySqlDataReader reader = cmd.ExecuteReader();
 
+                if (reader.Read())
+                {
+                    facture.Id = reader.GetInt32("id_f");
+                    flag = true;
+                }
+
+                reader.Close();
+            }
+            catch
+            {
+                MessageBox.Show("Problem de GetFactureIdFromDB !");
+            }
+
+            return flag;
+
+        }//end GetFactureIdFromDB
 
 
         /// <summary>
@@ -249,7 +294,12 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
 
 
-
+        /// <summary>
+        /// add article to facture in our DB, with updating Quantity of article and total price in DB 
+        /// </summary>
+        /// <param name="facture"></param>
+        /// <param name="artToAdd"></param>
+        /// <returns></returns>
         public bool Add_article_facture(Facture facture, Article artToAdd)
         {
             bool flag = false;
@@ -328,7 +378,13 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
 
 
-
+        /// <summary>
+        /// delete article from Facture in our DB , with updating Facture  total price and Article quantity
+        /// </summary>
+        /// <param name="facture"></param>
+        /// <param name="id">id of our art </param>
+        /// <param name="quantity">quantity of our art in facture </param>
+        /// <returns>true if the art has been deleted, false if not </returns>
         public bool Delete_art_facture(Facture facture , int id , int quantity)
         {
             bool flag = false;
@@ -390,6 +446,12 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         }//end Delete_art_facture
 
 
+
+        /// <summary>
+        /// dekete facture from our DB
+        /// </summary>
+        /// <param name="facture">facture to delete </param>
+        /// <returns>true if facture has been deleted </returns>
         public override bool delete(Facture facture)
         {
             bool flag = false;

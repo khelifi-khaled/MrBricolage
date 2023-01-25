@@ -12,21 +12,30 @@ namespace MrBricolage.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private Article _article; 
+        private Article _article;
+
+        private Facture _thisFacture; 
 
 
-
-
-        public AddArticleToNewFactureVM(Facture facture)
+        public AddArticleToNewFactureVM(Facture facture )
         {
             ThisFacture = facture;
+           
         }
 
 
 
-        public Facture ThisFacture { get; set; }
+        public Facture ThisFacture
+        {
+            get => _thisFacture;
+            set
+            {
+                _thisFacture = value;
+                OnPropertyChanged(nameof(ThisFacture));
+            }
+        }
 
-
+        
 
 
 
@@ -47,8 +56,8 @@ namespace MrBricolage.ViewModels
 
         public void Exit(AddArticleToNewFactureWindow win)
         {
-            AddFactureWindow add = new AddFactureWindow(ThisFacture);
-            add.Show();
+            AddFactureWindow window = new AddFactureWindow(ThisFacture);
+            window.Show();
             win.Close();
         }//end exit
 
@@ -81,9 +90,12 @@ namespace MrBricolage.ViewModels
                         {
                             ArticleToAdd.Quantity = val;
                             ThisFacture.AddArticle(ArticleToAdd);
-                            AddFactureWindow add = new AddFactureWindow(ThisFacture);
-                            add.Show();
+                            OnPropertyChanged(nameof(ThisFacture));
+
+                            AddFactureWindow win = new AddFactureWindow(ThisFacture);
+                            win.Show();
                             window.Close();
+                            
 
                         }//end if 
 
@@ -126,6 +138,7 @@ namespace MrBricolage.ViewModels
                     if (ArticleToAdd != null)
                     {
                         ArticleToAdd = ThisFacture.UpdateArtQuatity(ArticleToAdd);
+                        OnPropertyChanged(nameof(ArticleToAdd));
                     }
                 }
                 else

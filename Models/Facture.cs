@@ -14,10 +14,12 @@ namespace MrBricolage.Models
         private double _totalAmount ;
         private ObservableCollection<Article> _articles;
 
-
+        /// <summary>
+        /// an empty constructor, by default date of this facture = Datetime.Now and new articles 
+        /// </summary>
         public Facture()
         {
-            _date = DateTime.Now;
+            this._date = DateTime.Now;
             this._articles = new ObservableCollection<Article>();
         }
 
@@ -33,7 +35,9 @@ namespace MrBricolage.Models
         }//end constructor 
 
 
-
+        /// <summary>
+        /// facture id
+        /// </summary>
         public int Id
         {
             get { return this._id; }
@@ -41,6 +45,10 @@ namespace MrBricolage.Models
         }
 
 
+
+        /// <summary>
+        /// facture date 
+        /// </summary>
         public DateTime Date
         {
             get { return this._date; }
@@ -53,6 +61,11 @@ namespace MrBricolage.Models
             set { this._client = value; }
         }
 
+
+
+        /// <summary>
+        /// employee of this fature 
+        /// </summary>
         public Employee Employee
         {
             get { return this._employee; }
@@ -60,7 +73,9 @@ namespace MrBricolage.Models
         }
 
 
-
+        /// <summary>
+        /// our Articles liste of this facture 
+        /// </summary>
         public ObservableCollection<Article> Articles
         {
             get { return this._articles;}
@@ -69,6 +84,11 @@ namespace MrBricolage.Models
         }
 
 
+
+
+        /// <summary>
+        /// total of this facture
+        /// </summary>
         public double  TotalAmount
         {
             get { return this._totalAmount; }
@@ -77,7 +97,10 @@ namespace MrBricolage.Models
 
 
 
-
+        /// <summary>
+        /// mithod to delete an article from this.Articles  
+        /// </summary>
+        /// <param name="id"> id of article to delete </param>
         public void Delete_art_facture(int id)
         {
             for (int i=0; i<this.Articles.Count;i++)
@@ -164,7 +187,11 @@ namespace MrBricolage.Models
 
 
 
-
+        /// <summary>
+        /// function to update Article quantity came from DB,
+        /// </summary>
+        /// <param name="artFromDB">art came from DB </param>
+        /// <returns>artFromDB with the Correcte Quantity</returns>
         public Article UpdateArtQuatity(Article artFromDB)
         {
             foreach (Article article in this.Articles)

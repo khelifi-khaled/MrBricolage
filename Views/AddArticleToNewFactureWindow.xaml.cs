@@ -4,14 +4,12 @@ using System.Windows;
 using System.Windows.Input;
 namespace MrBricolage.Views
 {
-    /// <summary>
-    /// Logique d'interaction pour AddArticleToNewFactureWindow.xaml
-    /// </summary>
+
     public partial class AddArticleToNewFactureWindow : Window
     {
 
         AddArticleToNewFactureVM AddArticleToNewFactureVM { get; set; }
-
+        
 
         public AddArticleToNewFactureWindow(Facture facture)
         {

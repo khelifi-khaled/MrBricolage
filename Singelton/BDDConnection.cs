@@ -13,10 +13,10 @@ namespace MrBricolage.Singelton
         private  MySqlConnection _conn;
 
 
+
+
+
         //singleton 
-        //private volatile static BDDConnection single;
-
-
         private volatile static BDDConnection _instance;
 
 
@@ -68,36 +68,11 @@ namespace MrBricolage.Singelton
             {
                 Console.WriteLine("Problem  de connexion a votre base de données");
                 Console.WriteLine(ex.Message);
-            }
+            }//end trycatch 
 
             
 
         }//end constructor 
-
-
-
-        
-
-
-
-        ///**
-        // * method connect to our DB  
-        // * @return Connection
-        // */
-        //public static MySqlConnection getInstance()
-        //{
-        //    if (single == null)
-        //    {
-        //        single = new BDDConnection();
-        //    }
-
-        //    return conn;
-
-
-        //}//end getInstance
-
-
-
 
     }//end class 
 }//end namespace 

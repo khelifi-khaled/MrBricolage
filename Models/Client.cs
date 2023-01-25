@@ -35,7 +35,9 @@ namespace MrBricolage.Models
 
 
 
-
+        /// <summary>
+        /// client Id 
+        /// </summary>
         public int Id
         {
             get { return this._id; }
@@ -43,20 +45,28 @@ namespace MrBricolage.Models
         }
 
 
-
+        /// <summary>
+        /// boo, if false => facture total price *= 1.21 , if ture => facture  total price =  facture  total price
+        /// </summary>
         public bool IsCompany
         {
             get { return this._is_company; }
             set { this._is_company = value; }
         }
 
-
+        /// <summary>
+        /// client name
+        /// </summary>
         public string Name
         {
             get { return this._name; }
             set { this._name = value; }
         }
 
+
+        /// <summary>
+        /// client last name (family name )
+        /// </summary>
         public string F_name
         {
             get { return this._f_name; }
@@ -67,6 +77,10 @@ namespace MrBricolage.Models
         }
 
 
+
+        /// <summary>
+        /// client email 
+        /// </summary>
         public string Email
         {
             get { return this._email;}
@@ -76,7 +90,9 @@ namespace MrBricolage.Models
             }
         }
 
-
+        /// <summary>
+        /// client add 
+        /// </summary>
         public string Adresse
         {
             get { return this._adresse;}

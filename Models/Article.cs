@@ -26,20 +26,28 @@ namespace MrBricolage.Models
             this._quantity = quantity;
         }
 
-
+        /// <summary>
+        /// articl Id
+        /// </summary>
         public int Id
         {
             get { return this._id; }
             set { this._id = value; }
         }
 
-
+        /// <summary>
+        /// articl name
+        /// </summary>
         public string Name
         {
             get { return this._name; }
             set { this._name = value; }
         }
 
+
+        /// <summary>
+        /// artilce price 
+        /// </summary>
         public double Price
         {
             get { return this._price; }
@@ -47,6 +55,10 @@ namespace MrBricolage.Models
         }
 
 
+
+        /// <summary>
+        /// article quantity 
+        /// </summary>
         public int Quantity
         {
             get { return this._quantity; }

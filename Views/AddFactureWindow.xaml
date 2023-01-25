@@ -51,19 +51,19 @@
                     <StackPanel Height="400">
                         <!--Employee id-->
                         <Label Content="N° Employée:" Margin="10 0 0 0"/>
-                        <TextBox x:Name="Employee_Id" Width="200" IsReadOnly="False" KeyDown ="Employee_Id_KeyDown" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=FactureToCreate.Employee.Id, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox x:Name="Employee_Id" Width="200" IsReadOnly="False" KeyDown ="Employee_Id_KeyDown" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=FactureToCreate.Employee.Id, UpdateSourceTrigger=PropertyChanged , Mode=TwoWay}"/>
 
                         <!--Employee name-->
                         <Label Content="Prénom Employée:" Margin="10 0 0 0"/>
-                        <TextBox x:Name="Employee_name" Width="200" IsReadOnly="True" Background="LightGray" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=FactureToCreate.Employee.Name, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox x:Name="Employee_name" Width="200" IsReadOnly="True" Background="LightGray" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=FactureToCreate.Employee.Name, UpdateSourceTrigger=PropertyChanged , Mode=TwoWay}"/>
 
                         <!--Employee f_name-->
                         <Label Content="Nom Employée:" Margin="10 0 0 0"/>
-                        <TextBox x:Name="Employee_f_name" Width="200" IsReadOnly="True" Background="LightGray" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=FactureToCreate.Employee.F_Name, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox x:Name="Employee_f_name" Width="200" IsReadOnly="True" Background="LightGray" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=FactureToCreate.Employee.F_Name, UpdateSourceTrigger=PropertyChanged , Mode=TwoWay}"/>
 
                         <!--Employee Login-->
                         <Label Content="Login Employée:" Margin="10 0 0 0"/>
-                        <TextBox x:Name="Employee_Login" Width="200" IsReadOnly="True"  Background="LightGray" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=FactureToCreate.Employee.Login, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox x:Name="Employee_Login" Width="200" IsReadOnly="True"  Background="LightGray" HorizontalAlignment="Left" Margin="10 0 0 0" Text="{Binding Path=FactureToCreate.Employee.Login, UpdateSourceTrigger=PropertyChanged , Mode=TwoWay}"/>
 
 
 
@@ -76,9 +76,9 @@
 
                 <Border x:Name="ArtsPanel" CornerRadius="5" BorderBrush="Black" BorderThickness="2" Margin="10 10 10 0" >
                     <StackPanel Height="400">
-                        <DataGrid ItemsSource="{Binding FactureToCreate.Articles,UpdateSourceTrigger=PropertyChanged}"            
+                        <DataGrid ItemsSource="{Binding FactureToCreate.Articles,UpdateSourceTrigger=PropertyChanged , Mode=TwoWay}"            
                       MouseDoubleClick="DataGrid_MouseDoubleClick" 
-                      SelectedItem="{Binding Path = SelectedArticleToDelete, Mode=TwoWay}"
+                      SelectedItem="{Binding Path = SelectedArticleToDelete,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                       IsReadOnly="True"
                       AutoGenerateColumns="False" 
                       Margin="5 10" 
@@ -90,10 +90,10 @@
                       Height="Auto"  
                       AlternatingRowBackground="LightCyan">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="N° Art" Binding="{Binding Id}"/>
-                                <DataGridTextColumn Header="Nom Article" Binding="{Binding Name}"/>
-                                <DataGridTextColumn Header="Price Article" Binding="{Binding Price}"/>
-                                <DataGridTextColumn Header="Quantity Article" Binding="{Binding Quantity}"/>
+                                <DataGridTextColumn Header="N° Art" Binding="{Binding Id,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"/>
+                                <DataGridTextColumn Header="Nom Article" Binding="{Binding Name , UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"/>
+                                <DataGridTextColumn Header="Price Article" Binding="{Binding Price,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"/>
+                                <DataGridTextColumn Header="Quantity Article" Binding="{Binding Quantity,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                         <StackPanel Height="33" Margin="0 5 0 0">
