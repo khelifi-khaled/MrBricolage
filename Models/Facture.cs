@@ -108,6 +108,7 @@ namespace MrBricolage.Models
                 if (this.Articles[i].Id ==  id )
                 {
                     this.Articles.Remove(this.Articles[i]);
+
                 }//end if 
             }//end 
 

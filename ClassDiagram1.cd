@@ -1,0 +1,420 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="MrBricolage.App" Collapsed="true">
+    <Position X="18.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MrBricolage.MainWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="20.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAQgABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.Models.Article" Collapsed="true">
+    <Position X="20.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgACIAAAAQAAAAABAABAAAQAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Models\Article.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MrBricolage.Models.Client" Collapsed="true">
+    <Position X="18.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAACIAAAACAgAAAAAIBAAAQIAAAAAAAAAAAAQAAIAAE=</HashCode>
+      <FileName>Models\Client.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MrBricolage.Models.Employee" Collapsed="true">
+    <Position X="9.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCIAAAAAAgAAAAAABAAAQIAAAAAAACAAAQIAAAAAA=</HashCode>
+      <FileName>Models\Employee.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MrBricolage.Models.Facture" Collapsed="true">
+    <Position X="15" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAIAAIRAEAABABAAAACCAAAAAABAAAAAIAAQEQ=</HashCode>
+      <FileName>Models\Facture.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MrBricolage.Properties.Resources" Collapsed="true">
+    <Position X="15" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MrBricolage.Properties.Settings" Collapsed="true">
+    <Position X="16.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MrBricolage.Singelton.BDDConnection" Collapsed="true">
+    <Position X="9.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAEAAAAAAAAAAAAAAAABAAAAAAAAAAAQAAAEAAAAAA=</HashCode>
+      <FileName>Singelton\BDDConnection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MrBricolage.Utilities.DAO.DAO&lt;T&gt;" Collapsed="true">
+    <Position X="3.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAQAAEAQAAAAACABAAAAEAAA=</HashCode>
+      <FileName>Utilities\DAO\DAO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MrBricolage.Utilities.DAO.DAOFactory" Collapsed="true">
+    <Position X="20.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAAAAAAAAAAQAAAAAAAIAAAAAQgA=</HashCode>
+      <FileName>Utilities\DAO\DAOFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MrBricolage.Utilities.DAO.DAOImplement.ArticleDAO">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAACACIAAAAAAQAAEAAAAAAACABAAAAEAAA=</HashCode>
+      <FileName>Utilities\DAO\DAOImplement\ArticleDAO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MrBricolage.Utilities.DAO.DAOImplement.ClientDAO">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAEAAAAAQAAEAAAIAAAKABAAAAEAAA=</HashCode>
+      <FileName>Utilities\DAO\DAOImplement\ClientDAO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MrBricolage.Utilities.DAO.DAOImplement.EmployeeDAO">
+    <Position X="5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAACAAAAAAAAAAAAAQABEAAQAAAACABAAAEEAAA=</HashCode>
+      <FileName>Utilities\DAO\DAOImplement\EmployeeDAO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MrBricolage.Utilities.DAO.DAOImplement.FactureDAO">
+    <Position X="7.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQQAAAAAAAAABAAAAgAAQAAEAAAACAACABAAAAMAEA=</HashCode>
+      <FileName>Utilities\DAO\DAOImplement\FactureDAO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MrBricolage.ViewModels.AddArticleToFactureVM" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAIAAAAAAAgAAQgAAAIAAAAAAAAKA=</HashCode>
+      <FileName>ViewModels\AddArticleToFactureVM.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.ViewModels.AddArticleToNewFactureVM" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAEAAIAAAAAAAgAAQAAAAIAAAAAAAIKA=</HashCode>
+      <FileName>ViewModels\AddArticleToNewFactureVM.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.ViewModels.AddArticleVM" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAIAAAAAAAgAAAAAAAIAAAAAAAACA=</HashCode>
+      <FileName>ViewModels\AddArticleVM.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.ViewModels.AddClientVM" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="20.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAIAAAAAAAgAAAAAAAIIAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\AddClientVM.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.ViewModels.AddEmployeeVM" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAICAAAAAAAAAIAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\AddEmployeeVM.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.ViewModels.AddFactureVM" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="15" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAEIAAgACAIAAAAAAAgAAQAAAAIAAAAIBAAAA=</HashCode>
+      <FileName>ViewModels\AddFactureVM.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.ViewModels.ChangeClientInFactureVM" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAQAAAAAAAIAAAAAAAgAgAgAAEAAIAAABAAAA=</HashCode>
+      <FileName>ViewModels\ChangeClientInFactureVM.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.ViewModels.ChengeEmployeeInFactureVM" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAIAAAAAAAgAgCgQAAAAAAAAEAAAA=</HashCode>
+      <FileName>ViewModels\ChengeEmployeeInFactureVM.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.ViewModels.EmployeeWindowVM" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAEAAIAABAAAAiAAAAAAAAAAAAAAACKA=</HashCode>
+      <FileName>ViewModels\EmployeeWindowVM.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.ViewModels.LoginVM" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAKAAAAAAAiAAAAAAAAAAAAACAACA=</HashCode>
+      <FileName>ViewModels\LoginVM.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.ViewModels.MainWindowVM" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAiAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>ViewModels\MainWindowVM.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.ViewModels.ManagementArticleVM" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQIAAAAAgAAIAAAAAAAggAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\ManagementArticleVM.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.ViewModels.ManagementClientVM" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="15" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAICQAAAAAgAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>ViewModels\ManagementClientVM.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.ViewModels.ManagementEmployeeVM" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="18.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAEAAAAAAAAgAIAAAAAAAiAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\ManagementEmployeeVM.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.ViewModels.ManagementFactureVM" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAgAAIAABAAAAgAAQAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>ViewModels\ManagementFactureVM.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.ViewModels.ModifieArtVM" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIQAAAAAAAAAIAAAAAAAgAEAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\ModifieArtVM.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.ViewModels.ModifieClientVM" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAIAQAAAAAgAEAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\ModifieClientVM.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.ViewModels.ModifieEmpVM" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAgAIAAAAAAAgAEAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\ModifieEmpVM.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.ViewModels.ModifieFactureVM" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAIAAAAAAIAABAAAAgAlAAAAQIAAAAIAAAAA=</HashCode>
+      <FileName>ViewModels\ModifieFactureVM.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.ViewModels.SignInVM" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="18.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAIAAAAAAAAAAIAAAAAAAgAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>ViewModels\SignInVM.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.Views.AddArticleToFactureWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAQAIAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>Views\AddArticleToFactureWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.Views.AddArticleToNewFactureWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="15" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAQAAAAAAAAACAAAIAAAA=</HashCode>
+      <FileName>Views\AddArticleToNewFactureWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.Views.AddArticleWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="18.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAARAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\AddArticleWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.Views.AddClientWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAARAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\AddClientWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.Views.AddEmployeeWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAARAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\AddEmployeeWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.Views.AddFactureWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEQAAAAAAAAAAAAAAAAAAAAQAAEAAAgAACAAAACAAA=</HashCode>
+      <FileName>Views\AddFactureWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.Views.ChangeClientInFactureWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAEAkAAAAA=</HashCode>
+      <FileName>Views\ChangeClientInFactureWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.Views.ChangeEmployeeInFactureWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="15" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAQAAAAQAgAAAAAAAAAAA=</HashCode>
+      <FileName>Views\ChangeEmployeeInFactureWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.Views.EmployeeWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAFAAAgABAQAAAAAgABAAAAAAAAAAAAAAgAAACAEAA=</HashCode>
+      <FileName>Views\EmployeeWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.Views.LoginWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="18.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAAAAAAAACAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Views\LoginWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.Views.ManagementArtWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Views\ManagementArtWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.Views.ManagementClientWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Views\ManagementClientWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.Views.ManagementEmpWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="20.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAIAAACAAA=</HashCode>
+      <FileName>Views\ManagementEmpWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.Views.ManagementFactureWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgAAAAAAACAAA=</HashCode>
+      <FileName>Views\ManagementFactureWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.Views.ModifieArtWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="15" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAARAAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>Views\ModifieArtWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.Views.ModifieClientWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="18.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAIAAAAAAAARAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\ModifieClientWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.Views.ModifieEmployeeWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="20.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAARAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Views\ModifieEmployeeWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.Views.ModifieFactureWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAABAAAAAAgACAAAAQQAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Views\ModifieFactureWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MrBricolage.Views.SignInWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="20.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAARAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Views\SignInWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
