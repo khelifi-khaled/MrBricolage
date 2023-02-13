@@ -53,7 +53,7 @@ namespace MrBricolage.ViewModels
                     }
                     else
                     {
-                        MessageBox.Show("Login ou Password est incorrect, vous devez vérifier vos infos SVP.");
+                        MessageBox.Show("Login ou Password incorrect, vous devez vérifier vos infos SVP.");
                         break;
                     }//end if 
                 }//end if 

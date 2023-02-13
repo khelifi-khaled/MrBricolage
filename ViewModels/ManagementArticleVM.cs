@@ -1,14 +1,9 @@
 ﻿using MrBricolage.Models;
 using MrBricolage.Utilities.DAO;
 using MrBricolage.Views;
-using Org.BouncyCastle.Bcpg.OpenPgp;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace MrBricolage.ViewModels
 {

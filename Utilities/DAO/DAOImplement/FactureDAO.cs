@@ -2,9 +2,6 @@
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.ObjectModel;
-using System.Data.SqlClient;
-using System.IO.Packaging;
-using System.Security.RightsManagement;
 using System.Windows;
 
 namespace MrBricolage.Utilities.DAO.DAOImplement

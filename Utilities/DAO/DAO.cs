@@ -1,13 +1,6 @@
-﻿using MrBricolage.Models;
-using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
+﻿using MySql.Data.MySqlClient;
 using System.Collections.ObjectModel;
-using System.Data.Common;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace MrBricolage.Utilities.DAO
 {

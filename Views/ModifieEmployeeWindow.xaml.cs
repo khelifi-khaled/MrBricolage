@@ -1,6 +1,5 @@
 ﻿using MrBricolage.Models;
 using MrBricolage.ViewModels;
-using System.Collections.ObjectModel;
 using System.Windows;
 
 
