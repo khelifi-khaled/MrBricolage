@@ -44,10 +44,10 @@ namespace MrBricolage.ViewModels
                 {
                     if (DAOFactory.GetArticleDAO.GetArticleStatus(SelectedArticle)) //if the article exist in facture and he is active
                     {
-                        if (MessageBox.Show("vous ne pouvez pas supprimer l'article num " + SelectedArticle.Id + " car il existe dans des factures, voulez vous le randre inactive ?", "infos", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        if (MessageBox.Show("Vous ne pouvez pas supprimer l'article num " + SelectedArticle.Id + " car il existe dans des factures, voulez-vous le rendre inactif ?", "infos", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                         {
                             DAOFactory.GetArticleDAO.UpdateArticleStatus(SelectedArticle, false);
-                            MessageBox.Show("L'article num " + SelectedArticle.Id + " n'est pas supprimé de votre DB, mais il est inactive, donc vous ne pouvez plus  l'insere dans une facture", "infos");
+                            MessageBox.Show("L'article num " + SelectedArticle.Id + " n'est pas supprimé de votre DB, mais il est inactif, donc vous ne pouvez plus l'insérer dans une facture", "infos");
                             ManagementArtWindow articles = new ManagementArtWindow();
                             articles.Show();
                             win.Close();
@@ -55,7 +55,7 @@ namespace MrBricolage.ViewModels
                     }
                     else // Here the article exist in facture, and he is inactive 
                     {
-                        MessageBox.Show("vous ne pouvez pas supprimer l'article num " + SelectedArticle.Id + " car il existe dans des facture, il est bien inactive.", "infos");
+                        MessageBox.Show("Vous ne pouvez pas supprimer l'article num " + SelectedArticle.Id + " car il existe dans des factures, il est bien inactif.", "infos");
                         ManagementArtWindow articles = new ManagementArtWindow();
                         articles.Show();
                         win.Close();

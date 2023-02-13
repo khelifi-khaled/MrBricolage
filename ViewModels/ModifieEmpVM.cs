@@ -49,7 +49,7 @@ namespace MrBricolage.ViewModels
                 }//end if 
             }else
             {
-                MessageBox.Show("L'employee est null !!! ");
+                MessageBox.Show("L'employé est null !!! ");
             }
         }//end Save
 
@@ -62,11 +62,11 @@ namespace MrBricolage.ViewModels
                 {
                     if (DAOFactory.GetEmployeeDAO.CheckEmployeeStatus(EmployeeSelected))//if the employee is active 
                     {
-                        if (MessageBox.Show("vous ne pouvez pas supprimé l'employee num " + EmployeeSelected.Id + " car il existe dans des factures, voulez vous le randre inactive ?", "infos", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        if (MessageBox.Show("Vous ne pouvez pas supprimer l'employé num " + EmployeeSelected.Id + " car il existe dans des factures, voulez-vous le rendre inactif ?", "infos", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                         {
                             if (DAOFactory.GetEmployeeDAO.UpdateEmployeeStatus(EmployeeSelected, false))
                             {
-                                MessageBox.Show("L'employee num " + EmployeeSelected.Id + " n'est pas supprimé de votre DB, mais il est inactive, donc vous ne pouvez plus l'insere dans une facture", "infos");
+                                MessageBox.Show("L'employé num " + EmployeeSelected.Id + " n'est pas supprimé de votre DB, mais il est inactif, donc vous ne pouvez plus l'insérer dans une facture", "infos");
                                 ManagementEmpWindow window = new ManagementEmpWindow();
                                 window.Show();
                                 win.Close();
@@ -75,13 +75,13 @@ namespace MrBricolage.ViewModels
                     }
                     else // the Employee existe in facture and he is inactive 
                     {
-                        MessageBox.Show("Vous ne pouvez pas supprimé l'Employee num " + EmployeeSelected.Id + " de votre DB car il existe dans des facture, et il est déjà inactive.", "infos");
+                        MessageBox.Show("Vous ne pouvez pas supprimer l'employé num " + EmployeeSelected.Id + " de votre DB car il existe dans des factures, et il est déjà inactif.", "infos");
                     }//end if 
                 }else
                 {
                     if (DAOFactory.GetEmployeeDAO.delete(EmployeeSelected))
                     {
-                        MessageBox.Show("L'employé " + EmployeeSelected.Name + " " + EmployeeSelected.F_Name + " a bien été suprimé de votre DB !");
+                        MessageBox.Show("L'employé " + EmployeeSelected.Name + " " + EmployeeSelected.F_Name + " a bien été supprimé de votre DB !");
                         ManagementEmpWindow window = new ManagementEmpWindow();
                         window.Show();
                         win.Close();
@@ -91,7 +91,7 @@ namespace MrBricolage.ViewModels
 
             }else
             {
-                MessageBox.Show("L'employee est null !!! ");
+                MessageBox.Show("L'employé est null !!! ");
             }
 
          

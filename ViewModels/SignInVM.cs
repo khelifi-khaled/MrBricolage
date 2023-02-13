@@ -41,14 +41,14 @@ namespace MrBricolage.ViewModels
                     if (DAOFactory.GetEmployeeDAO.CheckEmployeeStatus(ThisEmployee))
                     {
                         //if the Emlpoyee with the same name and same f_name exist in our DB and he is active as well.
-                        MessageBox.Show("l'employee " + ThisEmployee.Name + " " + ThisEmployee.F_Name + " existe deja dans votre DB !! ", "Infos");
+                        MessageBox.Show("L'employé " + ThisEmployee.Name + " " + ThisEmployee.F_Name + " existe déjà dans votre DB !! ", "Infos");
 
 
                     }
                     else
                     {
                         //in this case, the employee with the same name and same f_name exist in our db, he is just inactive,
-                        MessageBox.Show("l'employee " + ThisEmployee.Name + " " + ThisEmployee.F_Name + " existe deja dans votre DB !!!", "Infos");
+                        MessageBox.Show("L'employé " + ThisEmployee.Name + " " + ThisEmployee.F_Name + " existe déjà dans votre DB !!!", "Infos");
 
 
                     }//end if 
@@ -58,13 +58,13 @@ namespace MrBricolage.ViewModels
                     //in this block, EmployeeToAdd whith the same name and same f_name don't exist in our DB, i will check if Login EmployeeToAdd exist in our DB 
                     if (DAOFactory.GetEmployeeDAO.CheckEmployeeLogin(ThisEmployee))//check if the Employee Login is Unique 
                     {
-                        MessageBox.Show("Login existe deja dans la DB , changé votre Login SVP !", "Infos");
+                        MessageBox.Show("Login existe déjà dans la DB, changez votre Login SVP !", "Infos");
                     }
                     else
                     {
                         if (DAOFactory.GetEmployeeDAO.create(ThisEmployee))
                         {
-                            MessageBox.Show("L'employee " + ThisEmployee.Name + " " + ThisEmployee.F_Name + " est bien cree dans votre DB ! ", "infos");
+                            MessageBox.Show("L'employé " + ThisEmployee.Name + " " + ThisEmployee.F_Name + " est bien créé dans votre DB ! ", "infos");
                             MainWindow window = new MainWindow();
                             window.Show();
                             win.Close();
@@ -75,7 +75,7 @@ namespace MrBricolage.ViewModels
             }
             else
             {
-                MessageBox.Show("L'employeeest a null !");
+                MessageBox.Show("L'employé est a null !");
 
             }//end if 
 

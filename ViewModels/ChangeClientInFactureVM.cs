@@ -70,7 +70,7 @@ namespace MrBricolage.ViewModels
                 }
                 else
                 {
-                    MessageBox.Show("Format d'Id est incorrecte !!");
+                    MessageBox.Show("Format d'ID incorrect !!");
                 }//end if 
             }//end if 
 
@@ -92,7 +92,7 @@ namespace MrBricolage.ViewModels
 
                     if (DAOFactory.GetFactureDAO.Update_client_facture(FactureToModifie))
                     {
-                        MessageBox.Show("Le client " + ClientToReplace.F_name + " " + ClientToReplace.Name + " est bien inserer dans la facture N° " + FactureToModifie.Id + " dans votre DB", "infos");
+                        MessageBox.Show("Le client " + ClientToReplace.F_name + " " + ClientToReplace.Name + " est bien inséré dans la facture N° " + FactureToModifie.Id + " dans votre DB ", "infos");
                         ModifieFactureWindow window = new ModifieFactureWindow(FactureToModifie);
                         window.Show();
                         win.Close();
@@ -101,13 +101,13 @@ namespace MrBricolage.ViewModels
                     
                 }else
                 {
-                    MessageBox.Show("Vous ne pouvez pas inserer le  client "+ ClientToReplace.F_name + " "+ ClientToReplace.Name + " car il est Inactive dans votre DB", "infos");
+                    MessageBox.Show("Vous ne pouvez pas insérer le client "+ ClientToReplace.F_name + " "+ ClientToReplace.Name + " car il est inactif dans votre DB", "infos");
 
                 }//end if 
             }
             else 
             {
-                MessageBox.Show("Vour ne pouvez pas inserer un client vide a la place de " + FactureToModifie.Client.F_name + " " + FactureToModifie.Client.Name, "infos");
+                MessageBox.Show("Vous ne pouvez pas insérer un client vide à la place de " + FactureToModifie.Client.F_name + " " + FactureToModifie.Client.Name, "infos");
             }//end if 
 
         }//end BtnChenge

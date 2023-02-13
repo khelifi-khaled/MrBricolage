@@ -42,7 +42,7 @@ namespace MrBricolage.ViewModels
                 {
                     if (DAOFactory.GetClientDAO.CheckClientStatus(SelectedClient))//in this block i will check if the client is active or not 
                     {
-                        if (MessageBox.Show("vous ne pouvez pas supprimer le client num " + SelectedClient.Id + " car il existe dans des factures, voulez vous le randre inactive ?", "infos", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        if (MessageBox.Show("Vous ne pouvez pas supprimer le client num " + SelectedClient.Id + " car il existe dans des factures, voulez-vous le rendre inactif ?", "infos", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                         {
                             if (DAOFactory.GetClientDAO.UpdateClientStatus(SelectedClient, false))
                             {
@@ -54,7 +54,7 @@ namespace MrBricolage.ViewModels
                     }else
                     {
                         // Here the client existe in  facture, and he is inactive 
-                        MessageBox.Show("Le client num " + SelectedClient.Id + " n'est pas supprimé de votre DB, et il est inactive.", "infos");
+                        MessageBox.Show("Le client num " + SelectedClient.Id + " n'est pas supprimé de votre DB et il est inactif.", "infos");
                     }//end if 
                 }else
                 {

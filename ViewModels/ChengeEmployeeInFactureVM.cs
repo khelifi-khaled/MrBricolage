@@ -72,7 +72,7 @@ namespace MrBricolage.ViewModels
                 }
                 else
                 {
-                    MessageBox.Show("Format d'Id est incorrecte !!");
+                    MessageBox.Show("Format d'ID incorrect !!");
                 }//end if 
             }//end if 
 
@@ -89,7 +89,7 @@ namespace MrBricolage.ViewModels
                     FactureToModifie.Date= DateTime.Now;
                     if (DAOFactory.GetFactureDAO.Update_employee_facture(FactureToModifie))
                     {
-                        MessageBox.Show("L'employée " + EmployeeToRepace.F_Name + " " + EmployeeToRepace.Name + " est bien inserer dans la facture N° " + FactureToModifie.Id + " dans votre DB", "infos");
+                        MessageBox.Show("L'employé " + EmployeeToRepace.F_Name + " " + EmployeeToRepace.Name + " est bien inséré dans la facture N° " + FactureToModifie.Id + " dans votre DB", "infos");
                         
                         ModifieFactureWindow window = new ModifieFactureWindow(FactureToModifie);
                         window.Show();
@@ -99,12 +99,12 @@ namespace MrBricolage.ViewModels
                 }
                 else
                 {
-                    MessageBox.Show("Vous ne pouvez pas inserer l'employée  " + EmployeeToRepace.F_Name + " " + EmployeeToRepace.Name + " car il est Inactive dans votre DB", "infos");
+                    MessageBox.Show("Vous ne pouvez pas insérer l'employé  " + EmployeeToRepace.F_Name + " " + EmployeeToRepace.Name + " car il est inactif dans votre DB", "infos");
                 }//end if 
 
             }else
             {
-                MessageBox.Show("Vous ne pouvez pas inserer un  employee vide a la place de " + FactureToModifie.Employee.F_Name + " " + FactureToModifie.Employee.Name, "infos");
+                MessageBox.Show("Vous ne pouvez pas insérer un  employé vide à la place de " + FactureToModifie.Employee.F_Name + " " + FactureToModifie.Employee.Name, "infos");
             }//end if 
         }//end ChangeEmployeeBTN
 

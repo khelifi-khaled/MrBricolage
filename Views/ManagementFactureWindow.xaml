@@ -26,8 +26,8 @@
                     <DataGridTextColumn Header="Num.Facture" Binding="{Binding Id}"/>
                     <DataGridTextColumn Header="Nom Client" Binding="{Binding Client.F_name}"/>
                     <DataGridTextColumn Header="Prénom Client" Binding="{Binding Client.Name}"/>
-                    <DataGridTextColumn Header="Nom Employée" Binding="{Binding Employee.F_Name}"/>
-                    <DataGridTextColumn Header="Prénom Employée" Binding="{Binding Employee.Name}"/>
+                    <DataGridTextColumn Header="Nom Employé" Binding="{Binding Employee.F_Name}"/>
+                    <DataGridTextColumn Header="Prénom Employé" Binding="{Binding Employee.Name}"/>
                     <DataGridTextColumn Header="Date" Binding="{Binding Date,StringFormat={}{0:dd/MM/yyyy}}"/>
                     <DataGridTextColumn Header="Total" Binding="{Binding TotalAmount}"/>
                 </DataGrid.Columns>

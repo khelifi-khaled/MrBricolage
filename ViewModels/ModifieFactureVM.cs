@@ -47,7 +47,7 @@ namespace MrBricolage.ViewModels
         public void Delete (ModifieFactureWindow thisWin)
         {
 
-            if (MessageBox.Show("êtes vous sûr de vouloir supprimer la facture N° " + SelectedFacture.Id + " ?", "infos", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            if (MessageBox.Show("Êtes-vous sûr de vouloir supprimer la facture N° " + SelectedFacture.Id + " ?", "infos", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 if (DAOFactory.GetFactureDAO.delete(SelectedFacture))
                 {
@@ -98,7 +98,7 @@ namespace MrBricolage.ViewModels
                 int id = SelectedArticleToDelete.Id; 
                 int quantity = SelectedArticleToDelete.Quantity;
 
-                if (MessageBox.Show("Les modifications vont etre faite sur votre DB,  etes-vous  sur de suprimé l'article N° " + SelectedArticleToDelete.Id + " de la facture N° " + SelectedFacture.Id, "infos", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                if (MessageBox.Show("Les modifications vont être faites sur votre DB, êtes-vous sur de supprimé l'article N° " + SelectedArticleToDelete.Id + " de la facture N° " + SelectedFacture.Id, "infos", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
                     SelectedFacture.Delete_art_facture(id);
                     SelectedFacture.Date = DateTime.Now;

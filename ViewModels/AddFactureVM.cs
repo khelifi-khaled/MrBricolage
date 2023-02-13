@@ -57,11 +57,11 @@ namespace MrBricolage.ViewModels
         {
             if (FactureToCreate.Client == null)
             {
-                MessageBox.Show("Vous devez choisir un client avant de commencer a choisir des articles ! ");
+                MessageBox.Show("Vous devez choisir un client avant de commencer à choisir des articles ! ");
             }
             else if (FactureToCreate.Employee == null)
             {
-                MessageBox.Show("Vous devez choisir un employée avant de commencer a choisir des articles ! ");
+                MessageBox.Show("Vous devez choisir un employé avant de commencer à choisir des articles ! ");
             }
             else
             {
@@ -93,7 +93,7 @@ namespace MrBricolage.ViewModels
                 }
                 else
                 {
-                    MessageBox.Show("Format d'Id est incorrecte !!");
+                    MessageBox.Show("Format d'ID incorrect !!");
                 }//end if 
             }//end if 
         }
@@ -110,7 +110,7 @@ namespace MrBricolage.ViewModels
                 }
                 else
                 {
-                    MessageBox.Show("Format d'Id est incorrecte !!");
+                    MessageBox.Show("Format d'ID incorrect !!");
                 }//end if 
             }//end if 
 
@@ -122,7 +122,7 @@ namespace MrBricolage.ViewModels
         {
             if (FactureToCreate.Client==null || FactureToCreate.Employee ==null || FactureToCreate.Articles.Count == 0)
             {
-                MessageBox.Show("Vous devez remplir tous les Infos SVP ");
+                MessageBox.Show("Vous devez remplir tous les infos SVP !");
             }
             else
             {

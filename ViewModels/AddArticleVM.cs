@@ -49,14 +49,14 @@ namespace MrBricolage.ViewModels
                     //if the article existe in our db , i check if the article is active or not
                     if (DAOFactory.GetArticleDAO.GetArticleStatus(ArticleToAdd))
                     {
-                        MessageBox.Show("l'article existe dans votre DB, et il est bien active ", "infos");
+                        MessageBox.Show("L'article existe dans votre DB et il est bien actif ", "infos");
                     }else
                     {
                         // if the article exist in our DB and he is just inactive 
-                        if (MessageBox.Show("L'article avec le nom " + ArticleToAdd.Name + " existe deja dans votre DB, voulez vous l'activé ?", "infos", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        if (MessageBox.Show("L'article avec le nom " + ArticleToAdd.Name + " existe déjà dans votre DB, voulez-vous l'activer ?", "infos", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                         {
                             DAOFactory.GetArticleDAO.UpdateArticleStatus(ArticleToAdd, true);
-                            MessageBox.Show("l'article "+ ArticleToAdd.Name + " est bien active maintenant sur votre DB ", "infos");
+                            MessageBox.Show("L'article "+ ArticleToAdd.Name + " est bien activé maintenant sur votre DB ", "infos");
                             ManagementArtWindow window = new ManagementArtWindow();
                             window.Show();
                             win.Close();
@@ -77,7 +77,7 @@ namespace MrBricolage.ViewModels
             }
             else
             {
-                MessageBox.Show("L'article est a null");
+                MessageBox.Show("L'article est null");
             }//end if 
 
         }//end save

@@ -79,7 +79,7 @@ namespace MrBricolage.ViewModels
                         if (val <= 0)
                         {
 
-                            MessageBox.Show("La valeure de la Quantité d'article  (" + ArticleToAdd.Name + ") doit etre strictement supérieur a 0 ! ", "infos");
+                            MessageBox.Show("La valeur de la quantité d'article  (" + ArticleToAdd.Name + ") doit être strictement supérieure à 0 ! ", "infos");
 
                         }
                         else if (ArticleToAdd.Quantity < val)
@@ -102,19 +102,19 @@ namespace MrBricolage.ViewModels
                     }
                     else
                     {
-                        MessageBox.Show("Format de quantité d'article souhaité est incorrect ! ", "infos");
+                        MessageBox.Show("Format de quantité d'article souhaité incorrect ! ", "infos");
                     }//end if 
 
                 }
                 else
                 {
-                    MessageBox.Show("L'article N° " + ArticleToAdd.Id + " est inactive !", "infos");
+                    MessageBox.Show("L'article N° " + ArticleToAdd.Id + " est inactif !", "infos");
                 } //end if 
 
             }
             else
             {
-                MessageBox.Show("Vour ne pouvez pas inserer un article vide a la facture N° " + ThisFacture.Id, "infos");
+                MessageBox.Show("Vous ne pouvez pas insérer un article vide à la facture N° " + ThisFacture.Id, "infos");
             }//end if 
 
         }//end AddArticleBTN
@@ -143,7 +143,7 @@ namespace MrBricolage.ViewModels
                 }
                 else
                 {
-                    MessageBox.Show("Format d'Id est incorrecte !!");
+                    MessageBox.Show("Format d'ID incorrect !!");
                 }//end if 
             }//end if 
 

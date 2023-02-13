@@ -44,11 +44,11 @@ namespace MrBricolage.ViewModels
                     //if the client existe with the same name and same f_name so i check, if he is active or not 
                     if (DAOFactory.GetClientDAO.CheckClientStatus(ClientToAdd))
                     {
-                        MessageBox.Show("Le client " + ClientToAdd.Name + " " + ClientToAdd.F_name + " existe deja dans votre DB, et il est bien active  ", "infos");
+                        MessageBox.Show("Le client " + ClientToAdd.Name + " " + ClientToAdd.F_name + " existe déjà dans votre DB et il est bien actif  ", "infos");
                     }else
                     {
                         //in this case, the client with the same name and same f_name exist in our db, he is just inactive, i will propose to my user if he wan to activate it or no
-                        if(MessageBox.Show("Le client " + ClientToAdd.Name + " " + ClientToAdd.F_name + " Existe deja dans votre DB, il est juste inActive, voulez-vous l'active ?", "infos", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        if(MessageBox.Show("Le client " + ClientToAdd.Name + " " + ClientToAdd.F_name + " existe déjà dans votre DB il est juste inactif, voulez-vous l'activer ?", "infos", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                         {
                            if(DAOFactory.GetClientDAO.UpdateClientStatus(ClientToAdd,true))
                             {
