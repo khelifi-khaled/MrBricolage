@@ -18,7 +18,7 @@ namespace MrBricolage.Utilities.DAO
 
 
 
-        public abstract T find(int id);
+        public abstract T find (int id) ;
 
 
 

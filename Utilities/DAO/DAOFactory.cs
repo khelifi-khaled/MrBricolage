@@ -1,6 +1,7 @@
 ﻿using MrBricolage.Singelton;
 using MrBricolage.Utilities.DAO.DAOImplement;
 using MySql.Data.MySqlClient;
+using System.Linq;
 
 namespace MrBricolage.Utilities.DAO
 {
@@ -23,6 +24,12 @@ namespace MrBricolage.Utilities.DAO
         {
             get { return new EmployeeDAO(conn); }
         }
+
+        //public static T Get<T>()
+        //    where T : class
+        //{
+        //    return typeof(T).GetConstructors().First()?.Invoke(new object[] { conn }) as T;
+        //}
 
 
 

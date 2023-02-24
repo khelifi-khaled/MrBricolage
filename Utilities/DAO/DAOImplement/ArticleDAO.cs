@@ -17,12 +17,6 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
 
 
-
-
-
-
-
-
         /// <summary>
         /// create an article in our DB
         /// </summary>
@@ -51,10 +45,10 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                 mySqlTransaction.Commit();
             }
             catch
-            {
+            {               
                 flag = false;
-                MessageBox.Show("problème sur create !", "infos");
                 mySqlTransaction.Rollback();
+                MessageBox.Show("Problem de create !");
             }//end try catch 
 
          
@@ -102,8 +96,9 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
             }
             catch
             {
-                MessageBox.Show("problème sur UpdateArticleStatus !", "infos");
                 mySqlTransaction.Rollback();
+                MessageBox.Show("Problem de UpdateArticleStatus !");
+
             }
 
             return flag;
@@ -164,7 +159,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
             catch
             {
                 mySqlTransaction.Rollback();
-                MessageBox.Show("problème sur GetArticleStatus !", "infos");
+                MessageBox.Show("Problem de GetArticleStatus !");
             }
 
             return flag;
@@ -219,7 +214,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
             catch
             {
                 mySqlTransaction.Rollback();
-                MessageBox.Show("problème sur checkExestedArticle !", "infos");
+                MessageBox.Show("Problem de CheckExistedArticle !");
             }
 
             return flag;
@@ -246,10 +241,9 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
         public bool CheckExistedArticleInFacture(Article article)
         {
-            bool flag = false;
-
             MySqlTransaction mySqlTransaction = conn.BeginTransaction();
 
+            bool flag;
             try
             {
                 string sql = "SELECT id_art from list_of_art WHERE  id_art = @id ; ";
@@ -262,7 +256,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
                 flag = reader.Read();
 
-                
+
 
                 reader.Close();
 
@@ -272,9 +266,10 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
             }
             catch
             {
+                flag = false;
                 mySqlTransaction.Rollback();
-                MessageBox.Show("problème sur CheckExistedArticleInFacture !", "infos");
-
+                MessageBox.Show("Problem de CheckExistedArticleInFacture !");
+                
             }//end trycatch
             return flag;
         }//end CheckExistedArticleInFacture
@@ -323,9 +318,10 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
             }
             catch
             {
-                mySqlTransaction.Rollback();
-                MessageBox.Show("problème sur delete !", "infos");
                 flag = false;
+                mySqlTransaction.Rollback();
+                MessageBox.Show("problème sur delete !");
+                
             }
 
             return flag;
@@ -387,11 +383,11 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
                 mySqlTransaction.Commit();
             }
-            catch(Exception e)
+            catch
             {
                 mySqlTransaction.Rollback();
-                Console.WriteLine(e.Message);
-                
+                MessageBox.Show("problème sur find !");
+
             }//end trycatch 
 
             return article;

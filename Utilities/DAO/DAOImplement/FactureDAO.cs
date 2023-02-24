@@ -31,7 +31,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
 
                
 
-                string sql = "INSERT INTO facture (date_f , Client_num , emp_num , totalPrice) VALUES (@date,@idClient,@idEmp,@totelPrice)";
+                string sql = "INSERT INTO facture (date_f , Client_num , emp_num , totalPrice)  VALUES (@date,@idClient,@idEmp,@totelPrice);SELECT LAST_INSERT_ID();";
 
                 MySqlCommand cmd = new MySqlCommand(sql, conn, mySqlTransaction);
                 cmd.Parameters.AddWithValue("@date", factureToCreate.Date);
@@ -40,36 +40,36 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
                 cmd.Parameters.AddWithValue("@totelPrice", factureToCreate.TotalAmount);
 
 
-                //Execuction of my sql query 
-                cmd.ExecuteNonQuery();
+                //Execuction of my sql query with getting the id of factureToCreate
+                factureToCreate.Id = int.Parse(cmd.ExecuteScalar().ToString());
 
 
 
-                if (GetFactureIdFromDB(factureToCreate))
+          
+            
+                foreach (Article art in factureToCreate.Articles)
                 {
-                    foreach (Article art in factureToCreate.Articles)
-                    {
-                        sql = "INSERT INTO list_of_art (id_art , id_Facture , quantity ) VALUES (@id_art , @id_facture , @quantity) ;";
-                        MySqlCommand cmd2 = new MySqlCommand(sql, conn, mySqlTransaction);
-                        cmd2.Parameters.AddWithValue("@id_art", art.Id);
-                        cmd2.Parameters.AddWithValue("@id_facture", factureToCreate.Id);
-                        cmd2.Parameters.AddWithValue("@quantity", art.Quantity);
+                    sql = "INSERT INTO list_of_art (id_art , id_Facture , quantity ) VALUES (@id_art , @id_facture , @quantity) ;";
+                    MySqlCommand cmd2 = new MySqlCommand(sql, conn, mySqlTransaction);
+                    cmd2.Parameters.AddWithValue("@id_art", art.Id);
+                    cmd2.Parameters.AddWithValue("@id_facture", factureToCreate.Id);
+                    cmd2.Parameters.AddWithValue("@quantity", art.Quantity);
 
-                        //Execuction of my sql query 
-                        cmd2.ExecuteNonQuery();
+                    //Execuction of my sql query 
+                    cmd2.ExecuteNonQuery();
 
-                        //i will modifie the stock of my art
-                        sql = "UPDATE article SET current_quantity  = current_quantity - @quantity WHERE ID_art = @id ;";
+                    //i will modifie the stock of my art
+                    sql = "UPDATE article SET current_quantity  = current_quantity - @quantity WHERE ID_art = @id ;";
 
-                        MySqlCommand cmd3 = new MySqlCommand(sql, conn, mySqlTransaction);
+                    MySqlCommand cmd3 = new MySqlCommand(sql, conn, mySqlTransaction);
 
-                        cmd3.Parameters.AddWithValue("@quantity", art.Quantity);
-                        cmd3.Parameters.AddWithValue("@id", art.Id);
-                        //Execuction of my sql query 
-                        cmd3.ExecuteNonQuery();
+                    cmd3.Parameters.AddWithValue("@quantity", art.Quantity);
+                    cmd3.Parameters.AddWithValue("@id", art.Id);
+                    //Execuction of my sql query 
+                    cmd3.ExecuteNonQuery();
 
-                    }//end foreach loop 
-                }
+                }//end foreach loop 
+
 
                 mySqlTransaction.Commit();
 
@@ -87,39 +87,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
             return flag;
         }//end create
 
-        /// <summary>
-        /// get the last Facture Id From our DB
-        /// </summary>
-        /// <param name="facture"></param>
-        /// <returns>true if found , false if not </returns>
-        private bool  GetFactureIdFromDB(Facture facture)
-        {
-            bool flag = false;
-            
-            try
-            {
-                string sql = "select id_f from facture ORDER BY id_f DESC LIMIT 1";
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
-
-                //Execuction of my sql query 
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read())
-                {
-                    facture.Id = reader.GetInt32("id_f");
-                    flag = true;
-                }
-
-                reader.Close();
-            }
-            catch
-            {
-                MessageBox.Show("Problem de GetFactureIdFromDB !");
-            }
-
-            return flag;
-
-        }//end GetFactureIdFromDB
+      
 
 
         /// <summary>

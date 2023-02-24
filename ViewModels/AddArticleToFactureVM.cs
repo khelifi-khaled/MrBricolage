@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Windows.Input;
 using System.Windows;
 using MrBricolage.Views;
+using MrBricolage.Utilities.DAO.DAOImplement;
 
 namespace MrBricolage.ViewModels
 {
@@ -50,6 +51,8 @@ namespace MrBricolage.ViewModels
                 if (int.TryParse(win.Article_Number.Text, out int val))
                 {
                     ArticleToAdd = DAOFactory.GetArticleDAO.find(val);
+                    //ArticleToAdd = DAOFactory.Get<ArticleDAO>().find(val);
+
                 }
                 else
                 {
