@@ -25,6 +25,8 @@ namespace MrBricolage.Utilities.DAO
             get { return new EmployeeDAO(conn); }
         }
 
+
+
         //public static T Get<T>()
         //    where T : class
         //{

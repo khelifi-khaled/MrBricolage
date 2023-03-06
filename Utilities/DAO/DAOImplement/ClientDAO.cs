@@ -90,7 +90,7 @@ namespace MrBricolage.Utilities.DAO.DAOImplement
         /// <returns>Observable Collection of type Client contains all Clients</returns>
         public override ObservableCollection<Client> findAll()
         {
-            ObservableCollection < Client > clients = new ObservableCollection<Client>();
+            ObservableCollection <Client> clients = new ObservableCollection<Client>();
             MySqlTransaction mySqlTransaction = conn.BeginTransaction();
             try
             {
