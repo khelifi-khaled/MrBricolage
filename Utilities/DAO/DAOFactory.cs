@@ -5,9 +5,6 @@ using System.Linq;
 
 namespace MrBricolage.Utilities.DAO
 {
-
-
-
     public  class DAOFactory
     {
 

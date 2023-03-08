@@ -3,7 +3,7 @@ using System;
 
 namespace MrBricolage.Singelton
 {
-    public  class BDDConnection
+    public sealed class BDDConnection
     {
 
 
